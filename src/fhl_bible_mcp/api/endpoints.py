@@ -6,10 +6,13 @@ Each method corresponds to a specific API endpoint documented in the planning do
 """
 
 import logging
+import hashlib
+import json
 from typing import Any
 
 from fhl_bible_mcp.api.client import FHLAPIClient
 from fhl_bible_mcp.utils.errors import InvalidParameterError
+from fhl_bible_mcp.utils.cache import get_cache
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +22,87 @@ class FHLAPIEndpoints(FHLAPIClient):
     Extended API client with specific endpoint methods.
     
     This class inherits from FHLAPIClient and adds methods for each
-    FHL API endpoint.
+    FHL API endpoint. Includes automatic caching for better performance.
     """
+    
+    def __init__(
+        self,
+        base_url: str = "https://bible.fhl.net/json/",
+        timeout: int = 30,
+        max_retries: int = 3,
+        use_cache: bool = True,
+        cache_dir: str = ".cache"
+    ):
+        """
+        Initialize FHL API Endpoints with caching support.
+        
+        Args:
+            base_url: Base URL of the API
+            timeout: Request timeout in seconds
+            max_retries: Maximum number of retries for failed requests
+            use_cache: Enable caching (default: True)
+            cache_dir: Cache directory path (default: ".cache")
+        """
+        super().__init__(base_url=base_url, timeout=timeout, max_retries=max_retries)
+        self.use_cache = use_cache
+        self.cache = get_cache(cache_dir=cache_dir) if use_cache else None
+        
+        if self.use_cache:
+            logger.info(f"Cache enabled: {cache_dir}")
+    
+    def _make_cache_key(self, **kwargs) -> str:
+        """
+        Generate a cache key from parameters.
+        
+        Args:
+            **kwargs: Parameters to hash
+            
+        Returns:
+            Cache key string
+        """
+        # 將參數排序後轉成 JSON 字串
+        params_str = json.dumps(kwargs, sort_keys=True, ensure_ascii=False)
+        return hashlib.md5(params_str.encode()).hexdigest()
+    
+    async def _cached_request(
+        self,
+        endpoint: str,
+        params: dict[str, Any],
+        namespace: str,
+        strategy: str
+    ) -> Any:
+        """
+        Make a cached API request.
+        
+        Args:
+            endpoint: API endpoint
+            params: Request parameters
+            namespace: Cache namespace
+            strategy: Cache strategy name
+            
+        Returns:
+            API response (from cache or fresh request)
+        """
+        if not self.use_cache or self.cache is None:
+            return await self._make_request(endpoint, params=params)
+        
+        # 生成快取鍵
+        cache_key = self._make_cache_key(endpoint=endpoint, **params)
+        
+        # 嘗試從快取讀取
+        cached_data = self.cache.get(namespace, cache_key, strategy_name=strategy)
+        if cached_data is not None:
+            logger.debug(f"Cache hit: {namespace}:{cache_key[:8]}...")
+            return cached_data
+        
+        # 快取未命中,發送請求
+        logger.debug(f"Cache miss: {namespace}:{cache_key[:8]}...")
+        data = await self._make_request(endpoint, params=params)
+        
+        # 儲存到快取
+        self.cache.set(namespace, cache_key, data, strategy_name=strategy)
+        
+        return data
 
     # ========================================================================
     # 1. Basic Information APIs
@@ -31,6 +113,7 @@ class FHLAPIEndpoints(FHLAPIClient):
         List all available Bible versions.
         
         API: ab.php
+        Cache: Permanent (versions list rarely changes)
         
         Returns:
             Dictionary with:
@@ -52,7 +135,12 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>     print(f"Found {versions['record_count']} versions")
         """
         logger.info("Fetching Bible versions list")
-        return await self._make_request("ab.php")
+        return await self._cached_request(
+            endpoint="ab.php",
+            params={},
+            namespace="versions",
+            strategy="permanent"
+        )
 
     async def get_book_list(self) -> str:
         """
@@ -134,7 +222,12 @@ class FHLAPIEndpoints(FHLAPIClient):
             f"Fetching verse: {book} {chapter}" + (f":{verse}" if verse else "")
         )
         
-        return await self._make_request("qb.php", params)
+        return await self._cached_request(
+            endpoint="qb.php",
+            params=params,
+            namespace="verses",
+            strategy="verses"  # 7 days TTL
+        )
 
     async def query_verse_citation(
         self,
@@ -261,7 +354,12 @@ class FHLAPIEndpoints(FHLAPIClient):
             params["range_eid"] = range_end
         
         logger.info(f"Searching Bible: query='{query}', type={search_type}, scope={scope}")
-        return await self._make_request("se.php", params)
+        return await self._cached_request(
+            endpoint="se.php",
+            params=params,
+            namespace="search",
+            strategy="search"  # 1 day TTL
+        )
 
     # ========================================================================
     # 4. Word Analysis APIs
@@ -359,7 +457,12 @@ class FHLAPIEndpoints(FHLAPIClient):
         params = {"N": "0" if testament == "nt" else "1", "k": number}
         
         logger.info(f"Fetching Strong's dictionary: {testament.upper()} #{number}")
-        return await self._make_request("sd.php", params)
+        return await self._cached_request(
+            endpoint="sd.php",
+            params=params,
+            namespace="strongs",
+            strategy="permanent"  # Strong's dictionary never changes
+        )
 
     # ========================================================================
     # 5. Commentary APIs
