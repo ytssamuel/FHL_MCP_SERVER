@@ -55,7 +55,9 @@ async def search_bible(
 
     if search_type not in search_type_map:
         raise InvalidParameterError(
-            f"無效的搜尋類型: {search_type}，應為 'keyword', 'greek', 或 'hebrew'"
+            parameter="search_type",
+            value=search_type,
+            reason="無效的搜尋類型，應為 'keyword', 'greek', 或 'hebrew'"
         )
 
     # 驗證範圍
@@ -67,7 +69,9 @@ async def search_bible(
 
     if scope not in scope_map:
         raise InvalidParameterError(
-            f"無效的搜尋範圍: {scope}，應為 'all', 'ot', 或 'nt'"
+            parameter="scope",
+            value=scope,
+            reason="無效的搜尋範圍，應為 'all', 'ot', 或 'nt'"
         )
 
     # 呼叫 API
@@ -162,12 +166,16 @@ async def search_bible_advanced(
 
     if not start_id or not end_id:
         raise InvalidParameterError(
-            f"無效的書卷範圍: {range_start} - {range_end}"
+            parameter="range",
+            value=f"{range_start} - {range_end}",
+            reason="無效的書卷範圍"
         )
 
     if start_id > end_id:
         raise InvalidParameterError(
-            f"起始書卷不能大於結束書卷: {range_start} > {range_end}"
+            parameter="range",
+            value=f"{range_start} > {range_end}",
+            reason="起始書卷不能大於結束書卷"
         )
 
     # 驗證搜尋類型
@@ -179,7 +187,9 @@ async def search_bible_advanced(
 
     if search_type not in search_type_map:
         raise InvalidParameterError(
-            f"無效的搜尋類型: {search_type}"
+            parameter="search_type",
+            value=search_type,
+            reason="無效的搜尋類型"
         )
 
     # 呼叫 API
