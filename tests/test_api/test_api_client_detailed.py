@@ -3,11 +3,16 @@ Unit tests for API client
 
 測試 FHL API 客戶端的 HTTP 請求、重試機制、錯誤處理等功能。
 """
+import sys
 import pytest
 import httpx
 from unittest.mock import AsyncMock, patch, MagicMock
-from src.fhl_bible_mcp.api.client import FHLAPIClient
-from src.fhl_bible_mcp.utils.errors import (
+
+# Add src to path so we can import without src. prefix
+sys.path.insert(0, 'src')
+
+from fhl_bible_mcp.api.client import FHLAPIClient
+from fhl_bible_mcp.utils.errors import (
     NetworkError,
     APIResponseError,
     RateLimitError,
@@ -92,11 +97,8 @@ async def test_make_request_api_error_response():
     client = FHLAPIClient()
     
     with patch.object(client._client, 'get', return_value=mock_response):
-        try:
+        with pytest.raises(APIResponseError, match="Invalid query"):
             await client._make_request("test.php")
-            assert False, "Should have raised APIResponseError"
-        except APIResponseError as e:
-            assert "Invalid query" in str(e)
     
     await client.close()
 
@@ -111,11 +113,9 @@ async def test_make_request_http_error():
     client = FHLAPIClient()
     
     with patch.object(client._client, 'get', return_value=mock_response):
-        try:
+        with pytest.raises(APIResponseError) as exc_info:
             await client._make_request("test.php")
-            assert False, "Should have raised APIResponseError"
-        except APIResponseError as e:
-            assert e.status_code == 500
+        assert exc_info.value.status_code == 500
     
     await client.close()
 
@@ -130,11 +130,9 @@ async def test_make_request_rate_limit():
     client = FHLAPIClient()
     
     with patch.object(client._client, 'get', return_value=mock_response):
-        try:
+        with pytest.raises(RateLimitError) as exc_info:
             await client._make_request("test.php")
-            assert False, "Should have raised RateLimitError"
-        except RateLimitError as e:
-            assert e.retry_after == 120
+        assert exc_info.value.retry_after == 120
     
     await client.close()
 
@@ -151,12 +149,11 @@ async def test_make_request_json_parse_error():
     client = FHLAPIClient()
     
     with patch.object(client._client, 'get', return_value=mock_response):
-        try:
+        with pytest.raises(FHLAPIError) as exc_info:
             await client._make_request("test.php")
-            assert False, "Should have raised FHLAPIError"
-        except FHLAPIError as e:
-            # DataParseError 被包裝為 FHLAPIError
-            assert "Failed to parse JSON" in str(e) or "Unexpected error" in str(e)
+        # DataParseError 被包裝為 FHLAPIError
+        error_msg = str(exc_info.value)
+        assert "Failed to parse JSON" in error_msg or "Unexpected error" in error_msg
     
     await client.close()
 
@@ -193,13 +190,10 @@ async def test_make_request_timeout_max_retries():
     """測試超時達到最大重試次數"""
     client = FHLAPIClient(max_retries=1)
     
-    with patch.object(client._client, 'get', side_effect=httpx.TimeoutException("Timeout")):
-        with patch('asyncio.sleep', new_callable=AsyncMock):
-            try:
-                await client._make_request("test.php")
-                assert False, "Should have raised NetworkError"
-            except NetworkError as e:
-                assert "max retries exceeded" in str(e)
+    with patch.object(client._client, 'get', side_effect=httpx.TimeoutException("Timeout")), \
+         patch('asyncio.sleep', new_callable=AsyncMock):
+        with pytest.raises(NetworkError, match="max retries exceeded"):
+            await client._make_request("test.php")
     
     await client.close()
 
@@ -234,13 +228,10 @@ async def test_make_request_network_error_max_retries():
     """測試網絡錯誤達到最大重試次數"""
     client = FHLAPIClient(max_retries=1)
     
-    with patch.object(client._client, 'get', side_effect=httpx.NetworkError("Connection failed")):
-        with patch('asyncio.sleep', new_callable=AsyncMock):
-            try:
-                await client._make_request("test.php")
-                assert False, "Should have raised NetworkError"
-            except NetworkError as e:
-                assert "max retries exceeded" in str(e)
+    with patch.object(client._client, 'get', side_effect=httpx.NetworkError("Connection failed")), \
+         patch('asyncio.sleep', new_callable=AsyncMock):
+        with pytest.raises(NetworkError, match="max retries exceeded"):
+            await client._make_request("test.php")
     
     await client.close()
 
@@ -251,11 +242,8 @@ async def test_make_request_unexpected_error():
     client = FHLAPIClient()
     
     with patch.object(client._client, 'get', side_effect=RuntimeError("Unexpected")):
-        try:
+        with pytest.raises(FHLAPIError, match="Unexpected error"):
             await client._make_request("test.php")
-            assert False, "Should have raised FHLAPIError"
-        except FHLAPIError as e:
-            assert "Unexpected error" in str(e)
     
     await client.close()
 
@@ -299,12 +287,10 @@ async def test_validate_params_missing_required():
     
     params = {"book": "John"}
     
-    try:
+    with pytest.raises(InvalidParameterError) as exc_info:
         client._validate_params(params, ["book", "chapter"])
-        assert False, "Should have raised InvalidParameterError"
-    except InvalidParameterError as e:
-        assert e.parameter == "chapter"
     
+    assert exc_info.value.parameter == "chapter"
     await client.close()
 
 
@@ -315,12 +301,10 @@ async def test_validate_params_none_value():
     
     params = {"book": "John", "chapter": None}
     
-    try:
+    with pytest.raises(InvalidParameterError) as exc_info:
         client._validate_params(params, ["book", "chapter"])
-        assert False, "Should have raised InvalidParameterError"
-    except InvalidParameterError as e:
-        assert e.parameter == "chapter"
     
+    assert exc_info.value.parameter == "chapter"
     await client.close()
 
 

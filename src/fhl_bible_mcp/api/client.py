@@ -16,6 +16,7 @@ from fhl_bible_mcp.utils.errors import (
     APIResponseError,
     DataParseError,
     FHLAPIError,
+    InvalidParameterError,
     NetworkError,
     RateLimitError,
 )
@@ -241,8 +242,6 @@ class FHLAPIClient:
         Raises:
             InvalidParameterError: When required parameters are missing
         """
-        from fhl_bible_mcp.utils.errors import InvalidParameterError
-        
         for param in required:
             if param not in params or params[param] is None:
                 raise InvalidParameterError(
