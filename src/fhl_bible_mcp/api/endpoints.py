@@ -8,9 +8,10 @@ Each method corresponds to a specific API endpoint documented in the planning do
 import logging
 import hashlib
 import json
-from typing import Any
+from typing import Any, Optional
 
 from fhl_bible_mcp.api.client import FHLAPIClient
+from fhl_bible_mcp.config import Config, get_config
 from fhl_bible_mcp.utils.errors import InvalidParameterError
 from fhl_bible_mcp.utils.cache import get_cache
 
@@ -23,32 +24,58 @@ class FHLAPIEndpoints(FHLAPIClient):
     
     This class inherits from FHLAPIClient and adds methods for each
     FHL API endpoint. Includes automatic caching for better performance.
+    
+    Configuration Priority:
+    1. Explicit constructor parameters (if provided)
+    2. Config object (if provided)
+    3. Global config instance
     """
     
     def __init__(
         self,
-        base_url: str = "https://bible.fhl.net/json/",
-        timeout: int = 30,
-        max_retries: int = 3,
-        use_cache: bool = True,
-        cache_dir: str = ".cache"
+        base_url: Optional[str] = None,
+        timeout: Optional[int] = None,
+        max_retries: Optional[int] = None,
+        use_cache: Optional[bool] = None,
+        cache_dir: Optional[str] = None,
+        config: Optional[Config] = None
     ):
         """
-        Initialize FHL API Endpoints with caching support.
+        Initialize FHL API Endpoints with configuration support.
         
         Args:
-            base_url: Base URL of the API
-            timeout: Request timeout in seconds
-            max_retries: Maximum number of retries for failed requests
-            use_cache: Enable caching (default: True)
-            cache_dir: Cache directory path (default: ".cache")
+            base_url: Base URL of the API (if None, use config)
+            timeout: Request timeout in seconds (if None, use config)
+            max_retries: Maximum number of retries (if None, use config)
+            use_cache: Enable caching (if None, use config)
+            cache_dir: Cache directory path (if None, use config)
+            config: Optional Config object (if None, use global config)
         """
-        super().__init__(base_url=base_url, timeout=timeout, max_retries=max_retries)
-        self.use_cache = use_cache
-        self.cache = get_cache(cache_dir=cache_dir) if use_cache else None
+        # 取得設定 (優先順序: 提供的 config > 全域 config)
+        self.config = config or get_config()
+        
+        # 從設定取得預設值
+        _base_url = base_url or self.config.api.base_url
+        _timeout = timeout if timeout is not None else self.config.api.timeout
+        _max_retries = max_retries if max_retries is not None else self.config.api.max_retries
+        _use_cache = use_cache if use_cache is not None else self.config.cache.enabled
+        _cache_dir = cache_dir or self.config.cache.directory
+        
+        # 初始化父類別
+        super().__init__(base_url=_base_url, timeout=_timeout, max_retries=_max_retries)
+        
+        # 設定快取
+        self.use_cache = _use_cache
+        self.cache = get_cache(cache_dir=_cache_dir) if _use_cache else None
         
         if self.use_cache:
-            logger.info(f"Cache enabled: {cache_dir}")
+            logger.info(f"Cache enabled: {_cache_dir}")
+            
+            # 如果設定為啟動時清理,則清理過期快取
+            if self.config.cache.cleanup_on_start:
+                cleanup_count = self.cache.cleanup_expired()
+                if cleanup_count > 0:
+                    logger.info(f"Cleaned up {cleanup_count} expired cache entries")
     
     def _make_cache_key(self, **kwargs) -> str:
         """

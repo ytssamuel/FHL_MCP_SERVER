@@ -1,0 +1,683 @@
+{
+  "key": "versions:3ab468c88f796f9fc4b5aada362e65ae",
+  "data": {
+    "status": "success",
+    "record_count": 84,
+    "record": [
+      {
+        "book": "unv",
+        "cname": "FHL和合本",
+        "proc": 0,
+        "strong": 1,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "kjv",
+        "cname": "KJV",
+        "proc": 0,
+        "strong": 1,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "bhs",
+        "cname": "舊約馬索拉原文",
+        "proc": 2,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 1
+      },
+      {
+        "book": "apskcl",
+        "cname": "紅皮聖經全羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "apskhl",
+        "cname": "紅皮聖經漢羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "bklcl",
+        "cname": "巴克禮全羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "tghg",
+        "cname": "巴克禮台漢本",
+        "proc": 4,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ttvhl2021",
+        "cname": "現代台語2021版漢字",
+        "proc": 4,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ttvcl2021",
+        "cname": "現代台語2021版全羅",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "bklhl",
+        "cname": "巴克禮漢羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "tte",
+        "cname": "現代台語2013版全羅",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "ttvh",
+        "cname": "現代台語2013版漢字",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "fhlwh",
+        "cname": "新約原文",
+        "proc": 1,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "bbe",
+        "cname": "BBE",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "asv",
+        "cname": "ASV",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "web",
+        "cname": "WEB",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "darby",
+        "cname": "Darby",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "erv",
+        "cname": "ERV",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "baru",
+        "cname": "印尼聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ind1958",
+        "cname": "印尼舊聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "vietnamese",
+        "cname": "越南聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "russian",
+        "cname": "俄文聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "korean",
+        "cname": "韓文聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "thv2e",
+        "cname": "現代客語全羅",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "hakka",
+        "cname": "汕頭客語聖經",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "recover",
+        "cname": "恢復本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "wlunv",
+        "cname": "深文理和合本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "prebklcl",
+        "cname": "馬雅各全羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "genbklcl",
+        "cname": "",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "nt1864",
+        "cname": "新遺詔聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "jp",
+        "cname": "日語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "csb",
+        "cname": "中文標準譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cnet",
+        "cname": "NET聖經中譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cccbst",
+        "cname": "四福音書共同譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "tcv95",
+        "cname": "現代中文譯本1995版",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "tcv2019",
+        "cname": "現代中文譯本2019版",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "rcuv",
+        "cname": "和合本2010",
+        "proc": 0,
+        "strong": 1,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "bunun",
+        "cname": "布農語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "pinuyan",
+        "cname": "卑南語",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "tay",
+        "cname": "泰雅爾語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "tsou",
+        "cname": "鄒語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "rukai",
+        "cname": "魯凱語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ams",
+        "cname": "阿美語1997",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "amis2",
+        "cname": "阿美語2019",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "sed",
+        "cname": "賽德克族Tgdaya語",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ttnt94",
+        "cname": "達悟語新約聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "wanshandia",
+        "cname": "萬山魯凱語馬可福音",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "maolindia",
+        "cname": "茂林魯凱語馬可福音",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "tonadia",
+        "cname": "多納魯凱語馬可福音",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "tibet",
+        "cname": "藏語聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cvul",
+        "cname": "武加大譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "nvul",
+        "cname": "新武加大譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "lcc",
+        "cname": "呂振中譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ofm",
+        "cname": "思高譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cumv",
+        "cname": "官話和合本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "pmb",
+        "cname": "北京官話譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cuwv",
+        "cname": "文理和合本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cuwve",
+        "cname": "淺文理和合本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwang",
+        "cname": "王元德官話譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "orthdox",
+        "cname": "俄羅斯正教文理譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "basset",
+        "cname": "白日昇徐約翰文理譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "mormil",
+        "cname": "神天聖書",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "wdv",
+        "cname": "文理委辦譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "ssewb",
+        "cname": "施約瑟淺文理譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "marwb",
+        "cname": "馬殊曼譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "goddwb",
+        "cname": "高德譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "hudsonwb",
+        "cname": "胡德邁譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "deanwb",
+        "cname": "粦為仁譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "sgebklcl",
+        "cname": "全民台語聖經全羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "sgebklhl",
+        "cname": "全民台語聖經漢羅",
+        "proc": 3,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cmxuhsb",
+        "cname": "徐匯官話新譯福音",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwangdmm",
+        "cname": "王多默聖史宗徒行實",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwhsiaosb",
+        "cname": "蕭舜華官話",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwmgbm",
+        "cname": "四人小組譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cwfaubsb",
+        "cname": "聖保祿書翰並數位宗徒涵牘",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwjdsb",
+        "cname": "德如瑟四史聖經譯註",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwkfag",
+        "cname": "郭實臘新遺詔書和舊遺詔聖書",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cwliwysb",
+        "cname": "宗徒大事錄和新經譯義",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwmxb",
+        "cname": "馬相伯救世福音",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwont",
+        "cname": "俄羅斯正教新遺詔聖經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwplbsb",
+        "cname": "卜士傑新經公函與默示錄",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cwtaiping",
+        "cname": "太平天國文理譯本",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 0
+      },
+      {
+        "book": "cxubinwsb",
+        "cname": "許彬文四史全編",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 1,
+        "otonly": 0
+      },
+      {
+        "book": "cogorw",
+        "cname": "高連茨基聖詠經",
+        "proc": 0,
+        "strong": 0,
+        "ntonly": 0,
+        "otonly": 1
+      }
+    ]
+  },
+  "cached_at": 1761857993.2988787,
+  "ttl_seconds": null
+}

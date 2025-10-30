@@ -1,0 +1,27 @@
+{
+  "server": {
+    "name": "fhl-bible-server",
+    "version": "1.0.0"
+  },
+  "api": {
+    "base_url": "https://bible.fhl.net/json/",
+    "timeout": 30,
+    "max_retries": 3
+  },
+  "defaults": {
+    "bible_version": "unv",
+    "chinese_variant": "traditional",
+    "search_limit": 50,
+    "include_strong": false
+  },
+  "cache": {
+    "enabled": true,
+    "directory": ".cache",
+    "cleanup_on_start": false
+  },
+  "logging": {
+    "level": "INFO",
+    "file": null,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  }
+}
