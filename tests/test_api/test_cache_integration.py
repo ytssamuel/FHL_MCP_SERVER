@@ -42,8 +42,11 @@ async def test_cache_integration_versions():
         assert result2["record_count"] == count1
         print(f"   Second call: {count1} versions, took {time2:.3f}s")
         
-        # 快取應該更快
-        print(f"   Speedup: {time1/time2:.1f}x faster")
+        # 快取應該更快 (避免除以零)
+        if time2 > 0:
+            print(f"   Speedup: {time1/time2:.1f}x faster")
+        else:
+            print(f"   Speedup: Cache is extremely fast (< 0.001s)")
         
         # 檢查快取統計
         stats = client.cache.stats
@@ -86,7 +89,10 @@ async def test_cache_integration_verses():
         assert len(result2["record"]) > 0
         assert result2["record"][0]["bible_text"] == verse_text
         print(f"   Second call: {time2:.3f}s")
-        print(f"   Speedup: {time1/time2:.1f}x faster")
+        if time2 > 0:
+            print(f"   Speedup: {time1/time2:.1f}x faster")
+        else:
+            print(f"   Speedup: Cache is extremely fast (< 0.001s)")
         
         # 檢查快取
         assert client.cache.stats['hits'] >= 1
