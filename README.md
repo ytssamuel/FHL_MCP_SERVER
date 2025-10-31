@@ -3,18 +3,7 @@
 > A Model Context Protocol (MCP) server for accessing the Faith, Hope, Love (信望愛站) Bible API.
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
-[![License](https://img.shield## 📚 Documentation
-
-### 使用者文件
-- **[Prompts 使用指南](docs/PROMPTS_USAGE_GUIDE.md)** - 19 個 Prompts 完整使用說明與範例 ⭐
-- **[使用範例](docs/EXAMPLES.md)** - Claude Desktop 整合與實際案例
-- **[API 完整文件](docs/API.md)** - 所有 Tools、Resources、Prompts 的詳細說明
-
-### 開發者文件
-- **[開發者指南](docs/DEVELOPER_GUIDE.md)** - 架構說明與貢獻指南
-- **[測試報告](docs/PHASE_4_2_FINAL_REPORT.md)** - 完整測試覆蓋率報告
-- **[規劃文件](docs/FHL_BIBLE_MCP_PLANNING.md)** - 專案規劃與 API 分析
-- **[Phase 4 完成報告](docs/PROMPTS_PHASE4_COMPLETION_REPORT.md)** - 進階功能實作報告dge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
 [![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
 [![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
