@@ -23,6 +23,13 @@ from .reading import (
     ReadingChapterPrompt,
     ReadingPassagePrompt
 )
+from .special import (
+    SpecialSermonPrepPrompt,
+    SpecialDevotionalPrompt,
+    SpecialMemoryVersePrompt,
+    SpecialTopicalChainPrompt,
+    SpecialBibleTriviaPrompt
+)
 
 
 class PromptManager:
@@ -48,6 +55,13 @@ class PromptManager:
         self._register_prompt(StudyTopicDeepPrompt())
         self._register_prompt(StudyTranslationComparePrompt())
         self._register_prompt(StudyWordOriginalPrompt())
+        
+        # 註冊特殊用途 prompts (Phase 3 完成 ✅)
+        self._register_prompt(SpecialSermonPrepPrompt())
+        self._register_prompt(SpecialDevotionalPrompt())
+        self._register_prompt(SpecialMemoryVersePrompt())
+        self._register_prompt(SpecialTopicalChainPrompt())
+        self._register_prompt(SpecialBibleTriviaPrompt())
     
     def _register_prompt(self, prompt: PromptTemplate) -> None:
         """

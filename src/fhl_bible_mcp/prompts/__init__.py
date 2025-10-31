@@ -5,9 +5,10 @@ FHL Bible MCP Server - Prompts
 
 模組化結構：
 - base: 基礎類別
-- basic: 基礎入門 prompts (basic_help_guide, basic_uri_demo, basic_quick_lookup, basic_tool_reference)
+- basic: 基礎入門 prompts (basic_help_guide, basic_uri_demo, basic_quick_lookup, basic_tool_reference) ✅
 - reading: 讀經輔助 prompts (reading_daily, reading_chapter, reading_passage) ✅
-- study: 深度研經 prompts (study_verse_deep, study_topic_deep, study_translation_compare, study_word_original)
+- study: 深度研經 prompts (study_verse_deep, study_topic_deep, study_translation_compare, study_word_original) ✅
+- special: 特殊用途 prompts (special_sermon_prep, special_devotional, special_memory_verse, special_topical_chain, special_bible_trivia) ✅
 - manager: Prompt 管理器
 
 命名規則：
@@ -45,6 +46,15 @@ from .study import (
     StudyWordOriginalPrompt
 )
 
+# 特殊用途 prompts (Phase 3 完成 ✅)
+from .special import (
+    SpecialSermonPrepPrompt,
+    SpecialDevotionalPrompt,
+    SpecialMemoryVersePrompt,
+    SpecialTopicalChainPrompt,
+    SpecialBibleTriviaPrompt
+)
+
 # 為向後兼容，保留舊的 import 路徑
 # （從 templates.py 導入會自動使用新模組）
 try:
@@ -73,4 +83,11 @@ __all__ = [
     "StudyTopicDeepPrompt",
     "StudyTranslationComparePrompt",
     "StudyWordOriginalPrompt",
+    
+    # 特殊用途 prompts (Phase 3 完成 ✅)
+    "SpecialSermonPrepPrompt",
+    "SpecialDevotionalPrompt",
+    "SpecialMemoryVersePrompt",
+    "SpecialTopicalChainPrompt",
+    "SpecialBibleTriviaPrompt",
 ]

@@ -51,6 +51,13 @@ from .study import (
     StudyTranslationComparePrompt,
     StudyWordOriginalPrompt
 )
+from .special import (
+    SpecialSermonPrepPrompt,
+    SpecialDevotionalPrompt,
+    SpecialMemoryVersePrompt,
+    SpecialTopicalChainPrompt,
+    SpecialBibleTriviaPrompt
+)
 from .manager import PromptManager
 
 # 為了向後兼容，提供舊名稱的別名
@@ -63,21 +70,32 @@ SearchTopicPrompt = StudyTopicDeepPrompt
 CompareTranslationsPrompt = StudyTranslationComparePrompt
 WordStudyPrompt = StudyWordOriginalPrompt
 
+# Phase 3 special prompts 沒有舊名稱，直接使用新名稱
+# (無需 alias，因為是新增的 prompts)
+
 # 向後兼容的 __all__ 導出
 __all__ = [
     'PromptTemplate',
-    # 新名稱
+    # Phase 1: Basic prompts (基礎類)
     'BasicHelpGuidePrompt',
     'BasicURIDemoPrompt',
     'BasicQuickLookupPrompt',
     'BasicToolReferencePrompt',
+    # Phase 2: Reading prompts (讀經類) ✅
     'ReadingDailyPrompt',
     'ReadingChapterPrompt',
     'ReadingPassagePrompt',
+    # Study prompts (研經類)
     'StudyVerseDeepPrompt',
     'StudyTopicDeepPrompt',
     'StudyTranslationComparePrompt',
     'StudyWordOriginalPrompt',
+    # Phase 3: Special prompts (特殊用途) ✅
+    'SpecialSermonPrepPrompt',
+    'SpecialDevotionalPrompt',
+    'SpecialMemoryVersePrompt',
+    'SpecialTopicalChainPrompt',
+    'SpecialBibleTriviaPrompt',
     # 舊名稱別名（向後兼容）
     'HelpGuidePrompt',
     'URIDemoPrompt',
@@ -87,5 +105,6 @@ __all__ = [
     'SearchTopicPrompt',
     'CompareTranslationsPrompt',
     'WordStudyPrompt',
+    # Manager
     'PromptManager',
 ]
