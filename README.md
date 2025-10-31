@@ -1,10 +1,12 @@
-# FHL Bible MCP Server
+# FHL Bible MCP Server 📖
 
 > A Model Context Protocol (MCP) server for accessing the Faith, Hope, Love (信望愛站) Bible API.
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
+[![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
+[![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
 
 ## 📖 Overview
 
@@ -211,15 +213,34 @@ FHL_MCP_SERVER/
 - 感謝 Anthropic 開發 Model Context Protocol
 - 感謝所有貢獻者
 
-## 📚 Documentation
+## � 專案狀態
 
-- [完整 API 文件](docs/API.md)
-- [Tools 說明](docs/TOOLS.md)
-- [Resources 說明](docs/RESOURCES.md)
-- [Prompts 說明](docs/PROMPTS.md)
-- [使用範例](docs/EXAMPLES.md)
-- [規劃文件](FHL_BIBLE_MCP_PLANNING.md)
+- ✅ **Phase 1**: API 客戶端實作 - 完成
+- ✅ **Phase 2**: MCP Server 核心功能 - 完成
+- ✅ **Phase 3**: 進階功能與優化 - 完成
+- ✅ **Phase 4.1**: 全面測試套件 - 完成 (138 測試)
+- ✅ **Phase 4.2**: E2E 測試與文檔 - 完成 (160 測試, 83% 覆蓋率)
+- 🚧 **Phase 5**: 進階功能擴充 - 計劃中
+
+### 🎯 測試統計
+
+```
+總測試數:    160 個
+通過率:      100% ✅
+程式碼覆蓋率: 83% 🚀
+100% 覆蓋模組: 12 個
+```
+
+詳細測試報告請參考 [PHASE_4_2_FINAL_REPORT.md](docs/PHASE_4_2_FINAL_REPORT.md)
+
+## �📚 Documentation
+
+- **[API 完整文件](docs/API.md)** - 所有 Tools、Resources、Prompts 的詳細說明
+- **[開發者指南](docs/DEVELOPER_GUIDE.md)** - 架構說明與貢獻指南
+- **[使用範例](docs/EXAMPLES.md)** - Claude Desktop 整合與實際案例
+- **[測試報告](docs/PHASE_4_2_FINAL_REPORT.md)** - 完整測試覆蓋率報告
+- **[規劃文件](docs/FHL_BIBLE_MCP_PLANNING.md)** - 專案規劃與 API 分析
 
 ---
 
-**Made with ❤️ for Bible study and research**
+**Made with ❤️ for Bible study and research | 讓 AI 成為您的聖經研究助手！** 🙏
