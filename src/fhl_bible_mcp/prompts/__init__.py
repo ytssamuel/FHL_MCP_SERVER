@@ -9,6 +9,7 @@ FHL Bible MCP Server - Prompts
 - reading: 讀經輔助 prompts (reading_daily, reading_chapter, reading_passage) ✅
 - study: 深度研經 prompts (study_verse_deep, study_topic_deep, study_translation_compare, study_word_original) ✅
 - special: 特殊用途 prompts (special_sermon_prep, special_devotional, special_memory_verse, special_topical_chain, special_bible_trivia) ✅
+- advanced: 進階功能 prompts (advanced_cross_reference, advanced_parallel_gospels, advanced_character_study) ✅
 - manager: Prompt 管理器
 
 命名規則：
@@ -55,6 +56,13 @@ from .special import (
     SpecialBibleTriviaPrompt
 )
 
+# 進階功能 prompts (Phase 4 完成 ✅)
+from .advanced import (
+    AdvancedCrossReferencePrompt,
+    AdvancedParallelGospelsPrompt,
+    AdvancedCharacterStudyPrompt
+)
+
 # 為向後兼容，保留舊的 import 路徑
 # （從 templates.py 導入會自動使用新模組）
 try:
@@ -90,4 +98,9 @@ __all__ = [
     "SpecialMemoryVersePrompt",
     "SpecialTopicalChainPrompt",
     "SpecialBibleTriviaPrompt",
+    
+    # 進階功能 prompts (Phase 4 完成 ✅)
+    "AdvancedCrossReferencePrompt",
+    "AdvancedParallelGospelsPrompt",
+    "AdvancedCharacterStudyPrompt",
 ]

@@ -58,6 +58,11 @@ from .special import (
     SpecialTopicalChainPrompt,
     SpecialBibleTriviaPrompt
 )
+from .advanced import (
+    AdvancedCrossReferencePrompt,
+    AdvancedParallelGospelsPrompt,
+    AdvancedCharacterStudyPrompt
+)
 from .manager import PromptManager
 
 # 為了向後兼容，提供舊名稱的別名
@@ -96,6 +101,10 @@ __all__ = [
     'SpecialMemoryVersePrompt',
     'SpecialTopicalChainPrompt',
     'SpecialBibleTriviaPrompt',
+    # Phase 4: Advanced prompts (進階功能) ✅
+    'AdvancedCrossReferencePrompt',
+    'AdvancedParallelGospelsPrompt',
+    'AdvancedCharacterStudyPrompt',
     # 舊名稱別名（向後兼容）
     'HelpGuidePrompt',
     'URIDemoPrompt',

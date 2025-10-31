@@ -30,6 +30,11 @@ from .special import (
     SpecialTopicalChainPrompt,
     SpecialBibleTriviaPrompt
 )
+from .advanced import (
+    AdvancedCrossReferencePrompt,
+    AdvancedParallelGospelsPrompt,
+    AdvancedCharacterStudyPrompt
+)
 
 
 class PromptManager:
@@ -62,6 +67,11 @@ class PromptManager:
         self._register_prompt(SpecialMemoryVersePrompt())
         self._register_prompt(SpecialTopicalChainPrompt())
         self._register_prompt(SpecialBibleTriviaPrompt())
+        
+        # 註冊進階功能 prompts (Phase 4 完成 ✅)
+        self._register_prompt(AdvancedCrossReferencePrompt())
+        self._register_prompt(AdvancedParallelGospelsPrompt())
+        self._register_prompt(AdvancedCharacterStudyPrompt())
     
     def _register_prompt(self, prompt: PromptTemplate) -> None:
         """
