@@ -7,7 +7,7 @@
 from typing import Optional, Dict, Any, List
 from ..api.endpoints import FHLAPIEndpoints
 from ..utils.booknames import BookNameConverter
-from ..utils.errors import InvalidParameterError
+from ..utils.errors import BookNotFoundError, InvalidParameterError
 
 
 async def get_bible_verse(
@@ -38,7 +38,7 @@ async def get_bible_verse(
     # 轉換書卷名稱為中文縮寫（API 需要）
     chi_short = BookNameConverter.get_chinese_short(book)
     if not chi_short:
-        raise InvalidParameterError(f"找不到書卷: {book}")
+        raise BookNotFoundError(book)
 
     # 呼叫 API
     async with FHLAPIEndpoints() as api:
@@ -149,7 +149,7 @@ async def query_verse_citation(
     match = re.match(pattern, citation.strip())
 
     if not match:
-        raise InvalidParameterError(f"無效的經文引用格式: {citation}")
+        raise InvalidParameterError("citation", citation, "無效的經文引用格式")
 
     book_name, chapter, verses = match.groups()
 
