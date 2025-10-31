@@ -3,7 +3,18 @@
 > A Model Context Protocol (MCP) server for accessing the Faith, Hope, Love (信望愛站) Bible API.
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shield## 📚 Documentation
+
+### 使用者文件
+- **[Prompts 使用指南](docs/PROMPTS_USAGE_GUIDE.md)** - 19 個 Prompts 完整使用說明與範例 ⭐
+- **[使用範例](docs/EXAMPLES.md)** - Claude Desktop 整合與實際案例
+- **[API 完整文件](docs/API.md)** - 所有 Tools、Resources、Prompts 的詳細說明
+
+### 開發者文件
+- **[開發者指南](docs/DEVELOPER_GUIDE.md)** - 架構說明與貢獻指南
+- **[測試報告](docs/PHASE_4_2_FINAL_REPORT.md)** - 完整測試覆蓋率報告
+- **[規劃文件](docs/FHL_BIBLE_MCP_PLANNING.md)** - 專案規劃與 API 分析
+- **[Phase 4 完成報告](docs/PROMPTS_PHASE4_COMPLETION_REPORT.md)** - 進階功能實作報告dge/license-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
 [![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
 [![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
@@ -129,12 +140,39 @@ FHL Bible MCP Server
 
 ## 🎯 Prompts
 
-內建的對話範本：
+內建 **19 個**專業對話範本，涵蓋從入門到進階的完整研經需求：
 
-- `study_verse` - 深入研讀經文
-- `search_topic` - 主題研究
-- `compare_translations` - 版本比較
-- `word_study` - 原文字詞研究
+### 📘 基礎類 (Basic) - 快速上手
+- `basic_help_guide` - 完整使用指南，新手必讀
+- `basic_uri_demo` - URI 使用示範，教您直接存取資源
+- `basic_quick_lookup` - 快速查經，簡單方便
+- `basic_tool_reference` - 工具參考手冊，詳細說明所有功能
+
+### 📖 讀經類 (Reading) - 每日靈修
+- `reading_daily` - 每日讀經計劃，結構化的靈修體驗
+- `reading_chapter` - 整章讀經，深入理解一整章
+- `reading_passage` - 段落讀經，跨章節經文研讀
+
+### 🎓 研經類 (Study) - 深度研讀
+- `study_verse_deep` - 深入研讀經文，專業解經分析
+- `study_topic_deep` - 主題研究，全面探討聖經主題
+- `study_translation_compare` - 版本比較，多譯本對照
+- `study_word_original` - 原文字詞研究，希伯來文/希臘文分析
+
+### 🎯 特殊類 (Special) - 專業應用
+- `special_sermon_prep` - 講道準備，全方位備課資源
+- `special_devotional` - 靈修材料，個人/小組/家庭適用
+- `special_memory_verse` - 背經輔助，記憶技巧與計劃
+- `special_topical_chain` - 主題串連，貫穿聖經的主題追蹤
+- `special_bible_trivia` - 聖經問答，互動式知識測驗
+
+### 🚀 進階類 (Advanced) - 專業研究
+- `advanced_cross_reference` - 交叉引用分析，多層次引用網絡 (1-3 層深度)
+- `advanced_parallel_gospels` - 符類福音對照，四福音平行比較
+- `advanced_character_study` - 聖經人物研究，9 大維度全面分析
+
+> 💡 **提示**: 使用 `basic_help_guide` prompt 查看完整功能介紹和使用教學！  
+> 📚 詳細說明請參閱 [Prompts 使用指南](docs/PROMPTS_USAGE_GUIDE.md)
 
 ## 🔧 Development
 
@@ -220,7 +258,7 @@ FHL_MCP_SERVER/
 - ✅ **Phase 3**: 進階功能與優化 - 完成
 - ✅ **Phase 4.1**: 全面測試套件 - 完成 (138 測試)
 - ✅ **Phase 4.2**: E2E 測試與文檔 - 完成 (160 測試, 83% 覆蓋率)
-- 🚧 **Phase 5**: 進階功能擴充 - 計劃中
+- ✅ **Phase 5**: Prompts 增強計劃 - 完成 (19 個 Prompts) 🎊
 
 ### 🎯 測試統計
 
