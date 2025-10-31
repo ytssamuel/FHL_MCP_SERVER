@@ -7,12 +7,12 @@ FHL Bible MCP Server - Compare Translations Prompt
 from ..base import PromptTemplate
 
 
-class CompareTranslationsPrompt(PromptTemplate):
-    """版本比較 Prompt"""
+class StudyTranslationComparePrompt(PromptTemplate):
+    """研經 - 版本比較 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="compare_translations",
+            name="study_translation_compare",
             description="比較不同聖經譯本的翻譯",
             arguments=[
                 {

@@ -7,16 +7,21 @@ FHL Bible MCP Server - Prompt Manager
 from typing import Dict, List, Any, Optional
 from .base import PromptTemplate
 from .basic import (
-    HelpGuidePrompt,
-    URIDemoPrompt,
-    QuickLookupPrompt,
-    ToolReferencePrompt
+    BasicHelpGuidePrompt,
+    BasicURIDemoPrompt,
+    BasicQuickLookupPrompt,
+    BasicToolReferencePrompt
 )
 from .study import (
-    StudyVersePrompt,
-    SearchTopicPrompt,
-    CompareTranslationsPrompt,
-    WordStudyPrompt
+    StudyVerseDeepPrompt,
+    StudyTopicDeepPrompt,
+    StudyTranslationComparePrompt,
+    StudyWordOriginalPrompt
+)
+from .reading import (
+    ReadingDailyPrompt,
+    ReadingChapterPrompt,
+    ReadingPassagePrompt
 )
 
 
@@ -27,17 +32,22 @@ class PromptManager:
         """初始化 Prompt 管理器，註冊所有 prompts"""
         self.prompts: Dict[str, PromptTemplate] = {}
         
-        # 註冊基礎 prompts (Phase 1 完成)
-        self._register_prompt(HelpGuidePrompt())
-        self._register_prompt(URIDemoPrompt())
-        self._register_prompt(QuickLookupPrompt())
-        self._register_prompt(ToolReferencePrompt())
+        # 註冊基礎 prompts (Phase 1 完成 ✅)
+        self._register_prompt(BasicHelpGuidePrompt())
+        self._register_prompt(BasicURIDemoPrompt())
+        self._register_prompt(BasicQuickLookupPrompt())
+        self._register_prompt(BasicToolReferencePrompt())
         
-        # 註冊研經 prompts
-        self._register_prompt(StudyVersePrompt())
-        self._register_prompt(SearchTopicPrompt())
-        self._register_prompt(CompareTranslationsPrompt())
-        self._register_prompt(WordStudyPrompt())
+        # 註冊讀經 prompts (Phase 2 完成 ✅)
+        self._register_prompt(ReadingDailyPrompt())
+        self._register_prompt(ReadingChapterPrompt())
+        self._register_prompt(ReadingPassagePrompt())
+        
+        # 註冊研經 prompts (深度研究)
+        self._register_prompt(StudyVerseDeepPrompt())
+        self._register_prompt(StudyTopicDeepPrompt())
+        self._register_prompt(StudyTranslationComparePrompt())
+        self._register_prompt(StudyWordOriginalPrompt())
     
     def _register_prompt(self, prompt: PromptTemplate) -> None:
         """

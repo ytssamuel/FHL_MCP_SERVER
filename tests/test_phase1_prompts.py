@@ -19,8 +19,8 @@ def test_phase1_prompts():
     
     try:
         from fhl_bible_mcp.prompts import (
-            QuickLookupPrompt,
-            ToolReferencePrompt,
+            BasicQuickLookupPrompt,
+            BasicToolReferencePrompt,
             PromptManager
         )
         print("✓ 成功導入 Phase 1 prompts")
@@ -29,11 +29,11 @@ def test_phase1_prompts():
         return False
     
     print("\n" + "=" * 70)
-    print("測試 1：QuickLookupPrompt")
+    print("測試 1：BasicQuickLookupPrompt")
     print("=" * 70)
     
     try:
-        quick_lookup = QuickLookupPrompt()
+        quick_lookup = BasicQuickLookupPrompt()
         print(f"✓ 實例化成功")
         print(f"  名稱：{quick_lookup.name}")
         print(f"  描述：{quick_lookup.description}")
@@ -63,11 +63,11 @@ def test_phase1_prompts():
         return False
     
     print("\n" + "=" * 70)
-    print("測試 2：ToolReferencePrompt")
+    print("測試 2：BasicToolReferencePrompt")
     print("=" * 70)
     
     try:
-        tool_ref = ToolReferencePrompt()
+        tool_ref = BasicToolReferencePrompt()
         print(f"✓ 實例化成功")
         print(f"  名稱：{tool_ref.name}")
         print(f"  描述：{tool_ref.description}")
@@ -105,7 +105,7 @@ def test_phase1_prompts():
         print(f"✓ 總共註冊 {len(prompts)} 個 prompts")
         
         # 檢查 Phase 1 prompts
-        phase1_prompts = ["help_guide", "uri_demo", "quick_lookup", "tool_reference"]
+        phase1_prompts = ["basic_help_guide", "basic_uri_demo", "basic_quick_lookup", "basic_tool_reference"]
         print("\n  Phase 1 Prompts 檢查：")
         for name in phase1_prompts:
             if manager.has_prompt(name):
@@ -117,18 +117,18 @@ def test_phase1_prompts():
         
         # 測試渲染
         print("\n  測試通過 Manager 渲染：")
-        quick_text = manager.render_prompt("quick_lookup", query="約翰福音 3:16")
+        quick_text = manager.render_prompt("basic_quick_lookup", query="約翰福音 3:16")
         if quick_text:
-            print(f"    ✓ quick_lookup 渲染成功（{len(quick_text)} 字元）")
+            print(f"    ✓ basic_quick_lookup 渲染成功（{len(quick_text)} 字元）")
         else:
-            print(f"    ✗ quick_lookup 渲染失敗")
+            print(f"    ✗ basic_quick_lookup 渲染失敗")
             return False
         
-        tool_text = manager.render_prompt("tool_reference")
+        tool_text = manager.render_prompt("basic_tool_reference")
         if tool_text:
-            print(f"    ✓ tool_reference 渲染成功（{len(tool_text)} 字元）")
+            print(f"    ✓ basic_tool_reference 渲染成功（{len(tool_text)} 字元）")
         else:
-            print(f"    ✗ tool_reference 渲染失敗")
+            print(f"    ✗ basic_tool_reference 渲染失敗")
             return False
         
     except Exception as e:
@@ -195,11 +195,16 @@ def main():
     
     if passed == total:
         print("\n🎉 Phase 1 完成！所有測試通過！")
-        print("\n已完成的 Prompts：")
-        print("  ✅ 1. help_guide - 使用指南")
-        print("  ✅ 2. uri_demo - URI 使用示範")
-        print("  ✅ 3. quick_lookup - 快速查經")
-        print("  ✅ 4. tool_reference - 工具參考")
+        print("\n已完成的 Prompts（新命名規則）：")
+        print("  ✅ 1. basic_help_guide - 基礎｜使用指南")
+        print("  ✅ 2. basic_uri_demo - 基礎｜URI 使用示範")
+        print("  ✅ 3. basic_quick_lookup - 基礎｜快速查經")
+        print("  ✅ 4. basic_tool_reference - 基礎｜工具參考")
+        print("\n原有 Prompts（已重命名）：")
+        print("  ✅ study_verse_deep - 研經｜深入研讀經文")
+        print("  ✅ study_topic_deep - 研經｜主題研究")
+        print("  ✅ study_translation_compare - 研經｜版本比較")
+        print("  ✅ study_word_original - 研經｜原文字詞研究")
         print("\n下一步：Phase 2 - 讀經輔助系列")
         return 0
     else:

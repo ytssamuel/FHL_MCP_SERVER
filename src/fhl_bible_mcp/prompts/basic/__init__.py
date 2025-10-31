@@ -2,14 +2,14 @@
 Basic prompts module - 基礎入門 Prompts
 """
 
-from .help_guide import HelpGuidePrompt
-from .uri_demo import URIDemoPrompt
-from .quick_lookup import QuickLookupPrompt
-from .tool_reference import ToolReferencePrompt
+from .basic_help_guide import BasicHelpGuidePrompt
+from .basic_uri_demo import BasicURIDemoPrompt
+from .basic_quick_lookup import BasicQuickLookupPrompt
+from .basic_tool_reference import BasicToolReferencePrompt
 
 __all__ = [
-    'HelpGuidePrompt',
-    'URIDemoPrompt',
-    'QuickLookupPrompt',
-    'ToolReferencePrompt',
+    'BasicHelpGuidePrompt',
+    'BasicURIDemoPrompt',
+    'BasicQuickLookupPrompt',
+    'BasicToolReferencePrompt',
 ]

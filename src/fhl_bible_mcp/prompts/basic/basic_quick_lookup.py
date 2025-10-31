@@ -7,12 +7,12 @@ FHL Bible MCP Server - Quick Lookup Prompt
 from ..base import PromptTemplate
 
 
-class QuickLookupPrompt(PromptTemplate):
-    """快速查經 Prompt"""
+class BasicQuickLookupPrompt(PromptTemplate):
+    """基礎 - 快速查經 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="quick_lookup",
+            name="basic_quick_lookup",
             description="快速查詢經文、書卷或主題，無複雜分析，適合日常使用",
             arguments=[
                 {

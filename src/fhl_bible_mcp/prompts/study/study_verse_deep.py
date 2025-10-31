@@ -7,12 +7,12 @@ FHL Bible MCP Server - Study Verse Prompt
 from ..base import PromptTemplate
 
 
-class StudyVersePrompt(PromptTemplate):
-    """深入研讀經文 Prompt"""
+class StudyVerseDeepPrompt(PromptTemplate):
+    """研經 - 深入研讀經文 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="study_verse",
+            name="study_verse_deep",
             description="深入研讀一節經文，包含經文內容、原文分析、註釋等",
             arguments=[
                 {

@@ -7,12 +7,12 @@ FHL Bible MCP Server - Help Guide Prompt
 from ..base import PromptTemplate
 
 
-class HelpGuidePrompt(PromptTemplate):
-    """使用指南 Prompt"""
+class BasicHelpGuidePrompt(PromptTemplate):
+    """基礎 - 使用指南 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="help_guide",
+            name="basic_help_guide",
             description="顯示 FHL Bible MCP Server 的完整使用指南，包含快速入門、工具說明和實用技巧",
             arguments=[
                 {

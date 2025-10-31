@@ -7,12 +7,12 @@ FHL Bible MCP Server - Word Study Prompt
 from ..base import PromptTemplate
 
 
-class WordStudyPrompt(PromptTemplate):
-    """原文字詞研究 Prompt"""
+class StudyWordOriginalPrompt(PromptTemplate):
+    """研經 - 原文字詞研究 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="word_study",
+            name="study_word_original",
             description="深入研究希臘文或希伯來文單字",
             arguments=[
                 {

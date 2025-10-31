@@ -7,12 +7,12 @@ FHL Bible MCP Server - Search Topic Prompt
 from ..base import PromptTemplate
 
 
-class SearchTopicPrompt(PromptTemplate):
-    """主題研究 Prompt"""
+class StudyTopicDeepPrompt(PromptTemplate):
+    """研經 - 主題研究 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="search_topic",
+            name="study_topic_deep",
             description="研究聖經中的特定主題",
             arguments=[
                 {

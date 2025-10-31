@@ -7,12 +7,12 @@ FHL Bible MCP Server - Tool Reference Prompt
 from ..base import PromptTemplate
 
 
-class ToolReferencePrompt(PromptTemplate):
-    """工具參考手冊 Prompt"""
+class BasicToolReferencePrompt(PromptTemplate):
+    """基礎 - 工具參考手冊 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="tool_reference",
+            name="basic_tool_reference",
             description="顯示所有可用工具的詳細參考手冊，包含用法、參數和範例",
             arguments=[
                 {

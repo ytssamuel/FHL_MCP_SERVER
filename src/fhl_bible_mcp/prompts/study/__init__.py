@@ -2,14 +2,14 @@
 Study prompts module - 深度研經 Prompts
 """
 
-from .study_verse import StudyVersePrompt
-from .search_topic import SearchTopicPrompt
-from .compare_translations import CompareTranslationsPrompt
-from .word_study import WordStudyPrompt
+from .study_verse_deep import StudyVerseDeepPrompt
+from .study_topic_deep import StudyTopicDeepPrompt
+from .study_translation_compare import StudyTranslationComparePrompt
+from .study_word_original import StudyWordOriginalPrompt
 
 __all__ = [
-    'StudyVersePrompt',
-    'SearchTopicPrompt',
-    'CompareTranslationsPrompt',
-    'WordStudyPrompt',
+    'StudyVerseDeepPrompt',
+    'StudyTopicDeepPrompt',
+    'StudyTranslationComparePrompt',
+    'StudyWordOriginalPrompt',
 ]

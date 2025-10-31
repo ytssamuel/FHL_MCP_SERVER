@@ -7,12 +7,12 @@ FHL Bible MCP Server - URI Demo Prompt
 from ..base import PromptTemplate
 
 
-class URIDemoPrompt(PromptTemplate):
-    """URI 使用示範 Prompt"""
+class BasicURIDemoPrompt(PromptTemplate):
+    """基礎 - URI 使用示範 Prompt"""
     
     def __init__(self):
         super().__init__(
-            name="uri_demo",
+            name="basic_uri_demo",
             description="展示和教導如何使用各種 Resource URI，包含互動式範例和最佳實踐",
             arguments=[
                 {
