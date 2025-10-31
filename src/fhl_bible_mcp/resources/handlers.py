@@ -346,7 +346,9 @@ class ResourceRouter:
         Raises:
             ResourceError: 不支援的 URI scheme
         """
-        parsed = urlparse(uri)
+        # 確保 uri 是字串（可能從 MCP SDK 傳入 AnyUrl 物件）
+        uri_str = str(uri)
+        parsed = urlparse(uri_str)
         scheme = parsed.scheme
         
         if scheme == "bible":
@@ -354,19 +356,19 @@ class ResourceRouter:
             # 所以需要檢查 netloc 而不是 path
             resource_type = parsed.netloc
             if resource_type == "verse":
-                return await self.bible_handler.handle_verse(uri)
+                return await self.bible_handler.handle_verse(uri_str)
             elif resource_type == "chapter":
-                return await self.bible_handler.handle_chapter(uri)
+                return await self.bible_handler.handle_chapter(uri_str)
             else:
                 raise ResourceError(
                     f"不支援的 bible:// 資源類型: {resource_type}。支援的類型: verse, chapter"
                 )
         elif scheme == "strongs":
-            return await self.strongs_handler.handle(uri)
+            return await self.strongs_handler.handle(uri_str)
         elif scheme == "commentary":
-            return await self.commentary_handler.handle(uri)
+            return await self.commentary_handler.handle(uri_str)
         elif scheme == "info":
-            return await self.info_handler.handle(uri)
+            return await self.info_handler.handle(uri_str)
         else:
             raise ResourceError(
                 f"不支援的 URI scheme: {scheme}。支援的 scheme: bible, strongs, commentary, info"
