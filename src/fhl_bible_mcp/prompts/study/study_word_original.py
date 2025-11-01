@@ -35,16 +35,16 @@ class StudyWordOriginalPrompt(PromptTemplate):
     
     def render(
         self,
-        strongs_number: str,
-        testament: str,
+        strongs_number: str = "G26",
+        testament: str = "NT",
         max_occurrences: int = 20
     ) -> str:
         """
         渲染原文字詞研究的 prompt
         
         Args:
-            strongs_number: Strong's 編號
-            testament: 約別（OT/NT）
+            strongs_number: Strong's 編號（默認：G26，愛 agape）
+            testament: 約別（OT/NT）（默認：NT）
             max_occurrences: 最多顯示出現次數
             
         Returns:
@@ -52,59 +52,31 @@ class StudyWordOriginalPrompt(PromptTemplate):
         """
         testament_name = "新約希臘文" if testament.upper() == "NT" else "舊約希伯來文"
         
-        return f"""請幫我研究 Strong's #{strongs_number} ({testament_name}) 這個原文字。
+        return f"""# 原文字詞研究 - Strong's #{strongs_number} ({testament_name})
 
-請按照以下步驟進行字詞研究：
+## 步驟 1: 查詢字典定義
+**執行**: lookup_strongs #{strongs_number}
+**輸出**: 原文拼寫、字根、基本字義、詳細定義
 
-1. **字典定義**
-   - 使用 lookup_strongs 查詢 Strong's #{strongs_number} 的字典條目
-   - 提供：
-     * 原文拼寫（含發音）
-     * 字根來源
-     * 基本字義
-     * 英文和中文的詳細定義
+## 步驟 2: 搜尋出現位置
+**執行**: search_strongs_occurrences 找出聖經中的所有位置
+**輸出**: 前 {max_occurrences} 處具代表性經文
 
-2. **同源字分析**（僅適用於新約）
-   - 列出所有同源字（來自同一字根的相關字詞）
-   - 說明各同源字的：
-     * Strong's 編號
-     * 原文拼寫
-     * 中文意義
-     * 在聖經中出現的次數
-   - 分析這些同源字的語義關係
+## 步驟 3: 分析語境用法
+**執行**: 比較不同文學體裁、作者風格中的字義變化
+**輸出**: 語義範圍和特殊用法分析
 
-3. **聖經出現位置**
-   - 使用 search_strongs_occurrences 找出該字在聖經中的所有出現位置
-   - 列出前 {max_occurrences} 處具代表性的經文
-   - 按書卷順序或主題分類整理
+## 步驟 4: 探討神學意義
+**執行**: 研究該字在救恩歷史和核心教義中的角色
+**輸出**: 神學重要性和關鍵經文引用
 
-4. **語境中的字義變化**
-   - 分析該字在不同語境中的用法：
-     * 文學體裁（敘事、詩歌、律法、書信等）
-     * 作者風格（保羅、約翰、路加等）
-     * 時代背景（舊約時期、福音書、早期教會等）
-   - 觀察字義的範圍和強調的不同面向
-   - 特別注意是否有比喻或象徵用法
+## 步驟 5: 跨約比較 (如適用)
+**執行**: 對照舊約希伯來文與新約希臘文的對應關係
+**輸出**: LXX翻譯選擇和新約詮釋分析
 
-5. **神學意義**
-   - 探討該字的神學重要性：
-     * 在救恩歷史中的角色
-     * 與核心教義的關聯
-     * 對理解神的屬性或作為的貢獻
-   - 引用重要經文說明其神學用法
-   - 參考註釋書對該字的神學討論
+## 步驟 6: 總結與應用
+**執行**: 綜合核心意涵，提供理解和生活應用建議
+**輸出**: 研究總結、避免誤解、實踐方向
 
-6. **跨約比較**（如適用）
-   - 比較舊約希伯來文與新約希臘文的對應字詞
-   - 觀察七十士譯本（LXX）的翻譯選擇
-   - 分析新約如何引用或重新詮釋舊約的概念
-
-7. **研究總結與應用**
-   - 總結該字的核心意涵
-   - 說明正確理解該字如何幫助我們：
-     * 更準確理解相關經文
-     * 避免常見的誤解
-     * 在生活中活出該字的真理
-   - 推薦進深研讀的資源或經文
-
-請提供詳盡的分析，並引用具體經文和學術資源。"""
+💡 工具: lookup_strongs, search_strongs_occurrences
+"""

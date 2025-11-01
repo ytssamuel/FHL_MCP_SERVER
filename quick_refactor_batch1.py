@@ -1,4 +1,11 @@
-"""
+"""快速批量重構剩餘prompts"""
+import os
+import shutil
+
+# 定義所有需要重構的prompts
+PROMPTS_DATA = [
+    # 7. special_topical_chain
+    ("special/special_topical_chain", "SpecialTopicalChainPrompt", "信心", "both", 900, '''"""
 FHL Bible MCP Server - Topical Chain Prompt
 
 主題經文串連研究
@@ -61,3 +68,23 @@ class SpecialTopicalChainPrompt(PromptTemplate):
 
 💡 工具: search_bible, study_topic_deep
 """
+'''),
+]
+
+BASE_PATH = "c:/Users/USER/Desktop/develope/FHL_MCP_SERVER/src/fhl_bible_mcp/prompts"
+
+for folder, classname, *_, content in PROMPTS_DATA:
+    filepath = f"{BASE_PATH}/{folder}.py"
+    backup = f"{filepath}.bak"
+    
+    # 備份
+    if os.path.exists(filepath):
+        shutil.copy(filepath, backup)
+        print(f"✅ 備份: {filepath}")
+    
+    # 寫入新內容
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"✅ 重構: {filepath}")
+
+print("\n完成第一批!")

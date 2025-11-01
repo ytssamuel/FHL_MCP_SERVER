@@ -35,7 +35,7 @@ class StudyTopicDeepPrompt(PromptTemplate):
     
     def render(
         self,
-        topic: str,
+        topic: str = "愛",
         version: str = "unv",
         max_verses: int = 10
     ) -> str:
@@ -43,46 +43,38 @@ class StudyTopicDeepPrompt(PromptTemplate):
         渲染主題研究的 prompt
         
         Args:
-            topic: 研究主題
+            topic: 研究主題（默認：愛）
             version: 聖經版本
             max_verses: 最多顯示經文數
             
         Returns:
             渲染後的 prompt
         """
-        return f"""請幫我研究聖經中關於「{topic}」的教導。
+        return f"""# 主題研究 - 「{topic}」
 
-請按照以下步驟進行主題研究：
+## 步驟 1: 搜尋相關經文
+**執行**: search_bible 在 {version} 中搜尋「{topic}」
+**輸出**: 總數統計 + 最相關的 {max_verses} 處經文
 
-1. **經文搜尋**
-   - 使用 search_bible 在 {version} 版本中搜尋「{topic}」
-   - 先用 count_only=True 查看總共有多少相關經文
-   - 列出最相關的 {max_verses} 處經文（包含上下文）
+## 步驟 2: 查詢主題查經資料
+**執行**: get_topic_study 取得「{topic}」的主題查經
+**輸出**: Torrey 和 Naves 相關條目，聖經神學架構
 
-2. **主題查經資料**
-   - 使用 get_topic_study 查詢「{topic}」的主題查經資料
-   - 涵蓋 Torrey 和 Naves 主題聖經的相關條目
-   - 整理出該主題的聖經神學架構
+## 步驟 3: 搜尋註釋討論
+**執行**: search_commentary 在註釋書中搜尋「{topic}」
+**輸出**: 註釋家見解摘要，不同神學傳統觀點
 
-3. **註釋中的討論**
-   - 使用 search_commentary 在註釋書中搜尋「{topic}」
-   - 摘要重要註釋家對該主題的見解
-   - 列出不同神學傳統的觀點
+## 步驟 4: 比較兩約教導
+**執行**: 分別搜尋舊約和新約相關經文
+**輸出**: 兩約異同，救恩歷史發展脈絡
 
-4. **舊約與新約的教導**
-   - 分別搜尋舊約和新約中的相關經文
-   - 比較兩約對該主題的教導有何異同
-   - 觀察該主題在救恩歷史中的發展
+## 步驟 5: 研究原文洞察
+**執行**: lookup_strongs 查詢關鍵希伯來文/希臘文字詞
+**輸出**: 原文字義如何豐富主題理解
 
-5. **原文洞察**（如適用）
-   - 找出該主題相關的關鍵希伯來文/希臘文字詞
-   - 使用 lookup_strongs 研究原文字義
-   - 解釋原文如何豐富我們對該主題的理解
+## 步驟 6: 綜合分析與應用
+**執行**: 整合所有資料
+**輸出**: 整體教導總結、3-5個核心真理、生活應用
 
-6. **綜合分析與應用**
-   - 總結聖經對「{topic}」的整體教導
-   - 歸納出 3-5 個核心真理
-   - 提供實際生活應用建議
-   - 列出進深研讀的方向
-
-請以清晰的結構呈現研究成果，並引用具體經文支持論點。"""
+💡 工具: search_bible, get_topic_study, search_commentary, lookup_strongs
+"""

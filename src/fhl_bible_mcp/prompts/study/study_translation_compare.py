@@ -40,18 +40,18 @@ class StudyTranslationComparePrompt(PromptTemplate):
     
     def render(
         self,
-        book: str,
-        chapter: int,
-        verse: int,
+        book: str = "約翰福音",
+        chapter: int = 3,
+        verse: int = 16,
         versions: str = "unv,nstrunv,kjv,niv"
     ) -> str:
         """
         渲染版本比較的 prompt
         
         Args:
-            book: 經卷名稱
-            chapter: 章數
-            verse: 節數
+            book: 經卷名稱（默認：約翰福音）
+            chapter: 章數（默認：3）
+            verse: 節數（默認：16）
             versions: 版本代碼（逗號分隔）
             
         Returns:
@@ -60,45 +60,32 @@ class StudyTranslationComparePrompt(PromptTemplate):
         version_list = [v.strip() for v in versions.split(",")]
         version_bullets = "\n".join([f"   - {v}" for v in version_list])
         
-        return f"""請幫我比較 {book} {chapter}:{verse} 在不同譯本中的翻譯。
+        return f"""# 版本比較 - {book} {chapter}:{verse}
 
-請按照以下步驟進行版本比較：
-
-1. **各版本經文**
-   - 使用 get_bible_verse 查詢以下版本的經文：
+## 步驟 1: 獲取各版本經文
+**執行**: get_bible_verse 查詢以下版本：
 {version_bullets}
-   - 並列顯示各版本的翻譯
+**輸出**: 並列顯示各版本翻譯
 
-2. **版本資訊**
-   - 使用 list_bible_versions 查詢這些版本的詳細資訊
-   - 說明各版本的特色（直譯/意譯、目標讀者、出版年代等）
+## 步驟 2: 查詢版本資訊
+**執行**: list_bible_versions 取得版本詳細資訊
+**輸出**: 各版本特色（直譯/意譯、目標讀者、年代）
 
-3. **原文分析**
-   - 使用 get_word_analysis 取得該節經文的原文分析
-   - 列出關鍵字詞的希臘文/希伯來文及其基本意義
-   - 使用 lookup_strongs 查詢重要字詞的 Strong's 字典定義
+## 步驟 3: 分析原文基礎
+**執行**: get_word_analysis + lookup_strongs 查詢原文
+**輸出**: 關鍵字詞的希臘文/希伯來文及 Strong's 定義
 
-4. **翻譯差異分析**
-   - 比較各版本在以下方面的差異：
-     * 字詞選擇（特別是神學關鍵詞）
-     * 句子結構
-     * 語氣和風格
-     * 是否添加解釋性詞語
-   - 分析這些差異的原因和影響
+## 步驟 4: 比較翻譯差異
+**執行**: 分析字詞選擇、句子結構、語氣風格差異
+**輸出**: 差異原因和影響分析
 
-5. **原文對照**
-   - 將各版本的翻譯與原文進行對照
-   - 評估各版本如何處理原文的特殊語法或修辭
-   - 指出哪些版本更貼近原文字面意義
-   - 指出哪些版本更清楚傳達原文意圖
+## 步驟 5: 對照原文評估
+**執行**: 評估各版本如何處理原文語法和修辭
+**輸出**: 字面意義 vs 原文意圖的忠實度分析
 
-6. **翻譯評估與建議**
-   - 總結各版本的優缺點
-   - 針對不同研讀目的推薦合適的版本：
-     * 深度研經
-     * 靈修默想
-     * 初信者閱讀
-     * 公開講道引用
-   - 建議如何綜合使用多個版本以獲得更全面的理解
+## 步驟 6: 提供使用建議
+**執行**: 總結優缺點，針對不同目的推薦版本
+**輸出**: 深度研經、靈修、初信、講道的版本建議
 
-請提供詳細的分析，並用表格或對照方式清楚呈現比較結果。"""
+💡 工具: get_bible_verse, list_bible_versions, get_word_analysis, lookup_strongs
+"""

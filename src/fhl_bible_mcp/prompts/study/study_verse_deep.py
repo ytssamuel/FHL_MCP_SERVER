@@ -40,54 +40,48 @@ class StudyVerseDeepPrompt(PromptTemplate):
     
     def render(
         self,
-        book: str,
-        chapter: int,
-        verse: int,
+        book: str = "約翰福音",
+        chapter: int = 3,
+        verse: int = 16,
         version: str = "unv"
     ) -> str:
         """
         渲染深入研讀經文的 prompt
         
         Args:
-            book: 經卷名稱
-            chapter: 章數
-            verse: 節數
+            book: 經卷名稱（默認：約翰福音）
+            chapter: 章數（默認：3）
+            verse: 節數（默認：16）
             version: 聖經版本代碼
             
         Returns:
             渲染後的 prompt
         """
-        return f"""請幫我深入研讀 {book} {chapter}:{verse}。
+        return f"""# 深入研讀經文 - {book} {chapter}:{verse}
 
-請按照以下步驟進行研讀：
+## 步驟 1: 獲取經文內容
+**執行**: get_bible_verse 查詢 {book} {chapter}:{verse} ({version})
+**輸出**: 經文內容及 Strong's Number 版本
 
-1. **經文內容**
-   - 使用 get_bible_verse 查詢 {book} {chapter}:{verse} ({version} 版本)
-   - 同時獲取包含 Strong's Number 的版本以便原文分析
+## 步驟 2: 分析原文字彙
+**執行**: get_word_analysis 取得希臘文/希伯來文分析
+**輸出**: 每個重要字詞的原文、詞性、字型變化
 
-2. **原文字彙分析**
-   - 使用 get_word_analysis 取得該節經文的希臘文/希伯來文分析
-   - 列出每個重要字詞的原文、詞性、字型變化
+## 步驟 3: 研究關鍵字詞
+**執行**: lookup_strongs 查詢關鍵字的 Strong's 字典
+**輸出**: 原文意義、用法、神學含義、同源字
 
-3. **關鍵字詞研究**
-   - 針對經文中的關鍵字，使用 lookup_strongs 查詢 Strong's 字典
-   - 解釋重要字詞的原文意義、用法、神學含義
-   - 列出同源字及其在聖經中的使用
+## 步驟 4: 查詢註釋解經
+**執行**: get_commentary 取得該節經文註釋
+**輸出**: 綜合不同註釋書的觀點和應用建議
 
-4. **註釋與解經**
-   - 使用 get_commentary 查詢該節經文的註釋
-   - 綜合不同註釋書的觀點
-   - 提供解經要點和應用建議
+## 步驟 5: 連結相關經文
+**執行**: search_bible 搜尋相關主題或關鍵字
+**輸出**: 3-5 處相關經文供交叉參考
 
-5. **相關經文連結**
-   - 使用 search_bible 搜尋相關主題或關鍵字
-   - 列出 3-5 處相關經文供交叉參考
+## 步驟 6: 綜合研讀總結
+**執行**: 整合所有資訊
+**輸出**: 核心信息、神學意義、實際應用、思考問題
 
-6. **研讀總結**
-   - 綜合以上資訊，提供該節經文的：
-     * 核心信息
-     * 神學意義
-     * 實際應用
-     * 思考問題
-
-請以結構化、易讀的方式呈現研讀結果。"""
+💡 工具: get_bible_verse, get_word_analysis, lookup_strongs, get_commentary
+"""
