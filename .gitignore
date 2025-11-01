@@ -157,3 +157,13 @@ config.local.json
 
 # MCP specific
 mcp.json
+
+# Backup files from refactoring
+*.bak
+*.backup
+
+# Temporary refactoring scripts (moved to tests/refactoring_tools/)
+verify_*.py
+batch_*.py
+quick_refactor_*.py
+organize_*.py
