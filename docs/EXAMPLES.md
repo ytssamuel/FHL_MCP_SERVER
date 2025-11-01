@@ -1,10 +1,14 @@
-# FHL Bible MCP Server - 使用範例
+# FHL Bible MCP Server - 使用範例 📚
 
-本文檔提供 FHL Bible MCP Server 的實際使用範例，包括 Claude Desktop 整合與各種常見使用場景。
+本文檔提供 FHL Bible MCP Server 的實際使用範例，展示如何在不同 AI 助手中使用各種功能。
 
 ## 目錄
 
-- [Claude Desktop 整合](#claude-desktop-整合)
+- [開始之前](#開始之前)
+- [AI 助手使用指南](#ai-助手使用指南)
+  - [Claude Desktop](#claude-desktop)
+  - [GitHub Copilot (VS Code)](#github-copilot-vs-code)
+  - [OpenAI Desktop](#openai-desktop)
 - [基礎使用範例](#基礎使用範例)
 - [進階使用場景](#進階使用場景)
 - [研經工作流程](#研經工作流程)
@@ -12,136 +16,122 @@
 
 ---
 
-## Claude Desktop 整合
+## 開始之前
 
-### 安裝配置
+### 前置要求
 
-#### Step 1: 找到配置文件
+在使用以下範例之前，請確認：
 
-不同作業系統的配置文件位置：
+1. ✅ 已完成 FHL Bible MCP Server 的安裝
+2. ✅ 已配置至少一個 AI 助手（Claude Desktop / GitHub Copilot / OpenAI Desktop）
+3. ✅ AI 助手能成功連接到 MCP Server
 
-**Windows**:
-```
-%APPDATA%\Claude\claude_desktop_config.json
-```
-完整路徑示例: `C:\Users\YourName\AppData\Roaming\Claude\claude_desktop_config.json`
+> 📖 **尚未安裝？** 請參閱 **[完整安裝指南](INSTALLATION_GUIDE.md)** 
+> 
+> 包含：
+> - Windows / macOS / Linux 完整安裝步驟
+> - Claude Desktop / GitHub Copilot / OpenAI Desktop 配置教學
+> - 疑難排解與常見問題解答
 
-**macOS**:
-```
-~/Library/Application Support/Claude/claude_desktop_config.json
-```
+### 快速驗證
 
-**Linux**:
-```
-~/.config/Claude/claude_desktop_config.json
-```
-
-#### Step 2: 編輯配置文件
-
-打開配置文件並添加：
-
-```json
-{
-  "mcpServers": {
-    "fhl-bible": {
-      "command": "python",
-      "args": [
-        "-m",
-        "fhl_bible_mcp.server"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\path\\to\\fhl-bible-mcp\\src",
-        "LOG_LEVEL": "INFO"
-      }
-    }
-  }
-}
-```
-
-> ⚠️ **重要**: 
-> - 將 `C:\\path\\to\\fhl-bible-mcp` 替換為實際安裝路徑
-> - Windows 路徑使用雙反斜線 `\\`
-> - macOS/Linux 使用正斜線 `/`
-
-**macOS/Linux 範例**:
-
-```json
-{
-  "mcpServers": {
-    "fhl-bible": {
-      "command": "python3",
-      "args": ["-m", "fhl_bible_mcp.server"],
-      "env": {
-        "PYTHONPATH": "/Users/yourname/fhl-bible-mcp/src"
-      }
-    }
-  }
-}
-```
-
-#### Step 3: 使用虛擬環境（推薦）
-
-如果您使用虛擬環境：
-
-**Windows**:
-```json
-{
-  "mcpServers": {
-    "fhl-bible": {
-      "command": "C:\\path\\to\\fhl-bible-mcp\\venv\\Scripts\\python.exe",
-      "args": ["-m", "fhl_bible_mcp.server"]
-    }
-  }
-}
-```
-
-**macOS/Linux**:
-```json
-{
-  "mcpServers": {
-    "fhl-bible": {
-      "command": "/path/to/fhl-bible-mcp/venv/bin/python",
-      "args": ["-m", "fhl_bible_mcp.server"]
-    }
-  }
-}
-```
-
-#### Step 4: 重啟 Claude Desktop
-
-保存配置後，重啟 Claude Desktop。
-
-#### Step 5: 驗證安裝
-
-在 Claude 中輸入：
+在您的 AI 助手中輸入以下指令，確認連接成功：
 
 ```
-請列出所有可用的聖經版本
+查詢約翰福音 3:16
 ```
 
-如果成功，Claude 會返回聖經版本列表。
+如果能看到經文內容，表示配置成功！ 🎉
 
-### 疑難排解
+---
 
-#### Server 未連接
+## AI 助手使用指南
 
-**檢查日誌**:
-- Windows: `%APPDATA%\Claude\logs\mcp-server-fhl-bible.log`
-- macOS: `~/Library/Logs/Claude/mcp-server-fhl-bible.log`
+不同的 AI 助手有不同的使用方式，以下是各平台的特定指南。
 
-**常見問題**:
+### Claude Desktop
 
-1. **找不到 Python**
-   ```json
-   {
-     "command": "C:\\Python310\\python.exe",  // 使用完整路徑
-     ...
-   }
-   ```
+**特點**: MCP 支援最完整，功能最穩定
 
-2. **找不到模組**
-   - 確認 `PYTHONPATH` 正確
-   - 確認已安裝套件: `pip install -e .`
+**使用方式**: 直接對話，無需特殊前綴
+
+```
+查詢約翰福音 3:16
+```
+
+```
+搜尋聖經中關於「愛」的經文
+```
+
+```
+使用 study_verse_deep 深入研讀羅馬書 8:28
+```
+
+**優點**:
+- ✅ 自然對話，無需特殊語法
+- ✅ 所有 MCP 功能完整支援
+- ✅ 回應速度快且穩定
+
+> 📖 **配置教學**: 詳見 [安裝指南 - Claude Desktop 部分](INSTALLATION_GUIDE.md#選項-1-claude-desktop-推薦-)
+
+---
+
+### GitHub Copilot (VS Code)
+
+**特點**: 編碼時也能查經，與開發工作流程完美整合
+
+**使用方式**: 使用 `@fhl-bible` 標籤
+
+**範例**:
+
+```
+@fhl-bible 查詢約翰福音 3:16
+```
+
+```
+@fhl-bible 搜尋聖經中所有提到「信心」的經文
+```
+
+```
+@fhl-bible 使用 advanced_character_study 研究保羅
+```
+
+**優點**:
+- ✅ VS Code 內直接使用
+- ✅ 可與程式碼結合（如在註釋中引用經文）
+- ✅ 適合開發者工作流程
+
+**使用場景**:
+- 在程式碼中加入聖經相關註釋
+- 開發聖經相關應用時查詢資料
+- 寫作或文檔時引用經文
+
+> 📖 **配置教學**: 詳見 [安裝指南 - GitHub Copilot 部分](INSTALLATION_GUIDE.md#選項-2-github-copilot-vs-code)
+
+---
+
+### OpenAI Desktop
+
+**特點**: ChatGPT 桌面版，MCP 支援目前在 Beta 階段
+
+**使用方式**: 自然對話（可能需要明確指定使用 MCP）
+
+**範例**:
+
+```
+使用 FHL Bible MCP 查詢約翰福音 3:16
+```
+
+```
+透過 FHL Bible MCP Server 搜尋聖經中關於愛的經文
+```
+
+**注意事項**:
+- ⚠️ Beta 功能，可能不穩定
+- ⚠️ 需要 ChatGPT Plus 或 Pro 訂閱
+- ⚠️ 功能和配置方式可能會變更
+
+> 📖 **配置教學**: 詳見 [安裝指南 - OpenAI Desktop 部分](INSTALLATION_GUIDE.md#選項-3-openai-desktop-chatgpt)
 
 3. **權限問題** (macOS/Linux)
    ```bash

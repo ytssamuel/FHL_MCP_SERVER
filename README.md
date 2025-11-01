@@ -24,62 +24,47 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 5 分鐘快速安裝
 
-- Python 3.10 或更高版本
-- pip 或 poetry
+1. **下載專案**
+   ```bash
+   git clone https://github.com/ytssamuel/FHL_MCP_SERVER.git
+   cd FHL_MCP_SERVER
+   ```
 
-### Installation
+2. **安裝依賴**
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   pip install -e .
 
-1. **Clone 專案**
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -e .
+   ```
 
-```bash
-git clone https://github.com/yourusername/fhl-bible-mcp.git
-cd fhl-bible-mcp
-```
+3. **配置 AI 助手**
+   
+   選擇您偏好的 AI 助手進行配置：
+   - ⭐ **Claude Desktop** (推薦) - MCP 支援最完整
+   - 💻 **GitHub Copilot** (VS Code) - 編碼時查經
+   - 🤖 **OpenAI Desktop** (Beta) - ChatGPT 桌面版
 
-2. **建立虛擬環境**
+4. **開始使用**
+   ```
+   查詢約翰福音 3:16
+   使用 basic_help_guide 查看完整功能
+   ```
 
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-.\venv\Scripts\activate  # Windows PowerShell
-```
-
-3. **安裝套件**
-
-```bash
-pip install -e .
-# 或安裝開發版本
-pip install -e ".[dev]"
-```
-
-### Usage with Claude Desktop
-
-1. 在 Claude Desktop 的設定檔中加入此 MCP Server：
-
-**macOS/Linux**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "fhl-bible": {
-      "command": "python",
-      "args": ["-m", "fhl_bible_mcp"],
-      "env": {}
-    }
-  }
-}
-```
-
-2. 重啟 Claude Desktop
-
-3. 開始使用！例如：
-   - "請幫我查詢約翰福音 3:16"
-   - "搜尋聖經中所有提到『愛』的經文"
-   - "分析約翰福音 3:16 的希臘文原文"
+> 📖 **詳細安裝步驟**: 請參閱 **[完整安裝指南](docs/INSTALLATION_GUIDE.md)** 
+> 
+> 包含：
+> - ✅ 跨平台詳細步驟 (Windows/macOS/Linux)
+> - ✅ 三種 AI 助手完整配置教學
+> - ✅ 常見問題疑難排解
+> - ✅ 進階配置選項
 
 ## 📚 Available Tools
 
