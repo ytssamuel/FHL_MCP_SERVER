@@ -188,7 +188,7 @@ async def search_strongs_occurrences(
     strongs_info = await lookup_strongs(number, testament, use_simplified)
 
     # 使用原文編號搜尋聖經
-    search_type = "hebrew" if testament.upper() == "OT" else "greek"
+    search_type = "hebrew_number" if testament.upper() == "OT" else "greek_number"
 
     from .search import search_bible
 

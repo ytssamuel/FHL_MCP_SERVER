@@ -191,7 +191,7 @@ class FHLBibleServer:
                         "type": "object",
                         "properties": {
                             "query": {"type": "string", "description": "搜尋內容"},
-                            "search_type": {"type": "string", "enum": ["keyword", "greek", "hebrew"]},
+                            "search_type": {"type": "string", "enum": ["keyword", "greek_number", "hebrew_number"], "description": "搜尋類型：keyword(關鍵字)/greek_number(希臘文編號)/hebrew_number(希伯來文編號)"},
                             "range_start": {"type": "integer", "description": "起始書卷編號 (1-66)"},
                             "range_end": {"type": "integer", "description": "結束書卷編號 (1-66)"},
                             "version": {"type": "string", "description": "聖經版本代碼"},

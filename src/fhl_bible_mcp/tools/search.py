@@ -27,8 +27,8 @@ async def search_bible(
         query: 搜尋內容（關鍵字或原文編號）
         search_type: 搜尋類型
             - "keyword": 關鍵字搜尋
-            - "greek": 希臘文編號搜尋
-            - "hebrew": 希伯來文編號搜尋
+            - "greek_number": 希臘文編號搜尋
+            - "hebrew_number": 希伯來文編號搜尋
         scope: 搜尋範圍
             - "all": 全部聖經
             - "ot": 舊約
@@ -49,15 +49,15 @@ async def search_bible(
     # 驗證搜尋類型
     search_type_map = {
         "keyword": 0,
-        "greek": 1,
-        "hebrew": 2,
+        "greek_number": 1,
+        "hebrew_number": 2,
     }
 
     if search_type not in search_type_map:
         raise InvalidParameterError(
             parameter="search_type",
             value=search_type,
-            reason="無效的搜尋類型，應為 'keyword', 'greek', 或 'hebrew'"
+            reason="無效的搜尋類型，應為 'keyword', 'greek_number', 或 'hebrew_number'"
         )
 
     # 驗證範圍

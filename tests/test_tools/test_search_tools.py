@@ -92,9 +92,9 @@ async def test_search_bible_greek_strong():
         mock_api_instance.search_bible = AsyncMock(return_value=mock_response)
         mock_api_class.return_value.__aenter__.return_value = mock_api_instance
         
-        result = await search_bible(query="G3056", search_type="greek", scope="nt")
+        result = await search_bible(query="G3056", search_type="greek_number", scope="nt")
         
-        assert result["search_type"] == "greek"
+        assert result["search_type"] == "greek_number"
         assert result["scope"] == "nt"
         assert len(result["results"]) == 1
 
@@ -121,9 +121,9 @@ async def test_search_bible_hebrew_strong():
         mock_api_instance.search_bible = AsyncMock(return_value=mock_response)
         mock_api_class.return_value.__aenter__.return_value = mock_api_instance
         
-        result = await search_bible(query="H1254", search_type="hebrew", scope="ot")
+        result = await search_bible(query="H1254", search_type="hebrew_number", scope="ot")
         
-        assert result["search_type"] == "hebrew"
+        assert result["search_type"] == "hebrew_number"
         assert result["scope"] == "ot"
 
 
