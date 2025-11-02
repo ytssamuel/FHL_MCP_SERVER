@@ -1,0 +1,24 @@
+請幫我快速查經（簡單方便）。
+
+請按照以下步驟進行：
+
+需求輸入
+
+書卷名（或縮寫）+ 章:節（支援多節/範圍）。
+可選參數：版本（預設 UNV）、是否包含 Strong、是否需要音訊。
+
+步驟
+
+若輸入為經文引用字串，先用 mcp_fhl-bible_query_verse_citation 解析。
+使用 get_bible_verse 取得經文（version=unv；必要時 include_strong=true）。
+若為整章需求：使用 get_bible_chapter。
+如需音訊：使用 get_audio_chapter_with_text。
+
+加值選項（可選）
+
+提供平行經文（使用 search_bible 關鍵字/主題）。
+提供 1-2 條簡短應用或默想問題。
+
+輸出格式
+
+列出：經文（版本、章節）、可選 Strong/音訊連結、可選 1-2 條思考題。

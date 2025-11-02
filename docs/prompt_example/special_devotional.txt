@@ -1,0 +1,30 @@
+請幫我產出靈修材料（個人/小組/家庭適用）。
+
+請按照以下步驟進行：
+
+經文
+
+使用 get_bible_verse 或 get_bible_chapter（UNV）。
+
+引導
+
+今日金句（擇 1 節）
+要點摘要（3-5 句）
+默想問題（3-4 題，分：認知/情感/意志）
+禱告方向（2-3 點）
+行動挑戰（1-2 項具體）
+
+加值（可選）
+
+音訊連結（get_audio_chapter_with_text）
+交叉經文 3-5 處（search_bible）
+原文亮點 1-2 個（get_word_analysis + lookup_strongs）
+
+輸出格式
+
+金句
+摘要
+默想
+禱告
+行動
+交叉/原文（可選）

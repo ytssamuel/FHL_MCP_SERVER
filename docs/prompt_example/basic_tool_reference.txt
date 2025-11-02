@@ -1,0 +1,33 @@
+請幫我輸出工具參考手冊（詳細說明所有功能）。
+
+請按照以下步驟進行：
+
+內容綱要
+
+經文查詢：
+- get_bible_verse：單節/多節/節範圍（可 include_strong）。
+- get_bible_chapter：整章經文。
+- get_audio_chapter_with_text：整章音訊 + 對應經文。
+
+原文與字典：
+- get_word_analysis：希伯來文/希臘文形態分析。
+- lookup_strongs：Strong 字典（字義、詞性、用法、同源）。
+- search_bible（search_type=hebrew/greek）：以原文編號搜尋出現處。
+
+註釋與主題：
+- get_commentary：註釋內容（可多本）。
+- get_topic_study：主題查經（Torrey / Naves）。
+
+搜尋：
+- search_bible：關鍵字/原文編號（scope=all/ot/nt；limit/offet）。
+- search_bible_advanced：可自訂書卷範圍（range_start/range_end）。
+
+版本/清單：
+- list_bible_versions：所有可用聖經版本。
+- list_audio_versions：可用有聲版本。
+- list_commentaries：可用註釋書。
+
+建議呈現
+
+逐工具：用途→必要參數→可選參數→範例。
+提供 1-2 個最佳實務（如：先解析引用，再查經；原文→字典→出現統計）。

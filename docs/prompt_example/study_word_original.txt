@@ -1,0 +1,22 @@
+請幫我進行原文字詞研究（希伯來文/希臘文分析）。
+
+請按照以下步驟進行：
+
+起點
+
+指定經文或關鍵詞（中文/英語/Strong 編號）。
+
+步驟
+
+若由經文起始：get_bible_verse（含 Strong）→ get_word_analysis → 挑出關鍵詞。
+查字典：lookup_strongs（字義、詞性、用法、同源字）。
+出現統計：search_bible（search_type=hebrew/greek）與 search_strongs_occurrences（若需要）。
+脈絡對比：挑 3-5 處代表用例，觀察語域差異與語法功能。
+
+輸出格式
+
+詞條總覽（字形、發音、Strong、詞性、基本義、語域）
+語法與字形變化（簡表）
+代表經文與語義說明
+神學與應用（1-2 點）
+延伸閱讀/關聯詞（可選）

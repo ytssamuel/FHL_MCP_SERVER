@@ -1,0 +1,44 @@
+請幫我建立完整使用指南（新手必讀）。
+
+請按照以下步驟進行：
+
+目標
+
+以最少步驟熟悉整個系統的使用方式、可用工具與常見工作流程，並能快速上手。
+
+快速開始
+
+說明可支援的輸入格式（書卷/章/節、主題關鍵字、Strong 編號、經文引用字串）。
+提供 2-3 個最常用任務的快捷模板（如：快速查經、整章讀經、單節深度研讀）。
+提供錯誤處理建議（書卷縮寫、簡繁體、空白/標點處理）。
+
+常用工具
+
+使用 get_bible_verse 取得單節/多節/段落經文（可含 Strong）。
+使用 get_bible_chapter 取得整章經文（可配合音訊）。
+使用 get_audio_chapter_with_text 取得有聲聖經與對應經文。
+使用 get_word_analysis 取得原文字彙與形態分析。
+使用 lookup_strongs 查詢 Strong 字典。
+使用 get_commentary 查詢註釋。
+使用 search_bible / search_bible_advanced 查詢關鍵字/原文編號/自訂範圍。
+使用 get_topic_study 主題查經（Torrey / Naves）。
+
+常見任務範例
+
+快速查經：指定 書 卷/章/節 → 使用 get_bible_verse；必要時 include_strong=true。
+整章讀經：使用 get_bible_chapter；需要音訊則用 get_audio_chapter_with_text。
+原文字詞研究：get_word_analysis → 針對重要詞 lookup_strongs → search_bible(hebrew/greek)。
+註釋綜合：get_commentary → 摘要重點 → 列出分歧觀點與應用。
+主題研究：get_topic_study + search_bible_advanced → 彙整脈絡與關聯經文。
+
+進階技巧
+
+用 search_bible_advanced 設定範圍與分段，做交叉參考清單。
+用 list_bible_versions 做版本比較清單，逐節對照（translation compare）。
+遇到模糊輸入，先用 query_verse_citation 解析，再重新查詢。
+
+輸出格式建議
+
+用清晰的小標題、序號/項目清單呈現。
+必要時區分：經文、原文、字典、註釋、應用、思考題。
+支援繁簡體與版本標註（UNV、含 Strong）。

@@ -1,0 +1,27 @@
+請幫我做講道準備（全方位備課資源）。
+
+請按照以下步驟進行：
+
+經文確立
+
+指定講道主經文（段落/整章）。
+使用 get_bible_verse 或 get_bible_chapter 取得文本；需要音訊則 get_audio_chapter_with_text。
+
+釋經
+
+段落結構與主旨句（3-6 段）。
+關鍵詞原文觀察：get_word_analysis + lookup_strongs（1-3 詞）。
+註釋綜合：get_commentary → 收斂 3-5 個解經要點。
+交叉經文：search_bible → 5-8 節。
+
+講章設計
+
+大綱（1 句主題 + 2-4 點）：每點經文根據與應用。
+引言與結語：故事/問題引導與呼召。
+應用面向：個人/家庭/教會/社會（至少 2 個層面）。
+
+附錄（可選）
+
+版本比較（study_translation_compare 流程）。
+圖表/插圖/問答（special_bible_trivia）。
+小組討論題 4-6 題。
