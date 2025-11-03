@@ -21,17 +21,25 @@ def get_articles_tool_definitions() -> list[dict[str, Any]]:
 可以依據標題、作者、內容、摘要、專欄、發表日期等條件搜尋。
 **至少需要提供一個搜尋條件**。
 
+**回傳內容**：
+- 預設模式 (include_content=false): 返回摘要和內容預覽（約 200 字）
+- 完整模式 (include_content=true): 返回完整 HTML 內容
+
 回傳文章列表，包含：
 - 標題 (title)
 - 作者 (author)
 - 發表日期 (pubtime)
 - 專欄 (column)
 - 摘要 (abst)
-- 完整內容 (txt, HTML 格式)
+- 內容預覽 (content_preview) 或完整內容 (content, HTML 格式)
+
+⚠️ **注意**: FHL API 不支援通過 ID 直接獲取文章，因此若需要完整內容，
+請在搜尋時設定 include_content=true。
 
 範例：
-- 搜尋標題包含「愛」的文章：search_fhl_articles(title="愛")
-- 搜尋作者「陳鳳翔」的文章：search_fhl_articles(author="陳鳳翔")
+- 搜尋並預覽：search_fhl_articles(title="愛")
+- 搜尋並獲取完整內容：search_fhl_articles(title="愛", include_content=true)
+- 搜尋作者「陳鳳翔」：search_fhl_articles(author="陳鳳翔")
 - 搜尋「麻辣姊妹」專欄：search_fhl_articles(column="women3")
 - 組合搜尋：search_fhl_articles(title="信心", author="李", limit=10)
 """,
@@ -65,6 +73,11 @@ def get_articles_tool_definitions() -> list[dict[str, Any]]:
                     "use_simplified": {
                         "type": "boolean",
                         "description": "是否使用簡體中文（預設：false，使用繁體）",
+                        "default": False
+                    },
+                    "include_content": {
+                        "type": "boolean",
+                        "description": "是否包含完整 HTML 內容（預設：false，只返回預覽）。設為 true 會返回完整文章內容，但輸出較大。",
                         "default": False
                     },
                     "limit": {
@@ -118,61 +131,94 @@ async def handle_search_articles(
             limit=arguments.get("limit", 50)
         )
         
-        # Format output
+        # Format output as JSON
         if result.get("status") == 1 and result.get("record_count", 0) > 0:
             articles = result.get("record", [])
             
             if not articles:
-                return [TextContent(
-                    type="text",
-                    text="⚠️ 未找到符合條件的文章"
-                )]
+                response_data = {
+                    "status": "no_results",
+                    "query_type": "article_search",
+                    "message": "未找到符合條件的文章"
+                }
+                import json
+                response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
+                return [TextContent(type="text", text=response)]
             
-            output = [f"📚 找到 {result['record_count']} 篇文章"]
+            # Check if full content is requested
+            include_content = arguments.get("include_content", False)
             
-            if result.get("limited"):
-                output.append(f"（顯示前 {arguments.get('limit', 50)} 篇）")
-            
-            output.append("\n" + "="*60 + "\n")
-            
-            for i, article in enumerate(articles, 1):
-                output.append(f"📄 文章 {i}")
-                output.append(f"標題：{article.get('title', 'N/A')}")
-                output.append(f"作者：{article.get('author', 'N/A')}")
-                output.append(f"專欄：{article.get('column', 'N/A')} ({article.get('ptab', 'N/A')})")
-                output.append(f"日期：{article.get('pubtime', 'N/A')}")
-                
-                # Abstract
-                abstract = article.get('abst', '')
-                if abstract:
-                    output.append(f"\n📝 摘要：")
-                    output.append(abstract)
-                
-                # Content preview (remove HTML tags)
+            # Build article list
+            article_list = []
+            for article in articles:
                 content = article.get('txt', '')
-                if content:
-                    # Simple HTML tag removal
-                    clean_content = re.sub(r'<[^>]+>', '', content)
-                    # Remove extra whitespace
-                    clean_content = re.sub(r'\s+', ' ', clean_content).strip()
-                    
-                    preview_length = 300
-                    if len(clean_content) > preview_length:
-                        preview = clean_content[:preview_length] + "..."
-                    else:
-                        preview = clean_content
-                    
-                    output.append(f"\n📖 內容預覽：")
-                    output.append(preview)
                 
-                output.append("\n" + "-"*60 + "\n")
+                article_data = {
+                    "id": article.get('id', ''),
+                    "aid": article.get('aid', ''),
+                    "title": article.get('title', ''),
+                    "author": article.get('author', ''),
+                    "column": {
+                        "name": article.get('column', ''),
+                        "code": article.get('ptab', '')
+                    },
+                    "pub_date": article.get('pubtime', ''),
+                    "abstract": article.get('abst', '')
+                }
+                
+                if include_content:
+                    # Include full HTML content
+                    article_data["content"] = content
+                    article_data["content_format"] = "HTML"
+                else:
+                    # Generate content preview (plain text)
+                    preview = ""
+                    if content:
+                        # Simple HTML tag removal
+                        clean_content = re.sub(r'<[^>]+>', '', content)
+                        # Remove extra whitespace
+                        clean_content = re.sub(r'\s+', ' ', clean_content).strip()
+                        
+                        preview_length = 200
+                        if len(clean_content) > preview_length:
+                            preview = clean_content[:preview_length] + "..."
+                        else:
+                            preview = clean_content
+                    article_data["content_preview"] = preview
+                
+                article_list.append(article_data)
             
-            output.append("\n💡 提示：")
-            output.append("- 文章內容為 HTML 格式，包含圖片、連結等")
-            output.append("- 可使用 title、author、content 等參數進一步篩選")
-            output.append("- 使用 list_fhl_article_columns 查看可用專欄")
+            response_data = {
+                "status": "success",
+                "query_type": "article_search",
+                "total_count": result['record_count'],
+                "returned_count": len(articles),
+                "limited": result.get("limited", False),
+                "content_included": include_content,
+                "articles": article_list
+            }
             
-            return [TextContent(type="text", text="\n".join(output))]
+            import json
+            response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
+            
+            # Add helpful notes
+            if include_content:
+                notes = [
+                    "\n💡 **使用提示**：",
+                    "- 文章內容為 HTML 格式，包含 <pic>、<br/>、<a> 等標籤",
+                    "- 圖片路徑相對於信望愛站資源目錄",
+                    "- 使用 `list_fhl_article_columns` 查看可用專欄"
+                ]
+            else:
+                notes = [
+                    "\n💡 **使用提示**：",
+                    "- 目前顯示內容預覽（約 200 字）",
+                    "- 若要獲取完整內容，請設定 `include_content=true`",
+                    "- 文章完整內容為 HTML 格式，包含圖片、連結等元素",
+                    "- 使用 `list_fhl_article_columns` 查看可用專欄"
+                ]
+            
+            return [TextContent(type="text", text=response + "\n".join(notes))]
         
         elif result.get("status") == 0:
             error_msg = result.get("result", "Unknown error")
@@ -215,10 +261,14 @@ async def handle_search_articles(
                 )]
         
         else:
-            return [TextContent(
-                type="text",
-                text="⚠️ 未找到符合條件的文章"
-            )]
+            response_data = {
+                "status": "no_results",
+                "query_type": "article_search",
+                "message": "未找到符合條件的文章"
+            }
+            import json
+            response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
+            return [TextContent(type="text", text=response)]
     
     except Exception as e:
         return [TextContent(
@@ -235,22 +285,33 @@ async def handle_list_article_columns(
     
     columns = endpoints.list_article_columns()
     
-    output = ["📋 信望愛站文章專欄列表\n"]
-    output.append("=" * 60 + "\n")
+    response_data = {
+        "status": "success",
+        "query_type": "list_article_columns",
+        "column_count": len(columns),
+        "columns": [
+            {
+                "code": col['code'],
+                "name": col['name'],
+                "description": col['description']
+            }
+            for col in columns
+        ]
+    }
     
-    for col in columns:
-        output.append(f"📌 {col['name']} ({col['code']})")
-        output.append(f"   {col['description']}\n")
+    import json
+    response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
     
-    output.append("=" * 60)
-    output.append(f"\n💡 共 {len(columns)} 個專欄")
-    output.append("\n📖 使用方式：")
-    output.append("   使用專欄代碼 (code) 進行搜尋，例如：")
-    output.append("   search_fhl_articles(column='women3')")
-    output.append("\n📝 範例：")
-    output.append("   • 搜尋「麻辣姊妹」專欄：search_fhl_articles(column='women3')")
-    output.append("   • 搜尋「神學」專欄：search_fhl_articles(column='theology')")
-    output.append("   • 搜尋「查經」專欄中標題含「約翰」：")
-    output.append("     search_fhl_articles(column='bible_study', title='約翰')")
+    # Add usage examples
+    notes = [
+        "\n� **使用方式**：",
+        "使用專欄代碼 (code) 進行搜尋，例如：",
+        "",
+        "📝 **範例**：",
+        "• 搜尋「麻辣姊妹」專欄：`search_fhl_articles(column='women3')`",
+        "• 搜尋「神學」專欄：`search_fhl_articles(column='theology')`",
+        "• 搜尋「查經」專欄中標題含「約翰」：",
+        "  `search_fhl_articles(column='bible_study', title='約翰')`"
+    ]
     
-    return [TextContent(type="text", text="\n".join(output))]
+    return [TextContent(type="text", text=response + "\n".join(notes))]

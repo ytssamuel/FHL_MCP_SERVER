@@ -173,21 +173,35 @@ async def handle_get_apostolic_fathers_verse(
             records = result.get("record", [])
             bid = records[0].get("bid", "未知") if records else "未知"
             
-            # Format verses - use our display name instead of API's chineses
-            verses_text = []
+            # Format verses with proper book name
+            verses = []
             for verse_obj in records:
-                verse_num = verse_obj.get("sec", "")
-                text = verse_obj.get("bible_text", "")
-                verses_text.append(f"{display_name} {chapter}:{verse_num} {text}")
+                verses.append({
+                    "book": display_name,
+                    "book_id": verse_obj.get("bid", bid),
+                    "chapter": chapter,
+                    "verse": verse_obj.get("sec", ""),
+                    "text": verse_obj.get("bible_text", "")
+                })
             
-            response = (
-                f"**使徒教父文獻查詢結果**\n\n"
-                f"書卷: {display_name}\n"
-                f"版本: {v_name} ({v_code})\n"
-                f"書卷 ID: {bid}\n"
-                f"經文數量: {record_count}\n\n"
-                f"{chr(10).join(verses_text)}"
-            )
+            # Return structured JSON format
+            response_data = {
+                "status": "success",
+                "query_type": "apostolic_fathers_verse",
+                "book": display_name,
+                "book_id": bid,
+                "chapter": chapter,
+                "verse": verse,
+                "version": {
+                    "code": v_code,
+                    "name": v_name
+                },
+                "verse_count": record_count,
+                "verses": verses
+            }
+            
+            import json
+            response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
             
             return [{"type": "text", "text": response}]
         else:
@@ -235,8 +249,8 @@ async def handle_search_apostolic_fathers(
             key = result.get("key", query)
             
             # Format search results with proper book names
-            results_text = []
-            for idx, verse_obj in enumerate(result.get("record", []), 1):
+            results = []
+            for verse_obj in result.get("record", []):
                 bid = verse_obj.get("bid", "")
                 chap = verse_obj.get("chap", "")
                 sec = verse_obj.get("sec", "")
@@ -245,17 +259,27 @@ async def handle_search_apostolic_fathers(
                 # Use our book name mapping instead of API's chineses
                 book_name = bid_to_name.get(int(bid), verse_obj.get("chineses", ""))
                 
-                results_text.append(
-                    f"{idx}. {book_name} {chap}:{sec}\n   {text[:100]}..."
-                )
+                results.append({
+                    "book": book_name,
+                    "book_id": bid,
+                    "chapter": chap,
+                    "verse": sec,
+                    "text": text
+                })
             
-            response = (
-                f"**使徒教父文獻搜尋結果**\n\n"
-                f"關鍵字: {key}\n"
-                f"總結果數: {record_count}\n"
-                f"顯示: {len(results_text)} 筆\n\n"
-                f"{chr(10).join(results_text)}"
-            )
+            # Return structured JSON format
+            response_data = {
+                "status": "success",
+                "query_type": "apostolic_fathers_search",
+                "keyword": key,
+                "total_count": record_count,
+                "returned_count": len(results),
+                "offset": offset,
+                "results": results
+            }
+            
+            import json
+            response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
             
             return [{"type": "text", "text": response}]
         else:
@@ -281,9 +305,6 @@ async def handle_list_apostolic_fathers_books(
         List of MCP response messages
     """
     try:
-        books_text = ["**使徒教父 (Apostolic Fathers) 書卷列表**\n"]
-        books_text.append("Book ID 201-217\n")
-        
         # Group by book ID
         books_by_id: dict[int, dict[str, Any]] = {}
         for abbr, info in APOSTOLIC_FATHERS_BOOKS.items():
@@ -293,16 +314,28 @@ async def handle_list_apostolic_fathers_books(
                 books_by_id[book_id]["abbrs"] = []
             books_by_id[book_id]["abbrs"].append(abbr)
         
-        # Format output
+        # Build books list
+        books_list = []
         for book_id in sorted(books_by_id.keys()):
             info = books_by_id[book_id]
-            abbrs = ", ".join(info["abbrs"])
-            books_text.append(
-                f"{book_id}. **{info['name_zh']}** ({info['name_en']})\n"
-                f"    縮寫: {abbrs}"
-            )
+            books_list.append({
+                "id": book_id,
+                "name_zh": info["name_zh"],
+                "name_en": info["name_en"],
+                "abbreviations": info["abbrs"]
+            })
         
-        response = "\n".join(books_text)
+        # Return structured JSON format
+        response_data = {
+            "status": "success",
+            "query_type": "list_apostolic_fathers_books",
+            "id_range": "201-217",
+            "book_count": len(books_list),
+            "books": books_list
+        }
+        
+        import json
+        response = f"```json\n{json.dumps(response_data, ensure_ascii=False, indent=2)}\n```"
         return [{"type": "text", "text": response}]
         
     except Exception as e:

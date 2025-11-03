@@ -231,7 +231,7 @@ python scripts/generate_config.py
 - `search_commentary` - 搜尋註釋內容
 - `get_topic_study` - 查詢主題查經
 
-### 次經與使徒教父 ⭐ NEW
+### 次經與使徒教父 ⭐ NEW (JSON 格式輸出)
 - `get_apocrypha_verse` - 查詢次經經文（舊約次經 101-115）支援完整書卷名如「瑪加伯上」、「便西拉智訓」
 - `search_apocrypha` - 搜尋次經內容
 - `list_apocrypha_books` - 列出所有次經書卷
@@ -239,12 +239,16 @@ python scripts/generate_config.py
 - `search_apostolic_fathers` - 搜尋使徒教父內容
 - `list_apostolic_fathers_books` - 列出所有使徒教父書卷
 
+> 💡 **注意**: 次經與使徒教父 API 使用結構化 JSON 格式輸出，方便程式處理。詳見 [JSON 輸出格式文檔](docs/5_api_enhancement/JSON_OUTPUT_FORMAT.md)
+
 ### 註腳查詢 ⭐ NEW
 - `get_footnote` - 查詢聖經註腳（目前支援 TCV 版本）
 
-### 文章搜尋 ⭐ NEW
-- `search_fhl_articles` - 搜尋信望愛站文章（8000+ 篇文章）
+### 文章搜尋 ⭐ NEW (JSON 格式輸出)
+- `search_fhl_articles` - 搜尋信望愛站文章（8000+ 篇文章，支援完整內容或預覽模式）
 - `list_fhl_article_columns` - 列出可用的文章專欄
+
+> 💡 **注意**: 文章 API 使用結構化 JSON 格式輸出。預設返回內容預覽（約 200 字），若要完整內容請設定 `include_content=true`。詳見 [JSON 輸出格式文檔](docs/5_api_enhancement/JSON_OUTPUT_FORMAT.md)
 
 ### 資訊工具
 - `list_bible_versions` - 列出所有可用的聖經版本

@@ -1254,3 +1254,75 @@ class FHLAPIEndpoints(FHLAPIClient):
                 "description": "心理輔導與關懷"
             }
         ]
+    
+    async def get_article_content(
+        self,
+        article_id: str,
+        article_aid: str,
+        use_simplified: bool = False
+    ) -> dict[str, Any]:
+        """
+        Get full content of a specific article by ID and AID.
+        
+        ⚠️ **IMPORTANT LIMITATION**: 
+        The FHL API does NOT support direct article lookup by ID/AID.
+        This method is designed to work with cached article data from search results.
+        
+        **Recommended Usage Pattern**:
+        1. Use search_articles() to get a list of articles (with full content)
+        2. Store the complete article data (including txt field)
+        3. Use this method only for re-fetching if needed
+        
+        Since the API doesn't support ID-based lookup, this method will:
+        - Return error with helpful message directing users to search_articles
+        
+        Args:
+            article_id: Article ID (from search results)
+            article_aid: Article AID (from search results)
+            use_simplified: Use simplified Chinese (default: False)
+        
+        Returns:
+            Dictionary with:
+                - status: 0 (not supported)
+                - result: Error message explaining the limitation
+        
+        Example:
+            >>> # INCORRECT: Don't use get_article_content alone
+            >>> article = await client.get_article_content("8984", "515")
+            >>> 
+            >>> # CORRECT: Use search results directly
+            >>> results = await client.search_articles(title="愛")
+            >>> article = results["record"][0]  # Has full content!
+            >>> full_content = article["txt"]  # Complete HTML
+        
+        Note:
+            - FHL API does NOT support direct article retrieval
+            - Article content is ONLY available through search_articles()
+            - The search results already contain full HTML content
+            - This method exists for API completeness but returns an error
+        """
+        if not article_id or not article_aid:
+            raise InvalidParameterError(
+                "article_id/article_aid",
+                f"id={article_id}, aid={article_aid}",
+                "Both article_id and article_aid are required"
+            )
+        
+        logger.warning(
+            f"get_article_content called for ID={article_id}, AID={article_aid}. "
+            f"Note: FHL API does not support direct article lookup."
+        )
+        
+        # The FHL API does NOT support getting articles by ID/AID
+        # It only supports search, and the search results already contain full content
+        return {
+            "status": 0,
+            "result": (
+                "FHL API does not support direct article retrieval by ID. "
+                "Please use search_articles() which returns complete article content "
+                "including the full HTML text in the 'txt' field. "
+                "The search results already contain everything you need!"
+            ),
+            "error_code": "API_LIMITATION",
+            "recommendation": "Use search_articles() and cache the results"
+        }
