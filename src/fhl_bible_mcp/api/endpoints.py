@@ -699,3 +699,333 @@ class FHLAPIEndpoints(FHLAPIClient):
         
         logger.info(f"Fetching audio Bible: book_id={book_id}, chapter={chapter}")
         return await self._make_request("au.php", params)
+
+    # ========================================================================
+    # 8. Apocrypha (次經) APIs - Books 101-115
+    # ========================================================================
+
+    async def get_apocrypha_verse(
+        self,
+        book: str,
+        chapter: int,
+        verse: str | None = None,
+        include_strong: bool = False,
+    ) -> dict[str, Any]:
+        """
+        Query Apocrypha (次經) verses.
+        
+        API: qsub.php
+        Book Range: 101-115
+        Default Version: c1933 (1933年聖公會出版)
+        
+        Apocrypha Books:
+        - 多俾亞傳 (Tobit) - Book 101
+        - 友弟德傳 (Judith) - Book 102
+        - 瑪加伯上 (1 Maccabees) - Book 103
+        - 瑪加伯下 (2 Maccabees) - Book 104
+        - 智慧篇 (Wisdom) - Book 105
+        - 德訓篇 (Sirach) - Book 106
+        - 巴錄書 (Baruch) - Book 107
+        - 耶利米書信 (Letter of Jeremiah) - Book 108
+        - 但以理補篇 (Additions to Daniel) - Books 109-111
+        - 以斯帖補篇 (Additions to Esther) - Book 112
+        
+        Note: Apocrypha uses c1933 version by default. 
+              Do not specify version parameter - it will be ignored.
+        
+        Args:
+            book: Book name (Chinese or English abbreviation)
+            chapter: Chapter number
+            verse: Verse(s) - supports formats like "1", "1-5", "1,3,5", "1-2,5,8-10"
+                   If None, returns entire chapter
+            include_strong: Include Strong's numbers (default: False)
+        
+        Returns:
+            Dictionary with:
+                - status: "success" or "error"
+                - record_count: Number of verses
+                - v_name: Version name (1933年聖公會出版)
+                - version: Version code (c1933)
+                - bid: Book ID (101-115)
+                - record: List of verse objects
+        
+        Raises:
+            InvalidParameterError: If parameters are invalid
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Query Tobit 1:1 (uses c1933 by default)
+            >>>     verse = await client.get_apocrypha_verse("多", 1, "1")
+            >>>     print(verse['record'][0]['bible_text'])
+        """
+        params: dict[str, Any] = {
+            "chineses": book,
+            "chap": chapter,
+            "strong": 1 if include_strong else 0,
+        }
+        
+        if verse is not None:
+            params["sec"] = verse
+        
+        logger.info(
+            f"Fetching apocrypha verse: {book} {chapter}" + (f":{verse}" if verse else "")
+        )
+        
+        return await self._cached_request(
+            endpoint="qsub.php",
+            params=params,
+            namespace="apocrypha",
+            strategy="verses"  # 7 days TTL
+        )
+
+    async def search_apocrypha(
+        self,
+        query: str,
+        limit: int | None = None,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """
+        Search for keywords in Apocrypha (次經).
+        
+        API: sesub.php
+        Book Range: 101-115
+        Default Version: c1933 (1933年聖公會出版)
+        
+        Note: Do NOT specify VERSION parameter - it causes API to return empty response.
+              The API uses c1933 by default.
+        
+        Args:
+            query: Search keyword
+            limit: Maximum results to return
+            offset: Number of results to skip
+        
+        Returns:
+            Dictionary with:
+                - status: "success" or "error"
+                - record_count: Total number of results
+                - key: Search query
+                - record: List of matching verses with bid field (book ID 101-115)
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Search in Apocrypha (uses c1933 by default)
+            >>>     results = await client.search_apocrypha("智慧", limit=10)
+            >>>     print(f"Found {results['record_count']} verses")
+        """
+        params: dict[str, Any] = {
+            "q": query,
+            "offset": offset,
+        }
+        
+        if limit is not None:
+            params["limit"] = limit
+        
+        logger.info(f"Searching apocrypha: query='{query}'")
+        return await self._cached_request(
+            endpoint="sesub.php",
+            params=params,
+            namespace="apocrypha_search",
+            strategy="search"  # 1 day TTL
+        )
+
+    # ========================================================================
+    # 9. Apostolic Fathers (使徒教父) APIs - Books 201-217
+    # ========================================================================
+
+    async def get_apostolic_fathers_verse(
+        self,
+        book: str,
+        chapter: int,
+        verse: str | None = None,
+        include_strong: bool = False,
+    ) -> dict[str, Any]:
+        """
+        Query Apostolic Fathers (使徒教父) verses.
+        
+        API: qaf.php
+        Book Range: 201-217
+        Default Version: afhuang (黃錫木主編《使徒教父著作》)
+        
+        Apostolic Fathers Books:
+        - 革利免前書 (1 Clement) - Book 201
+        - 革利免後書 (2 Clement) - Book 202
+        - 伊格那丟書信 (Ignatius) - Book 203
+        - 坡旅甲書信 (Polycarp) - Book 204
+        - 黑馬牧人書 (Shepherd of Hermas) - Book 205
+        - 巴拿巴書 (Barnabas) - Book 206
+        - 十二使徒遺訓 (Didache) - Book 207
+        - 帕皮亞殘篇 (Papias Fragments) - Book 216
+        
+        Note: Apostolic Fathers uses afhuang version by default.
+              Do not specify version parameter - it will be ignored.
+        
+        Args:
+            book: Book name (Chinese or English abbreviation)
+            chapter: Chapter number
+            verse: Verse(s) - supports formats like "1", "1-5", "1,3,5", "1-2,5,8-10"
+                   If None, returns entire chapter
+            include_strong: Include Strong's numbers (default: False)
+        
+        Returns:
+            Dictionary with:
+                - status: "success" or "error"
+                - record_count: Number of verses
+                - v_name: Version name (黃錫木主編《使徒教父著作》)
+                - version: Version code (afhuang)
+                - bid: Book ID (201-217)
+                - record: List of verse objects
+        
+        Raises:
+            InvalidParameterError: If parameters are invalid
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Query 1 Clement 1:1 (uses afhuang by default)
+            >>>     verse = await client.get_apostolic_fathers_verse("革", 1, "1")
+            >>>     print(verse['record'][0]['bible_text'])
+        """
+        params: dict[str, Any] = {
+            "chineses": book,
+            "chap": chapter,
+            "strong": 1 if include_strong else 0,
+        }
+        
+        if verse is not None:
+            params["sec"] = verse
+        
+        logger.info(
+            f"Fetching apostolic fathers verse: {book} {chapter}" + (f":{verse}" if verse else "")
+        )
+        
+        return await self._cached_request(
+            endpoint="qaf.php",
+            params=params,
+            namespace="apostolic_fathers",
+            strategy="verses"  # 7 days TTL
+        )
+
+    async def search_apostolic_fathers(
+        self,
+        query: str,
+        limit: int | None = None,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """
+        Search for keywords in Apostolic Fathers (使徒教父).
+        
+        API: seaf.php
+        Book Range: 201-217
+        Default Version: afhuang (黃錫木主編《使徒教父著作》)
+        
+        Note: Do NOT specify VERSION parameter - it causes API to return empty response.
+              The API uses afhuang by default.
+        
+        Args:
+            query: Search keyword
+            limit: Maximum results to return
+            offset: Number of results to skip
+        
+        Returns:
+            Dictionary with:
+                - status: "success" or "error"
+                - record_count: Total number of results
+                - key: Search query
+                - record: List of matching verses with bid field (book ID 201-217)
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Search in Apostolic Fathers (uses afhuang by default)
+            >>>     results = await client.search_apostolic_fathers("教會", limit=10)
+            >>>     print(f"Found {results['record_count']} verses")
+        """
+        params: dict[str, Any] = {
+            "q": query,
+            "offset": offset,
+        }
+        
+        if limit is not None:
+            params["limit"] = limit
+        
+        logger.info(f"Searching apostolic fathers: query='{query}'")
+        return await self._cached_request(
+            endpoint="seaf.php",
+            params=params,
+            namespace="apostolic_fathers_search",
+            strategy="search"  # 1 day TTL
+        )
+
+    # ========================================================================
+    # 10. Footnotes (註腳) API
+    # ========================================================================
+
+    async def get_footnote(
+        self,
+        book_id: int,
+        footnote_id: int,
+        version: str = "tcv",
+        use_simplified: bool = False,
+    ) -> dict[str, Any]:
+        """
+        Query Bible verse footnotes (註腳).
+        
+        API: rt.php
+        Version: tcv only (台灣聖經公會現代中文譯本)
+        
+        **Important**: Only TCV version has footnotes. Other versions will return
+        empty results (record_count = 0).
+        
+        Args:
+            book_id: Book ID number (1-66)
+                     1=Genesis, 43=John, 45=Romans, etc.
+            footnote_id: Footnote ID number
+                        Each book has its own footnote numbering system.
+                        Start from 1 and increment to find available footnotes.
+            version: Bible version (default: "tcv")
+                    **Only "tcv" has footnotes**
+            use_simplified: Use simplified Chinese (default: False)
+        
+        Returns:
+            Dictionary with:
+                - status: "success" or "error"
+                - record_count: Number of footnotes found (0 or 1)
+                - version: Version code ("tcv")
+                - engs: English book abbreviation
+                - record: List with footnote data (if found)
+                    - id: Footnote ID
+                    - text: Footnote content
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Query Genesis footnote #1
+            >>>     result = await client.get_footnote(book_id=1, footnote_id=1)
+            >>>     print(result["record"][0]["text"])
+            >>>     # Output: 「太初，上帝創造天地。」或譯「太初，上帝創造天地的時候。」...
+            >>>     
+            >>>     # Query John footnote #10
+            >>>     result = await client.get_footnote(book_id=43, footnote_id=10)
+            >>>     print(result["record"][0]["text"])
+            >>>     # Output: 有些古卷沒有括弧內這一段；另有些古卷...
+        
+        Note:
+            - Footnote IDs are specific to each book
+            - No API exists to list all footnote IDs for a book
+            - If footnote_id doesn't exist, returns record_count: 0
+            - TCV version provides translation alternatives and manuscript variations
+        """
+        params = {
+            "bid": book_id,
+            "id": footnote_id,
+            "version": version,
+            "gb": 1 if use_simplified else 0,
+        }
+        
+        logger.info(
+            f"Fetching footnote: book_id={book_id}, footnote_id={footnote_id}, version={version}"
+        )
+        
+        return await self._cached_request(
+            endpoint="rt.php",
+            params=params,
+            namespace="footnotes",
+            strategy="verses"  # 7 days TTL
+        )

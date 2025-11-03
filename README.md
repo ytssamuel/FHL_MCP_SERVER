@@ -202,7 +202,8 @@ FHL_MCP_SERVER/
 ### 參考資源
 
 - **信望愛站首頁**: https://www.fhl.net/
-- **API 文件**: https://bible.fhl.net/json/
+- **API 文件**: https://bible.fhl.net/api/ (升級版，包含 bid 欄位)
+- **舊版 API**: https://bible.fhl.net/json/ (仍可使用)
 - **版權說明**: https://www.fhl.net/main/fhl/fhl8.html
 
 ## 📝 License

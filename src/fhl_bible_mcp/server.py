@@ -56,6 +56,22 @@ from fhl_bible_mcp.tools.audio import (
     list_audio_versions,
     get_audio_chapter_with_text,
 )
+from fhl_bible_mcp.tools.apocrypha import (
+    get_apocrypha_tool_definitions,
+    handle_get_apocrypha_verse,
+    handle_search_apocrypha,
+    handle_list_apocrypha_books,
+)
+from fhl_bible_mcp.tools.apostolic_fathers import (
+    get_apostolic_fathers_tool_definitions,
+    handle_get_apostolic_fathers_verse,
+    handle_search_apostolic_fathers,
+    handle_list_apostolic_fathers_books,
+)
+from fhl_bible_mcp.tools.footnotes import (
+    get_footnotes_tool_definitions,
+    handle_get_bible_footnote,
+)
 
 # Configure logging
 logging.basicConfig(
@@ -395,6 +411,30 @@ class FHLBibleServer:
                         "required": ["book", "chapter"]
                     }
                 ),
+            ] + [
+                # Dynamically add Apocrypha tools
+                Tool(
+                    name=tool["name"],
+                    description=tool["description"],
+                    inputSchema=tool["inputSchema"]
+                )
+                for tool in get_apocrypha_tool_definitions()
+            ] + [
+                # Dynamically add Apostolic Fathers tools
+                Tool(
+                    name=tool["name"],
+                    description=tool["description"],
+                    inputSchema=tool["inputSchema"]
+                )
+                for tool in get_apostolic_fathers_tool_definitions()
+            ] + [
+                # Dynamically add Footnotes tools
+                Tool(
+                    name=tool["name"],
+                    description=tool["description"],
+                    inputSchema=tool["inputSchema"]
+                )
+                for tool in get_footnotes_tool_definitions()
             ]
         
         @self.server.call_tool()
@@ -442,6 +482,30 @@ class FHLBibleServer:
                     result = await list_audio_versions(**arguments)
                 elif name == "get_audio_chapter_with_text":
                     result = await get_audio_chapter_with_text(**arguments)
+                # Apocrypha tools
+                elif name == "get_apocrypha_verse":
+                    result = await handle_get_apocrypha_verse(self.endpoints, arguments)
+                    return result
+                elif name == "search_apocrypha":
+                    result = await handle_search_apocrypha(self.endpoints, arguments)
+                    return result
+                elif name == "list_apocrypha_books":
+                    result = await handle_list_apocrypha_books(self.endpoints, arguments)
+                    return result
+                # Apostolic Fathers tools
+                elif name == "get_apostolic_fathers_verse":
+                    result = await handle_get_apostolic_fathers_verse(self.endpoints, arguments)
+                    return result
+                elif name == "search_apostolic_fathers":
+                    result = await handle_search_apostolic_fathers(self.endpoints, arguments)
+                    return result
+                elif name == "list_apostolic_fathers_books":
+                    result = await handle_list_apostolic_fathers_books(self.endpoints, arguments)
+                    return result
+                # Footnotes tools
+                elif name == "get_bible_footnote":
+                    result = await handle_get_bible_footnote(self.endpoints, arguments)
+                    return result
                 else:
                     raise ValueError(f"Unknown tool: {name}")
                 
@@ -550,7 +614,7 @@ class FHLBibleServer:
         """Run the MCP server"""
         logger.info("Starting FHL Bible MCP Server...")
         logger.info("Server capabilities:")
-        logger.info("  - Tools: 18 functions")
+        logger.info("  - Tools: 25 functions (18 core + 3 apocrypha + 3 apostolic fathers + 1 footnotes)")
         logger.info("  - Resources: 7 URI schemes")
         logger.info("  - Prompts: 4 templates")
         

@@ -28,7 +28,7 @@ class ServerConfig:
 @dataclass
 class APIConfig:
     """API configuration"""
-    base_url: str = "https://bible.fhl.net/json/"
+    base_url: str = "https://bible.fhl.net/api/"  # Updated to /api/ endpoint (Phase 1)
     timeout: int = 30
     max_retries: int = 3
 
