@@ -163,7 +163,8 @@ mcp.json
 *.backup
 
 # Temporary refactoring scripts (moved to tests/refactoring_tools/)
-verify_*.py
-batch_*.py
-quick_refactor_*.py
-organize_*.py
+# Note: scripts/verify_setup.py is NOT ignored (it's a permanent tool)
+tests/refactoring_tools/verify_*.py
+tests/refactoring_tools/batch_*.py
+tests/refactoring_tools/quick_refactor_*.py
+tests/refactoring_tools/organize_*.py

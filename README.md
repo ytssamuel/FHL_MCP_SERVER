@@ -32,7 +32,35 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 
 ## 🚀 Quick Start
 
-### 5 分鐘快速安裝
+### 🎯 方法一：一鍵安裝（推薦）
+
+使用自動化安裝腳本，快速完成環境配置：
+
+```bash
+# 1. 下載專案
+git clone https://github.com/ytssamuel/FHL_MCP_SERVER.git
+cd FHL_MCP_SERVER
+
+# 2. 執行一鍵安裝
+# Windows:
+.\scripts\install.bat
+
+# macOS/Linux:
+chmod +x scripts/install.sh
+bash scripts/install.sh
+
+# 3. 生成配置（互動式）
+python scripts/generate_config.py
+```
+
+**腳本功能**:
+- ✅ 自動檢查 Python 版本
+- ✅ 建立虛擬環境
+- ✅ 安裝所有依賴
+- ✅ 驗證安裝結果
+- ✅ 生成 AI 助手配置
+
+### 📝 方法二：手動安裝
 
 1. **下載專案**
    ```bash
@@ -55,10 +83,97 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 
 3. **配置 AI 助手**
    
-   選擇您偏好的 AI 助手進行配置：
-   - ⭐ **Claude Desktop** (推薦) - MCP 支援最完整
-   - 💻 **GitHub Copilot** (VS Code) - 編碼時查經
-   - 🤖 **OpenAI Desktop** (Beta) - ChatGPT 桌面版
+   使用自動生成腳本（推薦）：
+   ```bash
+   python scripts/generate_config.py
+   ```
+   
+   或選擇您偏好的 AI 助手手動添加配置：
+
+   <details>
+   <summary><b>Claude Desktop 配置</b> (推薦) ⭐</summary>
+
+   編輯配置文件（`%APPDATA%\Claude\claude_desktop_config.json` on Windows 或 `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS）：
+
+   **Windows:**
+   ```json
+   {
+     "mcpServers": {
+       "fhl-bible": {
+         "command": "python",
+         "args": ["-m", "fhl_bible_mcp.server"],
+         "env": {
+           "PYTHONPATH": "C:\\path\\to\\FHL_MCP_SERVER\\src",
+           "LOG_LEVEL": "INFO"
+         }
+       }
+     }
+   }
+   ```
+
+   **macOS/Linux:**
+   ```json
+   {
+     "mcpServers": {
+       "fhl-bible": {
+         "command": "python3",
+         "args": ["-m", "fhl_bible_mcp.server"],
+         "env": {
+           "PYTHONPATH": "/path/to/FHL_MCP_SERVER/src",
+           "LOG_LEVEL": "INFO"
+         }
+       }
+     }
+   }
+   ```
+   </details>
+
+   <details>
+   <summary><b>GitHub Copilot (VS Code) 配置</b> 💻</summary>
+
+   編輯 VS Code 設定（`settings.json`）：
+
+   **Windows:**
+   ```json
+   {
+     "github.copilot.chat.mcp.enabled": true,
+     "github.copilot.chat.mcp.servers": {
+       "fhl-bible": {
+         "command": "C:\\path\\to\\FHL_MCP_SERVER\\venv\\Scripts\\python.exe",
+         "args": ["-m", "fhl_bible_mcp.server"],
+         "env": {
+           "PYTHONPATH": "C:\\path\\to\\FHL_MCP_SERVER\\src",
+           "LOG_LEVEL": "INFO",
+           "FHL_CACHE_DIR": "C:\\path\\to\\FHL_MCP_SERVER\\.cache"
+         }
+       }
+     }
+   }
+   ```
+
+   **macOS/Linux:**
+   ```json
+   {
+     "github.copilot.chat.mcp.enabled": true,
+     "github.copilot.chat.mcp.servers": {
+       "fhl-bible": {
+         "command": "/path/to/FHL_MCP_SERVER/venv/bin/python",
+         "args": ["-m", "fhl_bible_mcp.server"],
+         "env": {
+           "PYTHONPATH": "/path/to/FHL_MCP_SERVER/src",
+           "LOG_LEVEL": "INFO",
+           "FHL_CACHE_DIR": "/path/to/FHL_MCP_SERVER/.cache"
+         }
+       }
+     }
+   }
+   ```
+   </details>
+
+   > ⚠️ **重要**: 
+   > - 將 `/path/to/FHL_MCP_SERVER` 替換為您的實際專案路徑
+   > - Windows 路徑使用雙反斜線 `\\` 或單斜線 `/`
+   > - `PYTHONPATH` 必須指向專案的 `src` 目錄
 
 4. **開始使用**
    ```
@@ -73,6 +188,39 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 > - ✅ 三種 AI 助手完整配置教學
 > - ✅ 常見問題疑難排解
 > - ✅ 進階配置選項
+
+---
+
+## 🛠️ 安裝輔助工具
+
+專案提供完整的自動化腳本，簡化安裝配置流程：
+
+| 腳本 | 功能 | 使用時機 |
+|------|------|----------|
+| `quick_check.py` | 環境預檢 | 安裝前檢查 Python 版本和專案結構 |
+| `install.bat/sh` | 一鍵安裝 | 自動建立環境、安裝依賴、驗證結果 |
+| `verify_setup.py` | 環境驗證 | 安裝後全面檢查配置（9 項檢查）|
+| `generate_config.py` | 配置生成 | 互動式生成 AI 助手配置檔 |
+
+**快速使用**:
+```bash
+# 1. 安裝前檢查
+python scripts/quick_check.py
+
+# 2. 一鍵安裝
+# Windows: .\scripts\install.bat
+# Unix:    bash scripts/install.sh
+
+# 3. 環境驗證
+python scripts/verify_setup.py
+
+# 4. 生成配置
+python scripts/generate_config.py
+```
+
+詳細說明請參考 [scripts/README.md](scripts/README.md)
+
+---
 
 ## 📚 Available Tools
 

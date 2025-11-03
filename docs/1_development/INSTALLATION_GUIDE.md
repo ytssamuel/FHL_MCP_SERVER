@@ -201,9 +201,9 @@ mkdir -p ~/.config/Claude
 touch ~/.config/Claude/claude_desktop_config.json
 ```
 
-### 1.3 獲取 Python 可執行文件的完整路徑
+### 1.3 獲取專案的完整路徑
 
-**重要**: 必須使用虛擬環境中 Python 的**完整絕對路徑**。
+**重要**: 您需要知道專案的完整絕對路徑，特別是 `src` 目錄的路徑。
 
 #### Windows (PowerShell)
 
@@ -211,13 +211,18 @@ touch ~/.config/Claude/claude_desktop_config.json
 # 進入專案目錄
 cd C:\path\to\FHL_MCP_SERVER
 
-# 獲取 Python 路徑
-(Get-Item .\venv\Scripts\python.exe).FullName
+# 獲取專案路徑
+(Get-Location).Path
 ```
 
 **範例輸出**:
 ```
-C:\Users\YourName\Desktop\FHL_MCP_SERVER\venv\Scripts\python.exe
+C:\Users\YourName\Desktop\FHL_MCP_SERVER
+```
+
+**記下這個路徑**，您需要用它來設定 `PYTHONPATH`：
+```
+PYTHONPATH = C:\Users\YourName\Desktop\FHL_MCP_SERVER\src
 ```
 
 #### macOS / Linux (Terminal)
@@ -226,16 +231,21 @@ C:\Users\YourName\Desktop\FHL_MCP_SERVER\venv\Scripts\python.exe
 # 進入專案目錄
 cd /path/to/FHL_MCP_SERVER
 
-# 獲取 Python 路徑
-realpath venv/bin/python
+# 獲取專案路徑
+pwd
 ```
 
 **範例輸出**:
 ```
-/Users/YourName/Desktop/FHL_MCP_SERVER/venv/bin/python
+/Users/YourName/Desktop/FHL_MCP_SERVER
 ```
 
-**複製這個路徑**，下一步會用到。
+**記下這個路徑**，您需要用它來設定 `PYTHONPATH`：
+```
+PYTHONPATH = /Users/YourName/Desktop/FHL_MCP_SERVER/src
+```
+
+**複製這個路徑**，下一步配置時會用到。
 
 ### 1.4 編輯配置文件
 
@@ -247,18 +257,26 @@ realpath venv/bin/python
 {
   "mcpServers": {
     "fhl-bible": {
-      "command": "C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER\\venv\\Scripts\\python.exe",
-      "args": ["-m", "fhl_bible_mcp.server"],
-      "env": {}
+      "command": "python",
+      "args": [
+        "-m",
+        "fhl_bible_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER\\src",
+        "LOG_LEVEL": "INFO"
+      }
     }
   }
 }
 ```
 
 > ⚠️ **Windows 路徑注意事項**:
+> - `PYTHONPATH` 必須指向專案的 `src` 目錄
 > - 必須使用雙反斜線 `\\` 或單斜線 `/`
 > - 路徑中的每個 `\` 都要寫成 `\\`
-> - 或者全部改用 `/`: `C:/Users/YourName/Desktop/...`
+> - 或者全部改用 `/`: `C:/Users/YourName/Desktop/.../src`
+> - 替換 `C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER` 為您的實際路徑
 
 #### macOS / Linux 配置範例
 
@@ -266,13 +284,29 @@ realpath venv/bin/python
 {
   "mcpServers": {
     "fhl-bible": {
-      "command": "/Users/YourName/Desktop/FHL_MCP_SERVER/venv/bin/python",
-      "args": ["-m", "fhl_bible_mcp.server"],
-      "env": {}
+      "command": "python3",
+      "args": [
+        "-m",
+        "fhl_bible_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/YourName/Desktop/FHL_MCP_SERVER/src",
+        "LOG_LEVEL": "INFO"
+      }
     }
   }
 }
 ```
+
+> ⚠️ **macOS/Linux 路徑注意事項**:
+> - `PYTHONPATH` 必須指向專案的 `src` 目錄
+> - 使用正斜線 `/`
+> - 替換 `/Users/YourName/Desktop/FHL_MCP_SERVER` 為您的實際路徑
+> - macOS 可用 `~` 代表家目錄：`~/Desktop/FHL_MCP_SERVER/src`
+
+**環境變數說明**:
+- `PYTHONPATH`: 指定 Python 模組搜尋路徑，必須指向專案的 `src` 目錄
+- `LOG_LEVEL`: 日誌級別，可選值：`DEBUG`, `INFO`, `WARNING`, `ERROR`（建議使用 `INFO`）
 
 **如果您已有其他 MCP Servers**，添加到現有配置中：
 
@@ -437,21 +471,59 @@ GitHub Copilot Chat 現在支援 MCP，讓您在編碼時也能查詢聖經！
    - 選擇 "Sign in to Sync Settings"
    - 使用 GitHub 帳號登入
 
-### 2.2 獲取 Python 路徑
+### 2.2 獲取必要路徑
 
-與 Claude Desktop 相同，獲取虛擬環境中 Python 的完整路徑：
+您需要獲取兩個路徑：
 
-**Windows**:
+#### A. Python 可執行檔的完整路徑
+
+**Windows (PowerShell)**:
 ```powershell
 cd C:\path\to\FHL_MCP_SERVER
 (Get-Item .\venv\Scripts\python.exe).FullName
 ```
 
-**macOS/Linux**:
+**範例輸出**:
+```
+C:\Users\YourName\Desktop\FHL_MCP_SERVER\venv\Scripts\python.exe
+```
+
+**macOS/Linux (Terminal)**:
 ```bash
 cd /path/to/FHL_MCP_SERVER
 realpath venv/bin/python
 ```
+
+**範例輸出**:
+```
+/Users/YourName/Desktop/FHL_MCP_SERVER/venv/bin/python
+```
+
+#### B. 專案 src 目錄的路徑
+
+**Windows (PowerShell)**:
+```powershell
+cd C:\path\to\FHL_MCP_SERVER
+Join-Path (Get-Location).Path "src"
+```
+
+**範例輸出**:
+```
+C:\Users\YourName\Desktop\FHL_MCP_SERVER\src
+```
+
+**macOS/Linux (Terminal)**:
+```bash
+cd /path/to/FHL_MCP_SERVER
+echo "$(pwd)/src"
+```
+
+**範例輸出**:
+```
+/Users/YourName/Desktop/FHL_MCP_SERVER/src
+```
+
+**記下這兩個路徑**，下一步配置時會用到。
 
 ### 2.3 配置 VS Code 設定
 
@@ -488,12 +560,26 @@ realpath venv/bin/python
   "github.copilot.chat.mcp.servers": {
     "fhl-bible": {
       "command": "C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER\\venv\\Scripts\\python.exe",
-      "args": ["-m", "fhl_bible_mcp.server"],
-      "env": {}
+      "args": [
+        "-m",
+        "fhl_bible_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER\\src",
+        "LOG_LEVEL": "INFO",
+        "FHL_CACHE_DIR": "C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER\\.cache"
+      }
     }
   }
 }
 ```
+
+> ⚠️ **Windows 路徑注意事項**:
+> - 必須使用虛擬環境中 Python 的完整絕對路徑
+> - `PYTHONPATH` 必須指向專案的 `src` 目錄
+> - `FHL_CACHE_DIR` 指定快取目錄（可選，建議設定）
+> - 所有路徑都必須使用雙反斜線 `\\` 或單斜線 `/`
+> - 替換所有 `C:\\Users\\YourName\\Desktop\\FHL_MCP_SERVER` 為您的實際專案路徑
 
 #### macOS / Linux 配置
 
@@ -503,12 +589,32 @@ realpath venv/bin/python
   "github.copilot.chat.mcp.servers": {
     "fhl-bible": {
       "command": "/Users/YourName/Desktop/FHL_MCP_SERVER/venv/bin/python",
-      "args": ["-m", "fhl_bible_mcp.server"],
-      "env": {}
+      "args": [
+        "-m",
+        "fhl_bible_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/YourName/Desktop/FHL_MCP_SERVER/src",
+        "LOG_LEVEL": "INFO",
+        "FHL_CACHE_DIR": "/Users/YourName/Desktop/FHL_MCP_SERVER/.cache"
+      }
     }
   }
 }
 ```
+
+> ⚠️ **macOS/Linux 路徑注意事項**:
+> - 必須使用虛擬環境中 Python 的完整絕對路徑
+> - `PYTHONPATH` 必須指向專案的 `src` 目錄
+> - `FHL_CACHE_DIR` 指定快取目錄（可選，建議設定）
+> - 使用正斜線 `/`
+> - 替換所有 `/Users/YourName/Desktop/FHL_MCP_SERVER` 為您的實際專案路徑
+> - macOS 可用 `~` 代表家目錄：`~/Desktop/FHL_MCP_SERVER/...`
+
+**環境變數說明**:
+- `PYTHONPATH`: Python 模組搜尋路徑，**必須**指向專案的 `src` 目錄
+- `LOG_LEVEL`: 日誌級別（`DEBUG`, `INFO`, `WARNING`, `ERROR`），建議使用 `INFO`
+- `FHL_CACHE_DIR`: API 回應快取目錄，可選但建議設定以提升效能
 
 **如果您已有其他設定**，將 MCP 相關配置合併進去：
 
