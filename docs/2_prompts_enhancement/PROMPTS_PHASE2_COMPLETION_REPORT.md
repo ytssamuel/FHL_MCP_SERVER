@@ -361,8 +361,8 @@ Phase 4: ░░░░░░░░░░░░░░░░░░░░   0% (0/3)
 ## 📝 文檔更新
 
 ✅ **已完成**：
-- `docs/PROMPTS_REFACTORING_SUMMARY.md` - 重構總結
-- `docs/PROMPTS_REFACTORING_REPORT.md` - 詳細報告
+- `docs/3_prompts_improvement/PROMPTS_REFACTORING_SUMMARY.md` - 重構總結
+- `docs/3_prompts_improvement/PROMPTS_REFACTORING_REPORT.md` - 詳細報告
 - `docs/PROMPTS_PHASE1_COMPLETION_REPORT.md` - Phase 1 報告
 - `docs/PROMPTS_PHASE2_COMPLETION_REPORT.md` - 本報告 ✨
 

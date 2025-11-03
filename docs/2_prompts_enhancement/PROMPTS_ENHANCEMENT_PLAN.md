@@ -902,7 +902,7 @@ Testament 代碼：
 
 ### 📚 文檔產出
 
-- ✅ [PROMPTS_USAGE_GUIDE.md](PROMPTS_USAGE_GUIDE.md) - 完整使用指南
+- ✅ [PROMPTS_USAGE_GUIDE.md](PROMPTS_USAGE_GUIDE.md) - 完整使用指南（同資料夾）
 - ✅ [PROMPTS_PHASE4_COMPLETION_REPORT.md](PROMPTS_PHASE4_COMPLETION_REPORT.md) - Phase 4 完成報告
 - ✅ README.md - 更新 19 個 Prompts 說明
 - ✅ 所有測試文件（test_phase1-4_prompts.py）

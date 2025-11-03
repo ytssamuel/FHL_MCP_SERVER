@@ -5,8 +5,8 @@
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
-[![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
-[![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/PHASE_4_2_FINAL_REPORT.md)
+[![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
+[![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
 
 ## 📖 Overview
 
@@ -58,7 +58,7 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
    使用 basic_help_guide 查看完整功能
    ```
 
-> 📖 **詳細安裝步驟**: 請參閱 **[完整安裝指南](docs/INSTALLATION_GUIDE.md)** 
+> 📖 **詳細安裝步驟**: 請參閱 **[完整安裝指南](docs/1_development/INSTALLATION_GUIDE.md)** 
 > 
 > 包含：
 > - ✅ 跨平台詳細步驟 (Windows/macOS/Linux)
@@ -89,7 +89,7 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 ### 多媒體
 - `get_audio_bible` - 取得有聲聖經連結
 
-更多詳細說明請參閱 [完整文件](docs/TOOLS.md)。
+更多詳細說明請參閱 [完整 API 文件](docs/4_manuals/API.md)。
 
 ## 🏗️ Architecture
 
@@ -146,7 +146,7 @@ FHL Bible MCP Server
 - `advanced_character_study` - 聖經人物研究，9 大維度全面分析
 
 > 💡 **提示**: 使用 `basic_help_guide` prompt 查看完整功能介紹和使用教學！  
-> 📚 詳細說明請參閱 [Prompts 使用指南](docs/PROMPTS_USAGE_GUIDE.md)
+> 📚 詳細說明請參閱 [Prompts 使用指南](docs/2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md)
 
 ## 🔧 Development
 
@@ -213,7 +213,7 @@ FHL_MCP_SERVER/
 
 ## 🤝 Contributing
 
-歡迎貢獻！請參閱 [貢獻指南](CONTRIBUTING.md)。
+歡迎貢獻！如有問題或建議，請開 Issue 討論。
 
 ## 📮 Contact
 
@@ -243,15 +243,28 @@ FHL_MCP_SERVER/
 100% 覆蓋模組: 12 個
 ```
 
-詳細測試報告請參考 [PHASE_4_2_FINAL_REPORT.md](docs/PHASE_4_2_FINAL_REPORT.md)
+詳細測試報告請參考 [PHASE_4_2_FINAL_REPORT.md](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
 
-## �📚 Documentation
+## 📚 Documentation
 
-- **[API 完整文件](docs/API.md)** - 所有 Tools、Resources、Prompts 的詳細說明
-- **[開發者指南](docs/DEVELOPER_GUIDE.md)** - 架構說明與貢獻指南
-- **[使用範例](docs/EXAMPLES.md)** - Claude Desktop 整合與實際案例
-- **[測試報告](docs/PHASE_4_2_FINAL_REPORT.md)** - 完整測試覆蓋率報告
-- **[規劃文件](docs/FHL_BIBLE_MCP_PLANNING.md)** - 專案規劃與 API 分析
+### 📖 使用手冊
+- **[API 完整文件](docs/4_manuals/API.md)** - 所有 Tools、Resources、Prompts 的詳細說明
+- **[使用範例](docs/4_manuals/EXAMPLES.md)** - Claude Desktop 整合與實際案例
+- **[Prompts 快速參考](docs/4_manuals/PROMPTS_QUICK_REFERENCE.md)** - 19 個 Prompts 速查表
+
+### 👨‍💻 開發文件
+- **[開發者指南](docs/1_development/DEVELOPER_GUIDE.md)** - 架構說明與貢獻指南
+- **[安裝指南](docs/1_development/INSTALLATION_GUIDE.md)** - 詳細安裝步驟
+- **[專案規劃](docs/1_development/FHL_BIBLE_MCP_PLANNING.md)** - 專案規劃與 API 分析
+- **[測試報告](docs/1_development/PHASE_4_2_FINAL_REPORT.md)** - 完整測試覆蓋率報告
+
+### 🎯 Prompts 相關
+- **[Prompts 使用指南](docs/2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md)** - 19 個 Prompts 完整教學
+- **[Prompts 增強計劃](docs/2_prompts_enhancement/PROMPTS_ENHANCEMENT_PLAN.md)** - 15 個新 Prompts 設計文件
+- **[Prompts 改進報告](docs/3_prompts_improvement/PROMPTS_COMPLETE_REFACTORING_REPORT.md)** - 重構優化記錄
+
+### 📂 文件導航
+- **[文件總覽](docs/README.md)** - 完整的文件結構導航
 
 ---
 

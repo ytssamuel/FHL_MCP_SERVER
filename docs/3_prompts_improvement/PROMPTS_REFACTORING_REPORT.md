@@ -227,7 +227,7 @@ text = study.render(book="John", chapter=3, verse=16)
 
 ## 🔮 未來規劃
 
-根據 `docs/PROMPTS_ENHANCEMENT_PLAN.md`，未來將實作：
+根據 `docs/2_prompts_enhancement/PROMPTS_ENHANCEMENT_PLAN.md`，未來將實作：
 
 ### Phase 2 (HIGH Priority) - 閱讀相關
 - `daily_reading` - 每日讀經計劃

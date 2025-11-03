@@ -189,7 +189,7 @@ FHL_LOG_LEVEL, FHL_LOG_FILE, FHL_LOG_FORMAT
 - `config.example.json` (設定範例)
 - `tests/test_config/test_config.py` (300+ 行)
 - `tests/test_api/test_config_integration.py` (350+ 行)
-- `docs/PHASE_3_2_COMPLETION.md` (完整文件)
+- `docs/1_development/PHASE_3_2_COMPLETION.md` (完整文件)
 
 ### 3.3 增強中文支援 ✅ (100%)
 
@@ -230,7 +230,7 @@ FHL_LOG_LEVEL, FHL_LOG_FILE, FHL_LOG_FORMAT
 **檔案**:
 - `src/fhl_bible_mcp/utils/booknames.py` (224+ 行, 從 85 行擴展)
 - `tests/test_utils/test_booknames.py` (400+ 行)
-- `docs/PHASE_3_3_COMPLETION.md` (完整文件)
+- `docs/1_development/PHASE_3_3_COMPLETION.md` (完整文件)
 
 ---
 

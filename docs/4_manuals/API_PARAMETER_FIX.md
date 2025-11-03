@@ -241,7 +241,7 @@ tests/test_tools/test_search_tools.py::test_search_bible_hebrew_strong PASSED [1
 
 ## 🔗 相關文件
 
-- API 文檔：`docs/API.md`
+- API 文檔：`docs/4_manuals/API.md`
 - 測試檔案：`tests/test_tools/test_search_tools.py`
 - API 實作：`src/fhl_bible_mcp/api/endpoints.py`
 

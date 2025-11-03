@@ -26,7 +26,7 @@
 2. ✅ 已配置至少一個 AI 助手（Claude Desktop / GitHub Copilot / OpenAI Desktop）
 3. ✅ AI 助手能成功連接到 MCP Server
 
-> 📖 **尚未安裝？** 請參閱 **[完整安裝指南](INSTALLATION_GUIDE.md)** 
+> 📖 **尚未安裝？** 請參閱 **[完整安裝指南](../1_development/INSTALLATION_GUIDE.md)** 
 > 
 > 包含：
 > - Windows / macOS / Linux 完整安裝步驟
@@ -72,7 +72,7 @@
 - ✅ 所有 MCP 功能完整支援
 - ✅ 回應速度快且穩定
 
-> 📖 **配置教學**: 詳見 [安裝指南 - Claude Desktop 部分](INSTALLATION_GUIDE.md#選項-1-claude-desktop-推薦-)
+> 📖 **配置教學**: 詳見 [安裝指南 - Claude Desktop 部分](../1_development/INSTALLATION_GUIDE.md#選項-1-claude-desktop-推薦-)
 
 ---
 
@@ -106,7 +106,7 @@
 - 開發聖經相關應用時查詢資料
 - 寫作或文檔時引用經文
 
-> 📖 **配置教學**: 詳見 [安裝指南 - GitHub Copilot 部分](INSTALLATION_GUIDE.md#選項-2-github-copilot-vs-code)
+> 📖 **配置教學**: 詳見 [安裝指南 - GitHub Copilot 部分](../1_development/INSTALLATION_GUIDE.md#選項-2-github-copilot-vs-code)
 
 ---
 
@@ -131,7 +131,7 @@
 - ⚠️ 需要 ChatGPT Plus 或 Pro 訂閱
 - ⚠️ 功能和配置方式可能會變更
 
-> 📖 **配置教學**: 詳見 [安裝指南 - OpenAI Desktop 部分](INSTALLATION_GUIDE.md#選項-3-openai-desktop-chatgpt)
+> 📖 **配置教學**: 詳見 [安裝指南 - OpenAI Desktop 部分](../1_development/INSTALLATION_GUIDE.md#選項-3-openai-desktop-chatgpt)
 
 3. **權限問題** (macOS/Linux)
    ```bash
@@ -636,9 +636,9 @@ Claude 會自動理解並查詢。
 ## 更多資源
 
 - **API 完整文檔**: [API.md](API.md)
-- **開發者指南**: [DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md)
-- **專案 README**: [README.md](../README.md)
-- **測試報告**: [PHASE_4_2_FINAL_REPORT.md](PHASE_4_2_FINAL_REPORT.md)
+- **開發者指南**: [DEVELOPER_GUIDE.md](../1_development/DEVELOPER_GUIDE.md)
+- **專案 README**: [README.md](../../README.md)
+- **測試報告**: [PHASE_4_2_FINAL_REPORT.md](../1_development/PHASE_4_2_FINAL_REPORT.md)
 
 ---
 

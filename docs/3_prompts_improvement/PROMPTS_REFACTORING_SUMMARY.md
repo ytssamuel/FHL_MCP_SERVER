@@ -113,7 +113,7 @@ from fhl_bible_mcp.prompts import PromptManager
 
 ## 🔮 下一階段工作
 
-根據 `docs/PROMPTS_ENHANCEMENT_PLAN.md`：
+根據 `docs/2_prompts_enhancement/PROMPTS_ENHANCEMENT_PLAN.md`：
 
 ### Phase 2 - 閱讀相關（HIGH Priority）
 - [ ] daily_reading - 每日讀經計劃
@@ -166,8 +166,8 @@ from .reading import DailyReadingPrompt
 
 ## 📚 相關文檔
 
-- `docs/PROMPTS_ENHANCEMENT_PLAN.md` - 完整的 15 個 Prompt 規劃
-- `docs/PROMPTS_REFACTORING_REPORT.md` - 詳細的重構報告
+- `docs/2_prompts_enhancement/PROMPTS_ENHANCEMENT_PLAN.md` - 完整的 15 個 Prompt 規劃
+- `docs/3_prompts_improvement/PROMPTS_REFACTORING_REPORT.md` - 詳細的重構報告
 - `test_prompts_refactoring.py` - 測試腳本
 
 ## ✨ 結論

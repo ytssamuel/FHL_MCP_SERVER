@@ -763,7 +763,7 @@ python -m twine upload dist/*
 2. 實作異步函數
 3. 在 `server.py` 的 `_register_tools()` 中註冊
 4. 添加測試到 `tests/test_tools/`
-5. 更新 `docs/API.md`
+5. 更新 `docs/4_manuals/API.md`
 
 ### Q: 如何調試 MCP Server？
 

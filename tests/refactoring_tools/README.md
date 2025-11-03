@@ -60,7 +60,7 @@ python tests/refactoring_tools/quick_refactor_batch2.py
 - **結構優化**: 100%採用步驟導向格式
 
 詳細報告請參閱：
-- `docs/PROMPTS_COMPLETE_REFACTORING_REPORT.md` - 完整重構報告
+- `docs/3_prompts_improvement/PROMPTS_COMPLETE_REFACTORING_REPORT.md` - 完整重構報告
 - `docs/PROMPT_P1_REFACTORING_REPORT.md` - P1階段報告
 - `docs/PROMPT_P1_MIDPOINT_REPORT.md` - P1中期報告
 
@@ -91,10 +91,10 @@ python tests/refactoring_tools/quick_refactor_batch2.py
 
 ## 🔗 相關文件
 
-- [完整重構報告](../../docs/PROMPTS_COMPLETE_REFACTORING_REPORT.md)
-- [P1重構報告](../../docs/PROMPT_P1_REFACTORING_REPORT.md)
-- [P1中期報告](../../docs/PROMPT_P1_MIDPOINT_REPORT.md)
-- [診斷報告](../../docs/PROMPTS_DIAGNOSTIC_REPORT.md)
+- [完整重構報告](../../docs/3_prompts_improvement/PROMPTS_COMPLETE_REFACTORING_REPORT.md)
+- [P1重構報告](../../docs/3_prompts_improvement/PROMPT_P1_REFACTORING_REPORT.md)
+- [P1中期報告](../../docs/3_prompts_improvement/PROMPT_P1_MIDPOINT_REPORT.md)
+- [診斷報告](../../docs/3_prompts_improvement/PROMPTS_DIAGNOSTIC_REPORT.md)
 
 ---
 

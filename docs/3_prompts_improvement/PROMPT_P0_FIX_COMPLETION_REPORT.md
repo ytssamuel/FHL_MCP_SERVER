@@ -259,7 +259,7 @@ pytest tests/test_prompts_diagnostics.py::test_3_render_all_prompts -v
 
 # 生成新報告
 python tests/test_prompts_diagnostics.py
-# 查看 docs/PROMPTS_DIAGNOSTIC_REPORT.md
+# 查看 docs/3_prompts_improvement/PROMPTS_DIAGNOSTIC_REPORT.md
 ```
 
 ### 測試結果

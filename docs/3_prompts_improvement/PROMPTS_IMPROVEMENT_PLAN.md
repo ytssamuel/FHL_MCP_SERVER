@@ -148,7 +148,7 @@ pytest tests/test_prompts_diagnostics.py --html=diagnostics_report.html
 
 #### 1.3 生成診斷報告
 
-**檔案**: `docs/PROMPTS_DIAGNOSTIC_REPORT.md`
+**檔案**: `docs/3_prompts_improvement/PROMPTS_DIAGNOSTIC_REPORT.md`
 
 **報告內容**:
 
@@ -196,7 +196,7 @@ pytest tests/test_prompts_diagnostics.py --html=diagnostics_report.html
 
 ### 2.1 建立 Prompt 重構模板
 
-**檔案**: `docs/PROMPT_REFACTORING_TEMPLATE.md`
+**檔案**: `docs/3_prompts_improvement/PROMPT_REFACTORING_TEMPLATE.md`
 
 **模板結構**:
 
@@ -586,7 +586,7 @@ FHL Bible MCP Server 的 prompts 採用**精簡步驟導向**設計：
 
 ### 5.3 創建重構報告
 
-**檔案**: `docs/PROMPTS_REFACTORING_REPORT.md`
+**檔案**: `docs/3_prompts_improvement/PROMPTS_REFACTORING_REPORT.md`
 
 **內容**:
 ```markdown

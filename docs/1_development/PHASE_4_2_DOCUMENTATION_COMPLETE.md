@@ -18,7 +18,7 @@
 - ✅ 版權聲明與致謝
 
 ### 2. API.md ✅
-**完整內容**: `docs/API.md` (19,000+ 字)
+**完整內容**: `docs/4_manuals/API.md` (19,000+ 字)
 
 #### Tools 文檔
 - ✅ 經文查詢工具 (3個)
@@ -80,7 +80,7 @@
 - ✅ 常用版本代碼對照表
 
 ### 3. DEVELOPER_GUIDE.md ✅
-**完整內容**: `docs/DEVELOPER_GUIDE.md` (15,000+ 字)
+**完整內容**: `docs/1_development/DEVELOPER_GUIDE.md` (15,000+ 字)
 
 #### 專案架構
 - ✅ 整體架構圖
@@ -129,7 +129,7 @@
 - ✅ PyPI 發布
 
 ### 4. EXAMPLES.md ✅
-**完整內容**: `docs/EXAMPLES.md` (18,000+ 字)
+**完整內容**: `docs/4_manuals/EXAMPLES.md` (18,000+ 字)
 
 #### Claude Desktop 整合
 - ✅ 詳細配置步驟 (Windows/macOS/Linux)

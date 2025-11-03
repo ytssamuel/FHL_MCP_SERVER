@@ -341,9 +341,9 @@ advanced_character_study
 
 ## 🔗 相關資源
 
-- **詳細文檔**: [PROMPTS_USAGE_GUIDE.md](PROMPTS_USAGE_GUIDE.md)
-- **完成報告**: [PROMPTS_PHASE4_COMPLETION_REPORT.md](PROMPTS_PHASE4_COMPLETION_REPORT.md)
-- **專案 README**: [README.md](../README.md)
+- **詳細文檔**: [PROMPTS_USAGE_GUIDE.md](../2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md)
+- **完成報告**: [PROMPTS_PHASE4_COMPLETION_REPORT.md](../2_prompts_enhancement/PROMPTS_PHASE4_COMPLETION_REPORT.md)
+- **專案 README**: [README.md](../../README.md)
 
 ---
 

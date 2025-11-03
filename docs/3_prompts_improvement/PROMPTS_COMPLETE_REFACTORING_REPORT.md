@@ -410,7 +410,7 @@ src/fhl_bible_mcp/prompts/
    - 詳細成果分析
    - 經驗教訓總結
 
-3. ✅ **docs/PROMPTS_COMPLETE_REFACTORING_REPORT.md** (本文件)
+3. ✅ **docs/3_prompts_improvement/PROMPTS_COMPLETE_REFACTORING_REPORT.md** (本文件)
    - 所有19個prompts完整報告
    - 全面統計分析
    - 最終驗證結果
@@ -618,12 +618,12 @@ src/fhl_bible_mcp/prompts/
 ### D. 參考資源
 
 **專案文件**:
-- `docs/PROMPT_P1_MIDPOINT_REPORT.md` - P1中期報告
-- `docs/PROMPT_P1_REFACTORING_REPORT.md` - P1完整報告
-- `docs/PROMPTS_COMPLETE_REFACTORING_REPORT.md` - 本完整報告
+- `docs/3_prompts_improvement/PROMPT_P1_MIDPOINT_REPORT.md` - P1中期報告
+- `docs/3_prompts_improvement/PROMPT_P1_REFACTORING_REPORT.md` - P1完整報告
+- `docs/3_prompts_improvement/PROMPTS_COMPLETE_REFACTORING_REPORT.md` - 本完整報告
 
 **原始診斷**:
-- `docs/PROMPTS_DIAGNOSTIC_REPORT.md` - 初始診斷報告
+- `docs/3_prompts_improvement/PROMPTS_DIAGNOSTIC_REPORT.md` - 初始診斷報告
 
 ---
 

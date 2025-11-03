@@ -1020,10 +1020,10 @@ mypy src/
 
 ### 文檔資源
 
-- **使用指南**: [PROMPTS_USAGE_GUIDE.md](PROMPTS_USAGE_GUIDE.md)
-- **快速參考**: [PROMPTS_QUICK_REFERENCE.md](PROMPTS_QUICK_REFERENCE.md)
-- **使用範例**: [EXAMPLES.md](EXAMPLES.md)
-- **API 文檔**: [API.md](API.md)
+- **使用指南**: [PROMPTS_USAGE_GUIDE.md](../2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md)
+- **快速參考**: [PROMPTS_QUICK_REFERENCE.md](../4_manuals/PROMPTS_QUICK_REFERENCE.md)
+- **使用範例**: [EXAMPLES.md](../4_manuals/EXAMPLES.md)
+- **API 文檔**: [API.md](../4_manuals/API.md)
 
 ### 社群支援
 
@@ -1043,9 +1043,9 @@ mypy src/
 
 安裝完成後，建議您：
 
-1. 📖 閱讀 [Prompts 使用指南](PROMPTS_USAGE_GUIDE.md) 了解 19 個 prompts
-2. ⚡ 查看 [快速參考卡](PROMPTS_QUICK_REFERENCE.md) 快速上手
-3. 💡 瀏覽 [使用範例](EXAMPLES.md) 看實際應用場景
+1. 📖 閱讀 [Prompts 使用指南](../2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md) 了解 19 個 prompts
+2. ⚡ 查看 [快速參考卡](../4_manuals/PROMPTS_QUICK_REFERENCE.md) 快速上手
+3. 💡 瀏覽 [使用範例](../4_manuals/EXAMPLES.md) 看實際應用場景
 4. 🎯 嘗試使用 `basic_help_guide` prompt 獲取完整功能介紹
 
 ---

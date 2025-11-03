@@ -1338,6 +1338,6 @@ FHL Bible MCP Server 的 **19 個 Prompts** 提供了從入門到專業的完整
 "使用 basic_help_guide 幫我了解這個聖經工具"
 ```
 
-**需要幫助**: 參考 [README](../README.md) 或 [開發者指南](DEVELOPER_GUIDE.md)
+**需要幫助**: 參考 [README](../../README.md) 或 [開發者指南](../1_development/DEVELOPER_GUIDE.md)
 
 **Made with ❤️ for Bible study | 願神的話語豐富您的生命！** 🙏

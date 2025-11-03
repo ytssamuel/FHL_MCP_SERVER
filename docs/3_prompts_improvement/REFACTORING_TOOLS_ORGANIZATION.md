@@ -209,10 +209,10 @@ FHL_MCP_SERVER/
 
 ## 🔗 相關文件
 
-- [重構工具 README](../tests/refactoring_tools/README.md)
-- [完整重構報告](PROMPTS_COMPLETE_REFACTORING_REPORT.md)
-- [P1重構報告](PROMPT_P1_REFACTORING_REPORT.md)
-- [專案 README](../README.md)
+- [重構工具 README](../../tests/refactoring_tools/README.md)
+- [完整重構報告](PROMPTS_COMPLETE_REFACTORING_REPORT.md)（同資料夾）
+- [P1重構報告](PROMPT_P1_REFACTORING_REPORT.md)（同資料夾）
+- [專案 README](../../README.md)
 
 ---
 
