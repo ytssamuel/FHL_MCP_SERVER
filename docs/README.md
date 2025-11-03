@@ -15,6 +15,7 @@ docs/
 ├── 2_prompts_enhancement/  # Prompts 新增計劃
 ├── 3_prompts_improvement/  # Prompts 改進計劃
 ├── 4_manuals/              # 手冊及說明文件
+├── 5_api_enhancement/      # API 增強計劃
 ├── deployment/             # 部署相關文件
 └── prompt_example/         # Prompt 範例文本
 ```
@@ -107,6 +108,33 @@ docs/
 - `TESTING_REPORT.md` - 測試報告
 
 📖 [查看完整 README](4_manuals/README.md)
+
+---
+
+### 5️⃣ API 增強計劃 (5_api_enhancement/)
+
+**用途**: API 功能擴展的規劃與測試
+
+**包含內容**:
+- API 盤點報告（已實作 vs 未實作）
+- API 端點可行性測試（/json/ vs /api/）
+- 文章 API 整合分析（json.php, json_all.php）
+- 分階段實作計劃
+
+**適合對象**: API 開發者、技術規劃者、測試工程師
+
+**重點文件**:
+- `API_ENHANCEMENT_PLAN.md` - 完整規劃文檔 ⭐
+- `API_TEST_RESULTS.md` - 詳細測試報告
+- `EXECUTIVE_SUMMARY.md` - 執行摘要
+
+**關鍵發現**:
+- ✅ `bible.fhl.net/api/` 端點完全可用（含 bid 欄位）
+- ✅ 發現新的文章 API（8021 篇文章可查詢）
+- 📊 當前 API 完成度: 55%（12/22 個端點）
+- 🎯 10 個 API 待實作（核心功能 6 個）
+
+📖 [查看完整 README](5_api_enhancement/README.md)
 
 ---
 
