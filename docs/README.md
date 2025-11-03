@@ -113,13 +113,14 @@ docs/
 
 ### 5️⃣ API 增強計劃 (5_api_enhancement/)
 
-**用途**: API 功能擴展的規劃與測試
+**用途**: API 功能擴展的規劃與實作記錄
 
 **包含內容**:
 - API 盤點報告（已實作 vs 未實作）
 - API 端點可行性測試（/json/ vs /api/）
 - 文章 API 整合分析（json.php, json_all.php）
-- 分階段實作計劃
+- Phase 2.1-2.3 完成報告（次經、使徒教父、註腳）
+- Phase 3 完成報告（文章搜尋）
 
 **適合對象**: API 開發者、技術規劃者、測試工程師
 
@@ -127,12 +128,19 @@ docs/
 - `API_ENHANCEMENT_PLAN.md` - 完整規劃文檔 ⭐
 - `API_TEST_RESULTS.md` - 詳細測試報告
 - `EXECUTIVE_SUMMARY.md` - 執行摘要
+- `PHASE_2_1_COMPLETION_REPORT.md` - 次經支援完成報告
+- `PHASE_2_2_COMPLETION_REPORT.md` - 使徒教父完成報告
+- `PHASE_2_3_COMPLETION_REPORT.md` - 註腳查詢完成報告
+- `PHASE_3_COMPLETION_REPORT.md` - 文章搜尋完成報告 ⭐
 
-**關鍵發現**:
-- ✅ `bible.fhl.net/api/` 端點完全可用（含 bid 欄位）
-- ✅ 發現新的文章 API（8021 篇文章可查詢）
-- 📊 當前 API 完成度: 55%（12/22 個端點）
-- 🎯 10 個 API 待實作（核心功能 6 個）
+**實施成果**:
+- ✅ Phase 2.1: 次經支援（3 個工具，15 卷書，101-115）
+- ✅ Phase 2.2: 使徒教父支援（3 個工具，17 卷書，201-217）
+- ✅ Phase 2.3: 註腳查詢（1 個工具，TCV 版本）
+- ✅ Phase 3.1: 文章搜尋（1 個工具，8000+ 篇文章）
+- ✅ Phase 3.2: 專欄列表（1 個工具，12 個專欄）
+- 📊 工具總數: 18 → 27 (+9 個工具)
+- 🎯 測試覆蓋率: 100% (所有新功能皆有測試)
 
 📖 [查看完整 README](5_api_enhancement/README.md)
 

@@ -3,7 +3,15 @@
 > A Model Context Protocol (MCP) server for accessing the Faith, Hope, Love (信望愛站) Bible API.
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](h## 🎊 專案狀態
+
+- ✅ **Phase 1**: API 客戶端實作 - 完成
+- ✅ **Phase 2**: MCP Server 核心功能 - 完成
+- ✅ **Phase 3**: 進階功能與優化 - 完成
+- ✅ **Phase 4.1**: 全面測試套件 - 完成 (138 測試)
+- ✅ **Phase 4.2**: E2E 測試與文檔 - 完成 (160 測試, 83% 覆蓋率)
+- ✅ **Phase 5**: Prompts 增強計劃 - 完成 (19 個 Prompts)
+- ✅ **Phase 6**: API 增強計劃 - 完成 (次經、使徒教父、註腳、文章) 🎊mg.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
 [![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
 [![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
@@ -70,16 +78,33 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 
 ### 經文查詢
 - `get_bible_verse` - 查詢指定章節的聖經經文
+- `get_bible_chapter` - 查詢整章聖經經文
 - `search_bible` - 在聖經中搜尋關鍵字
 
 ### 原文研究
 - `get_word_analysis` - 取得經文的字彙分析
 - `lookup_strongs` - 查詢 Strong's 原文字典
+- `search_by_strongs` - 以 Strong's Number 搜尋經文
 
 ### 註釋研經
 - `get_commentary` - 取得聖經註釋
 - `search_commentary` - 搜尋註釋內容
 - `get_topic_study` - 查詢主題查經
+
+### 次經與使徒教父 ⭐ NEW
+- `get_apocrypha_verse` - 查詢次經經文（舊約次經 101-115）
+- `get_apocrypha_chapter` - 查詢次經整章
+- `search_apocrypha` - 搜尋次經內容
+- `get_apostolic_fathers_verse` - 查詢使徒教父經文（201-217）
+- `get_apostolic_fathers_chapter` - 查詢使徒教父整章
+- `search_apostolic_fathers` - 搜尋使徒教父內容
+
+### 註腳查詢 ⭐ NEW
+- `get_footnote` - 查詢聖經註腳（目前支援 TCV 版本）
+
+### 文章搜尋 ⭐ NEW
+- `search_fhl_articles` - 搜尋信望愛站文章（8000+ 篇文章）
+- `list_fhl_article_columns` - 列出可用的文章專欄
 
 ### 資訊工具
 - `list_bible_versions` - 列出所有可用的聖經版本
@@ -89,7 +114,7 @@ FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整�
 ### 多媒體
 - `get_audio_bible` - 取得有聲聖經連結
 
-更多詳細說明請參閱 [完整 API 文件](docs/4_manuals/API.md)。
+**總計**: 27 個工具函數 | 更多詳細說明請參閱 [完整 API 文件](docs/4_manuals/API.md)。
 
 ## 🏗️ Architecture
 
@@ -210,7 +235,7 @@ FHL_MCP_SERVER/
 
 本專案採用 MIT License - 詳見 [LICENSE](LICENSE) 檔案。
 
-注意：此授權僅適用於本專案的程式碼，不包含透過 API 取得的聖經內容。聖經內容的版權歸屬於各譯本的版權方。
+注意：此授權僅適用於本專案的程式碼，不包含透過 API 取得的聖經內容及文章。內容的版權歸屬於各譯本的版權方及信望愛站。
 
 ## 🤝 Contributing
 
