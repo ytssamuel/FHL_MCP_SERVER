@@ -23,6 +23,17 @@ APOCRYPHA_BOOKS = {
     "巴": {"id": 107, "name_zh": "巴錄書", "name_en": "Baruch"},
     "耶信": {"id": 108, "name_zh": "耶利米書信", "name_en": "Letter of Jeremiah"},
     "但補": {"id": 109, "name_zh": "但以理補篇", "name_en": "Additions to Daniel"},
+    # Chinese full names (常用別名)
+    "多俾亞傳": {"id": 101, "name_zh": "多俾亞傳", "name_en": "Tobit"},
+    "友弟德傳": {"id": 102, "name_zh": "友弟德傳", "name_en": "Judith"},
+    "瑪加伯上": {"id": 103, "name_zh": "瑪加伯上", "name_en": "1 Maccabees"},
+    "瑪加伯下": {"id": 104, "name_zh": "瑪加伯下", "name_en": "2 Maccabees"},
+    "智慧篇": {"id": 105, "name_zh": "智慧篇", "name_en": "Wisdom"},
+    "德訓篇": {"id": 106, "name_zh": "德訓篇", "name_en": "Sirach"},
+    "便西拉智訓": {"id": 106, "name_zh": "德訓篇", "name_en": "Sirach"},  # 別名
+    "巴錄書": {"id": 107, "name_zh": "巴錄書", "name_en": "Baruch"},
+    "耶利米書信": {"id": 108, "name_zh": "耶利米書信", "name_en": "Letter of Jeremiah"},
+    "但以理補篇": {"id": 109, "name_zh": "但以理補篇", "name_en": "Additions to Daniel"},
     # English abbreviations
     "Tob": {"id": 101, "name_zh": "多俾亞傳", "name_en": "Tobit"},
     "Jdt": {"id": 102, "name_zh": "友弟德傳", "name_en": "Judith"},
@@ -32,6 +43,14 @@ APOCRYPHA_BOOKS = {
     "Sir": {"id": 106, "name_zh": "德訓篇", "name_en": "Sirach"},
     "Bar": {"id": 107, "name_zh": "巴錄書", "name_en": "Baruch"},
     "EpJer": {"id": 108, "name_zh": "耶利米書信", "name_en": "Letter of Jeremiah"},
+    # English full names
+    "Tobit": {"id": 101, "name_zh": "多俾亞傳", "name_en": "Tobit"},
+    "Judith": {"id": 102, "name_zh": "友弟德傳", "name_en": "Judith"},
+    "1 Maccabees": {"id": 103, "name_zh": "瑪加伯上", "name_en": "1 Maccabees"},
+    "2 Maccabees": {"id": 104, "name_zh": "瑪加伯下", "name_en": "2 Maccabees"},
+    "Wisdom": {"id": 105, "name_zh": "智慧篇", "name_en": "Wisdom"},
+    "Sirach": {"id": 106, "name_zh": "德訓篇", "name_en": "Sirach"},
+    "Baruch": {"id": 107, "name_zh": "巴錄書", "name_en": "Baruch"},
 }
 
 
@@ -47,7 +66,7 @@ def get_apocrypha_tool_definitions() -> list[dict[str, Any]]:
             "name": "get_apocrypha_verse",
             "description": (
                 "查詢次經 (Apocrypha) 經文內容。支援書卷 101-115。\n"
-                "包含：多俾亞傳、友弟德傳、瑪加伯上下、智慧篇、德訓篇、巴錄書等。"
+                "包含：多俾亞傳、友弟德傳、瑪加伯上下、智慧篇、德訓篇(便西拉智訓)、巴錄書等。"
             ),
             "inputSchema": {
                 "type": "object",
@@ -55,9 +74,10 @@ def get_apocrypha_tool_definitions() -> list[dict[str, Any]]:
                     "book": {
                         "type": "string",
                         "description": (
-                            "次經書卷名稱（中文或英文縮寫）。"
-                            "例如：'多'(多俾亞傳), '友'(友弟德傳), '加上'(瑪加伯上), "
-                            "'智'(智慧篇), '德'(德訓篇), 'Tob', 'Wis', 'Sir' 等"
+                            "次經書卷名稱（支援多種格式）。\n"
+                            "中文縮寫：'多', '友', '加上', '加下', '智', '德', '巴', '耶信', '但補'\n"
+                            "中文全名：'多俾亞傳', '友弟德傳', '瑪加伯上', '瑪加伯下', '智慧篇', '德訓篇', '便西拉智訓', '巴錄書' 等\n"
+                            "英文：'Tob', 'Jdt', '1Mac', '2Mac', 'Wis', 'Sir', 'Bar', 'Tobit', 'Judith', 'Sirach' 等"
                         ),
                     },
                     "chapter": {
@@ -133,6 +153,10 @@ async def handle_get_apocrypha_verse(
         chapter = arguments["chapter"]
         verse = arguments.get("verse")
         
+        # Get book info for display name
+        book_info = APOCRYPHA_BOOKS.get(book)
+        display_name = book_info["name_zh"] if book_info else book
+        
         result = await api_client.get_apocrypha_verse(
             book=book,
             chapter=chapter,
@@ -143,18 +167,21 @@ async def handle_get_apocrypha_verse(
             record_count = result.get("record_count", 0)
             v_name = result.get("v_name", "1933年聖公會出版")
             v_code = result.get("version", "c1933")
-            bid = result.get("bid", "未知")
             
-            # Format verses
+            # Get bid from first record (if available)
+            records = result.get("record", [])
+            bid = records[0].get("bid", "未知") if records else "未知"
+            
+            # Format verses - use our display name instead of API's chineses
             verses_text = []
-            for verse_obj in result.get("record", []):
+            for verse_obj in records:
                 verse_num = verse_obj.get("sec", "")
                 text = verse_obj.get("bible_text", "")
-                chineses = verse_obj.get("chineses", book)
-                verses_text.append(f"{chineses} {chapter}:{verse_num} {text}")
+                verses_text.append(f"{display_name} {chapter}:{verse_num} {text}")
             
             response = (
                 f"**次經經文查詢結果**\n\n"
+                f"書卷: {display_name}\n"
                 f"版本: {v_name} ({v_code})\n"
                 f"書卷 ID: {bid}\n"
                 f"經文數量: {record_count}\n\n"
@@ -189,6 +216,13 @@ async def handle_search_apocrypha(
         limit = arguments.get("limit")
         offset = arguments.get("offset", 0)
         
+        # Create reverse lookup: bid -> book name
+        bid_to_name = {}
+        for book_key, book_info in APOCRYPHA_BOOKS.items():
+            bid = book_info["id"]
+            if bid not in bid_to_name:
+                bid_to_name[bid] = book_info["name_zh"]
+        
         result = await api_client.search_apocrypha(
             query=query,
             limit=limit,
@@ -199,17 +233,19 @@ async def handle_search_apocrypha(
             record_count = result.get("record_count", 0)
             key = result.get("key", query)
             
-            # Format search results
+            # Format search results with proper book names
             results_text = []
             for idx, verse_obj in enumerate(result.get("record", []), 1):
-                chineses = verse_obj.get("chineses", "")
                 bid = verse_obj.get("bid", "")
                 chap = verse_obj.get("chap", "")
                 sec = verse_obj.get("sec", "")
                 text = verse_obj.get("bible_text", "")
                 
+                # Use our book name mapping instead of API's chineses
+                book_name = bid_to_name.get(int(bid), verse_obj.get("chineses", ""))
+                
                 results_text.append(
-                    f"{idx}. {chineses} {chap}:{sec} (Book {bid})\n   {text}"
+                    f"{idx}. {book_name} {chap}:{sec}\n   {text}"
                 )
             
             response = (

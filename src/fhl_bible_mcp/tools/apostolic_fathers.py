@@ -22,6 +22,15 @@ APOSTOLIC_FATHERS_BOOKS = {
     "巴": {"id": 206, "name_zh": "巴拿巴書", "name_en": "Barnabas"},
     "訓": {"id": 207, "name_zh": "十二使徒遺訓", "name_en": "Didache"},
     "帕": {"id": 216, "name_zh": "帕皮亞殘篇", "name_en": "Papias Fragments"},
+    # Chinese full names
+    "革利免前書": {"id": 201, "name_zh": "革利免前書", "name_en": "1 Clement"},
+    "革利免後書": {"id": 202, "name_zh": "革利免後書", "name_en": "2 Clement"},
+    "伊格那丟書信": {"id": 203, "name_zh": "伊格那丟書信", "name_en": "Ignatius"},
+    "坡旅甲書信": {"id": 204, "name_zh": "坡旅甲書信", "name_en": "Polycarp"},
+    "黑馬牧人書": {"id": 205, "name_zh": "黑馬牧人書", "name_en": "Shepherd of Hermas"},
+    "巴拿巴書": {"id": 206, "name_zh": "巴拿巴書", "name_en": "Barnabas"},
+    "十二使徒遺訓": {"id": 207, "name_zh": "十二使徒遺訓", "name_en": "Didache"},
+    "帕皮亞殘篇": {"id": 216, "name_zh": "帕皮亞殘篇", "name_en": "Papias Fragments"},
     # English abbreviations
     "1Clem": {"id": 201, "name_zh": "革利免前書", "name_en": "1 Clement"},
     "2Clem": {"id": 202, "name_zh": "革利免後書", "name_en": "2 Clement"},
@@ -31,6 +40,15 @@ APOSTOLIC_FATHERS_BOOKS = {
     "Barn": {"id": 206, "name_zh": "巴拿巴書", "name_en": "Barnabas"},
     "Did": {"id": 207, "name_zh": "十二使徒遺訓", "name_en": "Didache"},
     "Pap": {"id": 216, "name_zh": "帕皮亞殘篇", "name_en": "Papias Fragments"},
+    # English full names
+    "1 Clement": {"id": 201, "name_zh": "革利免前書", "name_en": "1 Clement"},
+    "2 Clement": {"id": 202, "name_zh": "革利免後書", "name_en": "2 Clement"},
+    "Ignatius": {"id": 203, "name_zh": "伊格那丟書信", "name_en": "Ignatius"},
+    "Polycarp": {"id": 204, "name_zh": "坡旅甲書信", "name_en": "Polycarp"},
+    "Shepherd of Hermas": {"id": 205, "name_zh": "黑馬牧人書", "name_en": "Shepherd of Hermas"},
+    "Barnabas": {"id": 206, "name_zh": "巴拿巴書", "name_en": "Barnabas"},
+    "Didache": {"id": 207, "name_zh": "十二使徒遺訓", "name_en": "Didache"},
+    "Papias Fragments": {"id": 216, "name_zh": "帕皮亞殘篇", "name_en": "Papias Fragments"},
 }
 
 
@@ -55,9 +73,12 @@ def get_apostolic_fathers_tool_definitions() -> list[dict[str, Any]]:
                     "book": {
                         "type": "string",
                         "description": (
-                            "使徒教父書卷名稱（中文或英文縮寫）。"
-                            "例如：'革'(革利免前書), '革二'(革利免後書), '伊'(伊格那丟), "
-                            "'黑'(黑馬牧人書), '訓'(十二使徒遺訓), '1Clem', 'Did' 等"
+                            "使徒教父書卷名稱（支援多種格式）。\n"
+                            "中文縮寫：'革', '革二', '伊', '坡', '黑', '巴', '訓', '帕'\n"
+                            "中文全名：'革利免前書', '革利免後書', '伊格那丟書信', '坡旅甲書信', "
+                            "'黑馬牧人書', '巴拿巴書', '十二使徒遺訓', '帕皮亞殘篇'\n"
+                            "英文：'1Clem', '2Clem', 'Ign', 'Pol', 'Herm', 'Barn', 'Did', 'Pap', "
+                            "'1 Clement', 'Ignatius', 'Didache' 等"
                         ),
                     },
                     "chapter": {
@@ -133,6 +154,10 @@ async def handle_get_apostolic_fathers_verse(
         chapter = arguments["chapter"]
         verse = arguments.get("verse")
         
+        # Get book info for display name
+        book_info = APOSTOLIC_FATHERS_BOOKS.get(book)
+        display_name = book_info["name_zh"] if book_info else book
+        
         result = await api_client.get_apostolic_fathers_verse(
             book=book,
             chapter=chapter,
@@ -143,18 +168,21 @@ async def handle_get_apostolic_fathers_verse(
             record_count = result.get("record_count", 0)
             v_name = result.get("v_name", "黃錫木主編《使徒教父著作》")
             v_code = result.get("version", "afhuang")
-            bid = result.get("bid", "未知")
             
-            # Format verses
+            # Get bid from first record (if available)
+            records = result.get("record", [])
+            bid = records[0].get("bid", "未知") if records else "未知"
+            
+            # Format verses - use our display name instead of API's chineses
             verses_text = []
-            for verse_obj in result.get("record", []):
+            for verse_obj in records:
                 verse_num = verse_obj.get("sec", "")
                 text = verse_obj.get("bible_text", "")
-                chineses = verse_obj.get("chineses", book)
-                verses_text.append(f"{chineses} {chapter}:{verse_num} {text}")
+                verses_text.append(f"{display_name} {chapter}:{verse_num} {text}")
             
             response = (
                 f"**使徒教父文獻查詢結果**\n\n"
+                f"書卷: {display_name}\n"
                 f"版本: {v_name} ({v_code})\n"
                 f"書卷 ID: {bid}\n"
                 f"經文數量: {record_count}\n\n"
@@ -189,6 +217,13 @@ async def handle_search_apostolic_fathers(
         limit = arguments.get("limit")
         offset = arguments.get("offset", 0)
         
+        # Create reverse lookup: bid -> book name
+        bid_to_name = {}
+        for book_key, book_info in APOSTOLIC_FATHERS_BOOKS.items():
+            bid = book_info["id"]
+            if bid not in bid_to_name:
+                bid_to_name[bid] = book_info["name_zh"]
+        
         result = await api_client.search_apostolic_fathers(
             query=query,
             limit=limit,
@@ -199,17 +234,19 @@ async def handle_search_apostolic_fathers(
             record_count = result.get("record_count", 0)
             key = result.get("key", query)
             
-            # Format search results
+            # Format search results with proper book names
             results_text = []
             for idx, verse_obj in enumerate(result.get("record", []), 1):
-                chineses = verse_obj.get("chineses", "")
                 bid = verse_obj.get("bid", "")
                 chap = verse_obj.get("chap", "")
                 sec = verse_obj.get("sec", "")
                 text = verse_obj.get("bible_text", "")
                 
+                # Use our book name mapping instead of API's chineses
+                book_name = bid_to_name.get(int(bid), verse_obj.get("chineses", ""))
+                
                 results_text.append(
-                    f"{idx}. {chineses} {chap}:{sec} (Book {bid})\n   {text[:100]}..."
+                    f"{idx}. {book_name} {chap}:{sec}\n   {text[:100]}..."
                 )
             
             response = (

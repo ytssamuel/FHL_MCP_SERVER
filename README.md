@@ -232,12 +232,12 @@ python scripts/generate_config.py
 - `get_topic_study` - 查詢主題查經
 
 ### 次經與使徒教父 ⭐ NEW
-- `get_apocrypha_verse` - 查詢次經經文（舊約次經 101-115）
-- `get_apocrypha_chapter` - 查詢次經整章
+- `get_apocrypha_verse` - 查詢次經經文（舊約次經 101-115）支援完整書卷名如「瑪加伯上」、「便西拉智訓」
 - `search_apocrypha` - 搜尋次經內容
+- `list_apocrypha_books` - 列出所有次經書卷
 - `get_apostolic_fathers_verse` - 查詢使徒教父經文（201-217）
-- `get_apostolic_fathers_chapter` - 查詢使徒教父整章
 - `search_apostolic_fathers` - 搜尋使徒教父內容
+- `list_apostolic_fathers_books` - 列出所有使徒教父書卷
 
 ### 註腳查詢 ⭐ NEW
 - `get_footnote` - 查詢聖經註腳（目前支援 TCV 版本）
