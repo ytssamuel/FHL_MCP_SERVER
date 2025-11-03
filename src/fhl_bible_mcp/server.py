@@ -72,6 +72,11 @@ from fhl_bible_mcp.tools.footnotes import (
     get_footnotes_tool_definitions,
     handle_get_bible_footnote,
 )
+from fhl_bible_mcp.tools.articles import (
+    get_articles_tool_definitions,
+    handle_search_articles,
+    handle_list_article_columns,
+)
 
 # Configure logging
 logging.basicConfig(
@@ -435,6 +440,14 @@ class FHLBibleServer:
                     inputSchema=tool["inputSchema"]
                 )
                 for tool in get_footnotes_tool_definitions()
+            ] + [
+                # Dynamically add Articles tools
+                Tool(
+                    name=tool["name"],
+                    description=tool["description"],
+                    inputSchema=tool["inputSchema"]
+                )
+                for tool in get_articles_tool_definitions()
             ]
         
         @self.server.call_tool()
@@ -505,6 +518,13 @@ class FHLBibleServer:
                 # Footnotes tools
                 elif name == "get_bible_footnote":
                     result = await handle_get_bible_footnote(self.endpoints, arguments)
+                    return result
+                # Articles tools
+                elif name == "search_fhl_articles":
+                    result = await handle_search_articles(self.endpoints, arguments)
+                    return result
+                elif name == "list_fhl_article_columns":
+                    result = await handle_list_article_columns(self.endpoints, arguments)
                     return result
                 else:
                     raise ValueError(f"Unknown tool: {name}")
@@ -614,7 +634,7 @@ class FHLBibleServer:
         """Run the MCP server"""
         logger.info("Starting FHL Bible MCP Server...")
         logger.info("Server capabilities:")
-        logger.info("  - Tools: 25 functions (18 core + 3 apocrypha + 3 apostolic fathers + 1 footnotes)")
+        logger.info("  - Tools: 27 functions (18 core + 3 apocrypha + 3 apostolic fathers + 1 footnotes + 2 articles)")
         logger.info("  - Resources: 7 URI schemes")
         logger.info("  - Prompts: 4 templates")
         

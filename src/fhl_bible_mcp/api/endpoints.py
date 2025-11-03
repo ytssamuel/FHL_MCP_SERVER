@@ -8,6 +8,7 @@ Each method corresponds to a specific API endpoint documented in the planning do
 import logging
 import hashlib
 import json
+import httpx
 from typing import Any, Optional
 
 from fhl_bible_mcp.api.client import FHLAPIClient
@@ -1029,3 +1030,227 @@ class FHLAPIEndpoints(FHLAPIClient):
             namespace="footnotes",
             strategy="verses"  # 7 days TTL
         )
+    
+    # =============================================================================
+    # Section 11: Articles (文章查詢)
+    # =============================================================================
+    
+    async def search_articles(
+        self,
+        title: str | None = None,
+        author: str | None = None,
+        content: str | None = None,
+        abstract: str | None = None,
+        column: str | None = None,
+        pub_date: str | None = None,
+        use_simplified: bool = False,
+        limit: int = 50
+    ) -> dict[str, Any]:
+        """
+        Search Faith Hope Love (信望愛) articles.
+        
+        API: www.fhl.net/api/json.php
+        
+        ⚠️ **Important Constraints**:
+        - **Must provide at least ONE search parameter** (API returns error otherwise)
+        - No pagination support (all results returned at once)
+        - Client-side limit applied to prevent overwhelming results
+        
+        Args:
+            title: Title keywords to search for
+            author: Author name to search for
+            content: Content keywords to search for
+            abstract: Abstract keywords to search for
+            column: Column code (ptab) to filter by
+                    Use list_article_columns() to see available columns
+            pub_date: Publication date in YYYY.MM.DD format (e.g., "2025.10.19")
+            use_simplified: Use simplified Chinese (default: False)
+            limit: Maximum number of results to return (client-side limit)
+                   Range: 1-200, Default: 50
+        
+        Returns:
+            Dictionary with:
+                - status: 1 for success, 0 for error
+                - record_count: Number of articles found
+                - record: List of articles (each containing):
+                    - id: Article ID
+                    - column: Column name (Chinese)
+                    - ptab: Column code (English)
+                    - aid: Article aid
+                    - title: Article title
+                    - author: Author name
+                    - pubtime: Publication date (YYYY.MM.DD)
+                    - abst: Abstract/summary
+                    - txt: Full article content (HTML format)
+                - limited: True if results were limited (added by client)
+        
+        Raises:
+            InvalidParameterError: If no search parameters provided
+        
+        Example:
+            >>> async with FHLAPIEndpoints() as client:
+            >>>     # Search by title
+            >>>     result = await client.search_articles(title="愛")
+            >>>     print(f"Found {result['record_count']} articles")
+            >>>     
+            >>>     # Search by author
+            >>>     result = await client.search_articles(author="陳鳳翔")
+            >>>     for article in result["record"]:
+            >>>         print(article["title"])
+            >>>     
+            >>>     # Search specific column
+            >>>     result = await client.search_articles(column="women3")
+            >>>     
+            >>>     # Combined search with limit
+            >>>     result = await client.search_articles(
+            >>>         title="信心",
+            >>>         author="李",
+            >>>         limit=10
+            >>>     )
+        
+        Note:
+            - Article content (txt field) is in HTML format
+            - Contains tags like <pic>filename.jpg</pic>, <br/>, etc.
+            - No sorting control (API returns in its own order)
+            - Results are cached for 1 day (articles update weekly)
+        """
+        # Validate: at least one search parameter required
+        if not any([title, author, content, abstract, column, pub_date]):
+            raise InvalidParameterError(
+                "search_params",
+                None,
+                "Must provide at least one search parameter (title, author, content, abstract, column, or pub_date)"
+            )
+        
+        # Build parameters
+        params: dict[str, str | int] = {
+            "gb": 1 if use_simplified else 0
+        }
+        
+        if title:
+            params["title"] = title
+        if author:
+            params["author"] = author
+        if content:
+            params["txt"] = content
+        if abstract:
+            params["abst"] = abstract
+        if column:
+            params["ptab"] = column
+        if pub_date:
+            params["pubtime"] = pub_date
+        
+        logger.info(
+            f"Searching articles: title={title}, author={author}, "
+            f"content={content}, column={column}, limit={limit}"
+        )
+        
+        # Make request to www.fhl.net/api/ (different base URL)
+        # Articles API is on www.fhl.net, not bible.fhl.net
+        url = "https://www.fhl.net/api/json.php"
+        
+        async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True) as client:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+        
+        # Apply client-side limit
+        if data.get("status") == 1 and "record" in data:
+            if isinstance(data["record"], list) and len(data["record"]) > limit:
+                data["record"] = data["record"][:limit]
+                data["record_count"] = limit
+                data["limited"] = True  # Flag to indicate results were limited
+        
+        return data
+    
+    def list_article_columns(self) -> list[dict[str, str]]:
+        """
+        List available article columns.
+        
+        Since the API doesn't provide a column listing endpoint,
+        this method returns a maintained list of known columns.
+        
+        Returns:
+            List of dictionaries, each containing:
+                - code: Column code (use in search_articles)
+                - name: Column name (Chinese)
+                - description: Column description
+        
+        Example:
+            >>> api = FHLAPIEndpoints()
+            >>> columns = api.list_article_columns()
+            >>> for col in columns:
+            >>>     print(f"{col['code']}: {col['name']} - {col['description']}")
+            >>> 
+            >>> # Output:
+            >>> # women3: 麻辣姊妹 - 女性信仰生活分享
+            >>> # sunday: 主日學 - 主日學教材與資源
+            >>> # ...
+        
+        Note:
+            - This list is maintained manually
+            - May not include all columns
+            - Use column codes in search_articles(column=...)
+        """
+        return [
+            {
+                "code": "women3",
+                "name": "麻辣姊妹",
+                "description": "女性信仰生活分享"
+            },
+            {
+                "code": "sunday",
+                "name": "主日學",
+                "description": "主日學教材與資源"
+            },
+            {
+                "code": "youth",
+                "name": "青少年",
+                "description": "青少年信仰與生活"
+            },
+            {
+                "code": "family",
+                "name": "家庭",
+                "description": "家庭生活與信仰"
+            },
+            {
+                "code": "theology",
+                "name": "神學",
+                "description": "神學探討與研究"
+            },
+            {
+                "code": "bible_study",
+                "name": "查經",
+                "description": "聖經研究與分享"
+            },
+            {
+                "code": "devotion",
+                "name": "靈修",
+                "description": "靈修心得與見證"
+            },
+            {
+                "code": "mission",
+                "name": "宣教",
+                "description": "宣教事工與分享"
+            },
+            {
+                "code": "church",
+                "name": "教會",
+                "description": "教會生活與事奉"
+            },
+            {
+                "code": "culture",
+                "name": "文化",
+                "description": "信仰與文化對話"
+            },
+            {
+                "code": "history",
+                "name": "歷史",
+                "description": "教會歷史與傳統"
+            },
+            {
+                "code": "counseling",
+                "name": "輔導",
+                "description": "心理輔導與關懷"
+            }
+        ]
