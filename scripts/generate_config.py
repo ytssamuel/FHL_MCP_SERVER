@@ -13,7 +13,7 @@ from typing import Dict
 
 def get_project_paths() -> Dict[str, str]:
     """獲取專案路徑"""
-    script_dir = Path(__file__).parent.parent
+    script_dir = Path(__file__).parent.parent.resolve()
     src_dir = script_dir / 'src'
     cache_dir = script_dir / '.cache'
     
@@ -21,42 +21,39 @@ def get_project_paths() -> Dict[str, str]:
     
     if system == "Windows":
         # Windows 使用雙反斜線
-        venv_python = str((script_dir / 'venv' / 'Scripts' / 'python.exe').resolve()).replace('\\', '\\\\')
-        src_path = str(src_dir.resolve()).replace('\\', '\\\\')
-        cache_path = str(cache_dir.resolve()).replace('\\', '\\\\')
+        # 使用 absolute() 而非 resolve() 來保留虛擬環境路徑
+        venv_python = str((script_dir / 'venv' / 'Scripts' / 'python.exe').absolute()).replace('\\', '\\\\')
+        src_path = str(src_dir.absolute()).replace('\\', '\\\\')
+        cache_path = str(cache_dir.absolute()).replace('\\', '\\\\')
     else:
         # macOS/Linux
-        venv_python = str((script_dir / 'venv' / 'bin' / 'python').resolve())
-        src_path = str(src_dir.resolve())
-        cache_path = str(cache_dir.resolve())
+        # 使用 absolute() 而非 resolve() 來保留虛擬環境路徑（不解析 symlink）
+        venv_python = str((script_dir / 'venv' / 'bin' / 'python').absolute())
+        src_path = str(src_dir.absolute())
+        cache_path = str(cache_dir.absolute())
     
     return {
         'venv_python': venv_python,
         'src_path': src_path,
         'cache_path': cache_path,
-        'project_dir': str(script_dir.resolve())
+        'project_dir': str(script_dir)
     }
 
 def generate_claude_config(paths: Dict[str, str]) -> Dict:
     """生成 Claude Desktop 配置"""
-    system = platform.system()
-    
-    if system == "Windows":
-        python_cmd = "python"
-    else:
-        python_cmd = "python3"
-    
+    # 使用虛擬環境的 Python 而不是系統 Python
     config = {
         "mcpServers": {
             "fhl-bible": {
-                "command": python_cmd,
+                "command": paths['venv_python'],
                 "args": [
                     "-m",
-                    "fhl_bible_mcp.server"
+                    "fhl_bible_mcp"
                 ],
                 "env": {
                     "PYTHONPATH": paths['src_path'],
-                    "LOG_LEVEL": "INFO"
+                    "LOG_LEVEL": "INFO",
+                    "FHL_CACHE_DIR": paths['cache_path']
                 }
             }
         }
@@ -73,7 +70,7 @@ def generate_vscode_config(paths: Dict[str, str]) -> Dict:
                 "command": paths['venv_python'],
                 "args": [
                     "-m",
-                    "fhl_bible_mcp.server"
+                    "fhl_bible_mcp"
                 ],
                 "env": {
                     "PYTHONPATH": paths['src_path'],

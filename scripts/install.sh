@@ -163,18 +163,36 @@ echo "2. 參考文檔：docs/1_development/INSTALLATION_GUIDE.md"
 echo ""
 
 # 根據作業系統顯示配置路徑
-if [[ "$OS" == "macOS" ]]; then
-    echo "快速配置 Claude Desktop："
-    echo "  文件位置：~/Library/Application Support/Claude/claude_desktop_config.json"
-elif [[ "$OS" == "Linux" ]]; then
-    echo "快速配置 Claude Desktop："
-    echo "  文件位置：~/.config/Claude/claude_desktop_config.json"
-fi
+PROJECT_DIR="$(pwd)"
+VENV_PYTHON="$PROJECT_DIR/venv/bin/python"
+SRC_PATH="$PROJECT_DIR/src"
 
-echo "  專案路徑：$(pwd)"
-echo "  PYTHONPATH：$(pwd)/src"
+echo "快速配置 Claude Desktop："
+echo ""
+if [[ "$OS" == "macOS" ]]; then
+    echo "  配置文件：~/Library/Application Support/Claude/claude_desktop_config.json"
+elif [[ "$OS" == "Linux" ]]; then
+    echo "  配置文件：~/.config/Claude/claude_desktop_config.json"
+fi
+echo ""
+echo "  配置內容（複製使用）："
+echo '  {'
+echo '    "mcpServers": {'
+echo '      "fhl-bible": {'
+echo "        \"command\": \"$VENV_PYTHON\","
+echo '        "args": ["-m", "fhl_bible_mcp"],'
+echo '        "env": {'
+echo "          \"PYTHONPATH\": \"$SRC_PATH\","
+echo '          "LOG_LEVEL": "INFO",'
+echo "          \"FHL_CACHE_DIR\": \"$PROJECT_DIR/.cache\""
+echo '        }'
+echo '      }'
+echo '    }'
+echo '  }'
+echo ""
+echo -e "${BOLD}${YELLOW}⚠️  重要：必須使用虛擬環境的 Python（venv/bin/python）${NC}"
 echo ""
 
-echo "啟動虛擬環境："
-echo "  source venv/bin/activate"
+echo "或使用自動配置工具："
+echo "  python scripts/generate_config.py"
 echo ""

@@ -124,7 +124,7 @@ Claude Desktop 配置:
 {
   "mcpServers": {
     "fhl-bible": {
-      "command": "python3",
+      "command": "/path/to/FHL_MCP_SERVER/venv/bin/python",
       "args": ["-m", "fhl_bible_mcp.server"],
       "env": {
         "PYTHONPATH": "/path/to/FHL_MCP_SERVER/src",
@@ -133,6 +133,8 @@ Claude Desktop 配置:
     }
   }
 }
+
+⚠️ 重要: 使用虛擬環境的 Python (venv/bin/python)
 
 確定要寫入配置文件嗎？(y/n): y
 ✓ 配置已成功寫入

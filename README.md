@@ -92,11 +92,12 @@ python scripts/generate_config.py
    {
      "mcpServers": {
        "fhl-bible": {
-         "command": "python",
-         "args": ["-m", "fhl_bible_mcp.server"],
+         "command": "C:\\path\\to\\FHL_MCP_SERVER\\venv\\Scripts\\python.exe",
+         "args": ["-m", "fhl_bible_mcp"],
          "env": {
            "PYTHONPATH": "C:\\path\\to\\FHL_MCP_SERVER\\src",
-           "LOG_LEVEL": "INFO"
+           "LOG_LEVEL": "INFO",
+           "FHL_CACHE_DIR": "C:\\path\\to\\FHL_MCP_SERVER\\.cache"
          }
        }
      }
@@ -108,16 +109,19 @@ python scripts/generate_config.py
    {
      "mcpServers": {
        "fhl-bible": {
-         "command": "python3",
-         "args": ["-m", "fhl_bible_mcp.server"],
+         "command": "/path/to/FHL_MCP_SERVER/venv/bin/python",
+         "args": ["-m", "fhl_bible_mcp"],
          "env": {
            "PYTHONPATH": "/path/to/FHL_MCP_SERVER/src",
-           "LOG_LEVEL": "INFO"
+           "LOG_LEVEL": "INFO",
+           "FHL_CACHE_DIR": "/path/to/FHL_MCP_SERVER/.cache"
          }
        }
      }
    }
    ```
+   
+   > ⚠️ **重要**: 必須使用虛擬環境中的 Python 執行檔（`venv/bin/python` 或 `venv/Scripts/python.exe`），而非系統的 Python！
    </details>
 
    <details>
@@ -132,7 +136,7 @@ python scripts/generate_config.py
      "github.copilot.chat.mcp.servers": {
        "fhl-bible": {
          "command": "C:\\path\\to\\FHL_MCP_SERVER\\venv\\Scripts\\python.exe",
-         "args": ["-m", "fhl_bible_mcp.server"],
+         "args": ["-m", "fhl_bible_mcp"],
          "env": {
            "PYTHONPATH": "C:\\path\\to\\FHL_MCP_SERVER\\src",
            "LOG_LEVEL": "INFO",
@@ -150,7 +154,7 @@ python scripts/generate_config.py
      "github.copilot.chat.mcp.servers": {
        "fhl-bible": {
          "command": "/path/to/FHL_MCP_SERVER/venv/bin/python",
-         "args": ["-m", "fhl_bible_mcp.server"],
+         "args": ["-m", "fhl_bible_mcp"],
          "env": {
            "PYTHONPATH": "/path/to/FHL_MCP_SERVER/src",
            "LOG_LEVEL": "INFO",

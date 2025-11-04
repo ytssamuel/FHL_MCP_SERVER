@@ -96,8 +96,29 @@ echo 1. 配置 AI 助手（Claude Desktop 或 VS Code）
 echo 2. 參考文檔：docs\1_development\INSTALLATION_GUIDE.md
 echo.
 echo 快速配置 Claude Desktop：
-echo   文件位置：%%APPDATA%%\Claude\claude_desktop_config.json
-echo   專案路徑：%CD%
+echo.
+echo   配置文件：%%APPDATA%%\Claude\claude_desktop_config.json
+echo.
+echo   配置內容（複製使用，記得替換路徑）：
+echo   {
+echo     "mcpServers": {
+echo       "fhl-bible": {
+echo         "command": "%CD%\\venv\\Scripts\\python.exe",
+echo         "args": ["-m", "fhl_bible_mcp"],
+echo         "env": {
+echo           "PYTHONPATH": "%CD%\\src",
+echo           "LOG_LEVEL": "INFO",
+echo           "FHL_CACHE_DIR": "%CD%\\.cache"
+echo         }
+echo       }
+echo     }
+echo   }
+echo.
+echo   ⚠️  重要：必須使用虛擬環境的 Python（venv\Scripts\python.exe）
+echo.
+echo 或使用自動配置工具：
+echo   python scripts\generate_config.py
+echo.
 echo.
 
 pause
