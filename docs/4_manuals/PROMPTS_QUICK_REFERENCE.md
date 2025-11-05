@@ -182,6 +182,12 @@ advanced_character_study   聖經人物研究，9 大維度全面分析
 
 "研究希臘文的『愛』字"
 → study_word_original
+
+"查詢 Strong's G3056 (λόγος)"
+→ 直接工具調用（v0.1.2 新增）
+
+"搜尋 Strong's G1344 在聖經中的出現"
+→ 直接工具調用（v0.1.2 新增）
 ```
 
 ### 專業應用
@@ -339,11 +345,59 @@ advanced_character_study
 
 ---
 
+## 🆕 v0.1.2 新增功能
+
+### Strong's 字典直接查詢
+
+**功能**: 直接查詢 Strong's 原文字典，無需使用 Prompt
+
+**支援格式**:
+
+```
+# G 前綴（新約希臘文）
+"查詢 Strong's G3056"
+"G3056 是什麼意思？"
+"解釋 G1344"
+
+# H 前綴（舊約希伯來文）
+"查詢 Strong's H430"
+"H1697 的定義"
+
+# 傳統格式（向後兼容）
+"查詢 Strong's 3056, 新約"
+"搜尋編號 430, 舊約"
+```
+
+**特點**:
+- ✅ **自動識別約別**: G 開頭 = 新約，H 開頭 = 舊約
+- ✅ **前導零處理**: "G03056" 等同 "G3056"
+- ✅ **大小寫不敏感**: "g3056" 等同 "G3056"
+- ✅ **向後兼容**: 整數格式仍然支援
+
+**搜尋出現位置**:
+
+```
+"搜尋 G1344 在聖經中的出現"
+"查找 H430 在舊約的所有位置"
+"Strong's G3056 出現在哪些經文？"
+```
+
+**相關工具**:
+- `lookup_strongs`: 查詢字典定義
+- `search_strongs_occurrences`: 搜尋出現位置
+- `study_word_original`: 完整原文研究（包含上下文）
+
+📖 **詳細說明**: [P1_STRONGS_FIX_IMPLEMENTATION.md](../6_bug_fix/P1_STRONGS_FIX_IMPLEMENTATION.md)
+
+---
+
 ## 🔗 相關資源
 
 - **詳細文檔**: [PROMPTS_USAGE_GUIDE.md](../2_prompts_enhancement/PROMPTS_USAGE_GUIDE.md)
 - **完成報告**: [PROMPTS_PHASE4_COMPLETION_REPORT.md](../2_prompts_enhancement/PROMPTS_PHASE4_COMPLETION_REPORT.md)
+- **API 參考**: [API.md](API.md)
 - **專案 README**: [README.md](../../README.md)
+- **更新日誌**: [CHANGELOG.md](../../CHANGELOG.md)
 
 ---
 
@@ -352,6 +406,8 @@ advanced_character_study
 在 Claude Desktop 中說：
 ```
 "使用 basic_help_guide 幫我了解這個聖經工具"
+"查詢 Strong's G3056"
+"搜尋 Strong's H430 的出現位置"
 ```
 
 ---

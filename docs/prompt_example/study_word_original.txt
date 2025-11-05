@@ -9,8 +9,16 @@
 步驟
 
 若由經文起始：get_bible_verse（含 Strong）→ get_word_analysis → 挑出關鍵詞。
-查字典：lookup_strongs（字義、詞性、用法、同源字）。
-出現統計：search_bible（search_type=hebrew/greek）與 search_strongs_occurrences（若需要）。
+查字典：lookup_strongs（字義、詞性、用法、同源字）
+  - v0.1.2 增強：支援多種格式
+  - 新約希臘文：lookup_strongs("G3056") 或 lookup_strongs(3056, "NT")
+  - 舊約希伯來文：lookup_strongs("H430") 或 lookup_strongs(430, "OT")
+  - 前導零格式：lookup_strongs("G03056")
+  - 大小寫不敏感：lookup_strongs("g3056")
+出現統計：search_strongs_occurrences（推薦）
+  - 支援與 lookup_strongs 相同的多種格式
+  - 範例：search_strongs_occurrences("G1344", limit=10)
+  - 或使用：search_bible（search_type=greek_number/hebrew_number）
 脈絡對比：挑 3-5 處代表用例，觀察語域差異與語法功能。
 
 輸出格式

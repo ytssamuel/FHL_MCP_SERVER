@@ -241,33 +241,43 @@ class FHLBibleServer:
                 ),
                 Tool(
                     name="lookup_strongs",
-                    description="查詢 Strong's 原文字典。",
+                    description="查詢 Strong's 原文字典。支援多種格式：整數+testament (3056, 'NT')、G前綴 ('G3056')、H前綴 ('H430')。",
                     inputSchema={
                         "type": "object",
                         "properties": {
-                            "number": {"type": "string", "description": "Strong's Number"},
+                            "number": {
+                                "type": ["string", "integer"],
+                                "description": "Strong's Number (整數、字串數字、或帶 G/H 前綴，如 'G3056' 或 'H430')"
+                            },
                             "testament": {
                                 "type": "string",
                                 "enum": ["OT", "NT"],
-                                "description": "約別（OT=舊約, NT=新約）"
+                                "description": "約別（OT=舊約, NT=新約）。當 number 包含 G/H 前綴時可省略。"
                             },
                             "use_simplified": {"type": "boolean", "description": "是否使用簡體中文"}
                         },
-                        "required": ["number", "testament"]
+                        "required": ["number"]
                     }
                 ),
                 Tool(
                     name="search_strongs_occurrences",
-                    description="搜尋 Strong's 編號在聖經中的所有出現位置。",
+                    description="搜尋 Strong's 編號在聖經中的所有出現位置。支援多種格式：整數+testament (1344, 'NT')、G前綴 ('G1344')、H前綴 ('H430')。",
                     inputSchema={
                         "type": "object",
                         "properties": {
-                            "number": {"type": "string", "description": "Strong's Number"},
-                            "testament": {"type": "string", "enum": ["OT", "NT"]},
+                            "number": {
+                                "type": ["string", "integer"],
+                                "description": "Strong's Number (整數、字串數字、或帶 G/H 前綴，如 'G1344' 或 'H430')"
+                            },
+                            "testament": {
+                                "type": "string",
+                                "enum": ["OT", "NT"],
+                                "description": "約別（OT=舊約, NT=新約）。當 number 包含 G/H 前綴時可省略。"
+                            },
                             "limit": {"type": "integer", "description": "最多返回筆數"},
                             "use_simplified": {"type": "boolean", "description": "是否使用簡體中文"}
                         },
-                        "required": ["number", "testament"]
+                        "required": ["number"]
                     }
                 ),
                 
