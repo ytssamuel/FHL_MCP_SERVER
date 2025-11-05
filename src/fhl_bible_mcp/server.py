@@ -188,8 +188,8 @@ class FHLBibleServer:
                             "query": {"type": "string", "description": "搜尋內容"},
                             "search_type": {
                                 "type": "string",
-                                "enum": ["keyword", "greek", "hebrew"],
-                                "description": "搜尋類型（keyword=關鍵字, greek=希臘文編號, hebrew=希伯來文編號）"
+                                "enum": ["keyword", "greek_number", "hebrew_number"],
+                                "description": "搜尋類型（keyword=關鍵字, greek_number=希臘文編號, hebrew_number=希伯來文編號）"
                             },
                             "scope": {
                                 "type": "string",

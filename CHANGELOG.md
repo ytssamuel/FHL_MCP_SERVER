@@ -44,10 +44,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `testament` 參數改為可選（當使用 G/H 前綴時）
   - 更新工具描述說明多格式支援
 
-### 📊 Testing
+### � Fixed
+
+- **[P1-6] search_bible 參數驗證**: 修復 greek_number/hebrew_number 參數驗證失敗
+  - **問題**: `search_type="greek_number"` 被 MCP 工具拒絕（"must be equal to one of the allowed values"）
+  - **根本原因**: server.py 的工具定義使用 `["keyword", "greek", "hebrew"]`，但實現使用 `["keyword", "greek_number", "hebrew_number"]`
+  - **解決方案**: 統一 MCP 工具定義為 `["keyword", "greek_number", "hebrew_number"]`
+  - **測試驗證**: 
+    - G1344 搜尋返回 35 處出現 ✅
+    - H430 搜尋返回 20 處出現（含創 1:1） ✅
+  - [修復報告](docs/6_bug_fix/P1_SEARCH_BIBLE_PARAM_FIX.md)
+
+### �📊 Testing
 
 - **新增測試檔案**: `tests/test_strongs_enhanced.py`
   - 31 個測試用例全部通過 ✅
+- **新增測試檔案**: `tests/test_search_bible_numbers.py`
+  - 5 個測試用例全部通過 ✅
+  - 驗證 greek_number/hebrew_number 搜尋功能
   - 涵蓋單元測試、整合測試、端到端測試
   - 測試覆蓋率: strongs.py 從 30% → 65%
 
@@ -59,16 +73,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **P1 問題修復完成度**:
 - v0.1.1-bugfix: P0 100% (2/2), P1 60% (3/5), 總計 71% (5/7)
-- **v0.1.2**: P0 100% (2/2), **P1 100% (5/5)**, **總計 100% (7/7)** ✅
+- **v0.1.2**: P0 100% (2/2), **P1 100% (6/6)**, **總計 100% (8/8)** ✅
 
 **向後兼容性**: 100% - 所有現有代碼無需修改
 
+**新修復問題**:
+- P1-4: lookup_strongs 多格式支援
+- P1-5: search_strongs_occurrences 返回結果
+- P1-6: search_bible 參數驗證
+
 ### 📚 Documentation
 
-- 新增 `docs/6_bug_fix/P1_STRONGS_FIX_IMPLEMENTATION.md` - 詳細實施報告
+- 新增 `docs/6_bug_fix/P1_STRONGS_FIX_IMPLEMENTATION.md` - Strong's 字典修復實施報告
+- 新增 `docs/6_bug_fix/P1_SEARCH_BIBLE_PARAM_FIX.md` - search_bible 參數修復報告
+- 新增 `docs/6_bug_fix/v0.1.2_RELEASE_NOTES.md` - 完整發布說明
 - 更新 `docs/6_bug_fix/testing_report.md` - 添加最終驗證結果
 - 更新 `docs/6_bug_fix/BUG_FIX_SUMMARY.md` - 完整修復總結
-- 更新 `docs/4_manuals/API.md` - Strong's 功能 API 文檔
+- 更新 `docs/4_manuals/API.md` - Strong's 和 search_bible 功能文檔
 - 更新 `docs/4_manuals/PROMPTS_QUICK_REFERENCE.md` - 快速參考指南
 
 ---
