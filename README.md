@@ -7,10 +7,16 @@
 [![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io/)
 [![Test Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
 [![Tests](https://img.shields.io/badge/tests-160%20passed-success.svg)](docs/1_development/PHASE_4_2_FINAL_REPORT.md)
+[![Version](https://img.shields.io/badge/version-0.1.1--bugfix-orange.svg)](docs/6_bug_fix/BUG_FIX_SUMMARY.md)
+[![Bug Fixes](https://img.shields.io/badge/bug%20fixes-5%2F5%20(100%25)-success.svg)](docs/6_bug_fix/)
 
 ## 📖 Overview
 
 FHL Bible MCP Server 是一個基於 Model Context Protocol 的伺服器，整合了信望愛站提供的豐富聖經資源 API。透過此 MCP Server，AI 助手（如 Claude）可以直接查詢聖經經文、原文字彙分析、註釋書、主題查經等專業研經資源。
+
+> ⚠️ **v0.1.1-bugfix 重要更新** (2025-11-05)  
+> 修復了 5 個關鍵問題，包括書卷映射錯誤、參數驗證、註釋查詢等。所有經文查詢功能已完全修復並通過測試。  
+> 📋 [查看完整修復報告](docs/6_bug_fix/BUG_FIX_SUMMARY.md)
 
 ### ✨ 主要功能
 

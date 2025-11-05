@@ -160,9 +160,13 @@ async def search_bible_advanced(
             use_simplified=use_simplified,
         )
 
+    # 自動轉換參數型別
+    range_start_str = str(range_start) if isinstance(range_start, int) else range_start
+    range_end_str = str(range_end) if isinstance(range_end, int) else range_end
+
     # 取得書卷編號
-    start_id = BookNameConverter.get_book_id(range_start)
-    end_id = BookNameConverter.get_book_id(range_end)
+    start_id = BookNameConverter.get_book_id(range_start_str)
+    end_id = BookNameConverter.get_book_id(range_end_str)
 
     if not start_id or not end_id:
         raise InvalidParameterError(

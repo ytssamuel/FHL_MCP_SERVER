@@ -78,6 +78,28 @@ BIBLE_BOOKS = [
     (64, "3John", "3 John", "約參", "約翰三書"),
     (65, "Jude", "Jude", "猶", "猶大書"),
     (66, "Rev", "Revelation", "啟", "啟示錄"),
+    # 次經 Apocrypha (101-115)
+    (101, "Tob", "Tobit", "多", "多俾亞傳"),
+    (102, "Jdt", "Judith", "友", "友弟德傳"),
+    (103, "1Macc", "1 Maccabees", "加上", "瑪加伯上"),
+    (104, "2Macc", "2 Maccabees", "加下", "瑪加伯下"),
+    (105, "Wis", "Wisdom", "智", "智慧篇"),
+    (106, "Sir", "Sirach", "德", "德訓篇"),
+    (107, "Bar", "Baruch", "巴", "巴錄書"),
+    (108, "EpJer", "Letter of Jeremiah", "耶信", "耶利米書信"),
+    (109, "PrAzar", "Prayer of Azariah", "但禱", "但以理補篇-亞薩利雅禱詞"),
+    (110, "Sus", "Susanna", "但蘇", "但以理補篇-蘇撒納"),
+    (111, "Bel", "Bel and the Dragon", "但龍", "但以理補篇-彼勒與大龍"),
+    (112, "AddEsth", "Additions to Esther", "斯補", "以斯帖補篇"),
+    # 使徒教父 Apostolic Fathers (201-217)
+    (201, "1Clem", "1 Clement", "革", "革利免前書"),
+    (202, "2Clem", "2 Clement", "革後", "革利免後書"),
+    (203, "Ign", "Ignatius", "伊格", "伊格那丟書信"),
+    (204, "Pol", "Polycarp", "坡", "坡旅甲書信"),
+    (205, "Herm", "Shepherd of Hermas", "黑馬", "黑馬牧人書"),
+    (206, "Barn", "Barnabas", "巴拿", "巴拿巴書"),
+    (207, "Did", "Didache", "十訓", "十二使徒遺訓"),
+    (216, "Pap", "Papias Fragments", "帕皮", "帕皮亞殘篇"),
 ]
 
 # 繁簡體對照表
@@ -299,11 +321,25 @@ class BookNameConverter:
         根據書卷名稱（中文或英文）取得書卷編號
 
         Args:
-            name: 書卷名稱（支援中文簡寫、中文全名、英文縮寫、英文全名）
+            name: 書卷名稱（支援中文簡寫、中文全名、英文縮寫、英文全名、書卷編號）
 
         Returns:
-            書卷編號 (1-66)，若找不到則返回 None
+            書卷編號 (1-88: 1-66聖經, 101-115次經, 201-217使徒教父)，若找不到則返回 None
         """
+        # 如果是數字字符串，直接轉換
+        if isinstance(name, str) and name.isdigit():
+            book_id = int(name)
+            # 驗證是否為有效的書卷 ID
+            if book_id in _book_id_to_info or (101 <= book_id <= 115) or (201 <= book_id <= 217):
+                return book_id
+            return None
+        
+        # 如果是整數，直接返回（向後兼容）
+        if isinstance(name, int):
+            if name in _book_id_to_info or (101 <= name <= 115) or (201 <= name <= 217):
+                return name
+            return None
+        
         name_lower = name.lower() if name.isascii() else name
 
         # 嘗試英文縮寫

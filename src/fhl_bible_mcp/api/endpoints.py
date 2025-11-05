@@ -205,7 +205,7 @@ class FHLAPIEndpoints(FHLAPIClient):
         API: qb.php
         
         Args:
-            book: Book name (Chinese or English abbreviation)
+            book: Book name (Chinese or English abbreviation) or book ID
             chapter: Chapter number
             verse: Verse(s) - supports formats like "1", "1-5", "1,3,5", "1-2,5,8-10"
                    If None, returns entire chapter
@@ -222,6 +222,7 @@ class FHLAPIEndpoints(FHLAPIClient):
                 - prev: Previous verse info (chineses, engs, chap, sec)
                 - next: Next verse info
                 - record: List of verse objects:
+                    - bid: Book ID
                     - engs: English book abbreviation
                     - chineses: Chinese book abbreviation
                     - chap: Chapter number
@@ -236,8 +237,22 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>     verse = await client.get_verse("約", 3, "16")
             >>>     print(verse['record'][0]['bible_text'])
         """
+        from ..utils.booknames import BookNameConverter
+        
+        # Convert book name to book ID for accurate querying
+        # FHL API's chineses parameter has mapping issues, use bid instead
+        book_id = None
+        if book.isdigit():
+            book_id = int(book)
+        else:
+            book_id = BookNameConverter.get_book_id(book)
+        
+        if not book_id:
+            from ..utils.errors import BookNotFoundError
+            raise BookNotFoundError(book)
+        
         params: dict[str, Any] = {
-            "chineses": book,
+            "bid": book_id,  # Use bid instead of chineses for accurate mapping
             "chap": chapter,
             "version": version,
             "strong": 1 if include_strong else 0,
@@ -247,7 +262,7 @@ class FHLAPIEndpoints(FHLAPIClient):
             params["sec"] = verse
         
         logger.info(
-            f"Fetching verse: {book} {chapter}" + (f":{verse}" if verse else "")
+            f"Fetching verse: {book} (bid={book_id}) {chapter}" + (f":{verse}" if verse else "")
         )
         
         return await self._cached_request(
@@ -435,9 +450,22 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>         if word['wid'] > 0:
             >>>             print(f"{word['word']} - {word['exp']}")
         """
-        params = {"engs": book, "chap": chapter, "sec": verse}
+        from ..utils.booknames import BookNameConverter
         
-        logger.info(f"Fetching word analysis: {book} {chapter}:{verse}")
+        # Convert book name to book ID for accurate querying
+        book_id = None
+        if book.isdigit():
+            book_id = int(book)
+        else:
+            book_id = BookNameConverter.get_book_id(book)
+        
+        if not book_id or book_id > 66:
+            from ..utils.errors import BookNotFoundError
+            raise BookNotFoundError(f"Invalid book for word analysis: {book}")
+        
+        params = {"bid": book_id, "chap": chapter, "sec": verse}
+        
+        logger.info(f"Fetching word analysis: {book} (bid={book_id}) {chapter}:{verse}")
         return await self._make_request("qp.php", params)
 
     async def get_strongs_dictionary(
@@ -556,13 +584,26 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>     for entry in commentary['record']:
             >>>         print(f"{entry['book_name']}: {entry['com_text']}")
         """
-        params: dict[str, Any] = {"engs": book, "chap": chapter, "sec": verse}
+        from ..utils.booknames import BookNameConverter
+        
+        # Convert book name to book ID for accurate querying
+        book_id = None
+        if book.isdigit():
+            book_id = int(book)
+        else:
+            book_id = BookNameConverter.get_book_id(book)
+        
+        if not book_id:
+            from ..utils.errors import BookNotFoundError
+            raise BookNotFoundError(book)
+        
+        params: dict[str, Any] = {"bid": book_id, "chap": chapter, "sec": verse}
         
         if commentary_id is not None:
             params["book"] = commentary_id
         
         logger.info(
-            f"Fetching commentary: {book} {chapter}:{verse}"
+            f"Fetching commentary: {book} (bid={book_id}) {chapter}:{verse}"
             + (f" (commentary #{commentary_id})" if commentary_id else "")
         )
         return await self._make_request("sc.php", params)
@@ -759,8 +800,21 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>     verse = await client.get_apocrypha_verse("多", 1, "1")
             >>>     print(verse['record'][0]['bible_text'])
         """
+        from ..utils.booknames import BookNameConverter
+        
+        # Convert book name to book ID for accurate querying
+        book_id = None
+        if book.isdigit():
+            book_id = int(book)
+        else:
+            book_id = BookNameConverter.get_book_id(book)
+        
+        if not book_id or book_id < 101 or book_id > 115:
+            from ..utils.errors import BookNotFoundError
+            raise BookNotFoundError(f"Invalid Apocrypha book: {book}")
+        
         params: dict[str, Any] = {
-            "chineses": book,
+            "bid": book_id,  # Use bid instead of chineses for accurate mapping
             "chap": chapter,
             "strong": 1 if include_strong else 0,
         }
@@ -769,7 +823,7 @@ class FHLAPIEndpoints(FHLAPIClient):
             params["sec"] = verse
         
         logger.info(
-            f"Fetching apocrypha verse: {book} {chapter}" + (f":{verse}" if verse else "")
+            f"Fetching apocrypha verse: {book} (bid={book_id}) {chapter}" + (f":{verse}" if verse else "")
         )
         
         return await self._cached_request(
@@ -885,8 +939,21 @@ class FHLAPIEndpoints(FHLAPIClient):
             >>>     verse = await client.get_apostolic_fathers_verse("革", 1, "1")
             >>>     print(verse['record'][0]['bible_text'])
         """
+        from ..utils.booknames import BookNameConverter
+        
+        # Convert book name to book ID for accurate querying
+        book_id = None
+        if book.isdigit():
+            book_id = int(book)
+        else:
+            book_id = BookNameConverter.get_book_id(book)
+        
+        if not book_id or book_id < 201 or book_id > 217:
+            from ..utils.errors import BookNotFoundError
+            raise BookNotFoundError(f"Invalid Apostolic Fathers book: {book}")
+        
         params: dict[str, Any] = {
-            "chineses": book,
+            "bid": book_id,  # Use bid instead of chineses for accurate mapping
             "chap": chapter,
             "strong": 1 if include_strong else 0,
         }
@@ -895,7 +962,7 @@ class FHLAPIEndpoints(FHLAPIClient):
             params["sec"] = verse
         
         logger.info(
-            f"Fetching apostolic fathers verse: {book} {chapter}" + (f":{verse}" if verse else "")
+            f"Fetching apostolic fathers verse: {book} (bid={book_id}) {chapter}" + (f":{verse}" if verse else "")
         )
         
         return await self._cached_request(

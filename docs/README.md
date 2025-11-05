@@ -16,6 +16,7 @@ docs/
 ├── 3_prompts_improvement/  # Prompts 改進計劃
 ├── 4_manuals/              # 手冊及說明文件
 ├── 5_api_enhancement/      # API 增強計劃
+├── 6_bug_fix/              # Bug 修復記錄
 ├── deployment/             # 部署相關文件
 └── prompt_example/         # Prompt 範例文本
 ```
@@ -143,6 +144,40 @@ docs/
 - 🎯 測試覆蓋率: 100% (所有新功能皆有測試)
 
 📖 [查看完整 README](5_api_enhancement/README.md)
+
+---
+
+### 6️⃣ Bug 修復記錄 (6_bug_fix/)
+
+**用途**: 系統性 bug 修復的完整記錄
+
+**包含內容**:
+- 修復計劃（P0/P1 優先級）
+- 實時進度追蹤
+- 完整修復總結報告
+- 測試驗證結果
+
+**適合對象**: 開發者、維護人員、質量保證工程師
+
+**重點文件**:
+- `BUG_FIX_SUMMARY.md` - 修復完成總結 ⭐
+- `BUG_FIX_PLAN.md` - 詳細修復計劃
+- `BUG_FIX_PROGRESS.md` - 實時進度追蹤
+
+**修復成果**:
+- ✅ 5/5 問題修復完成 (100%)
+- ✅ P0 級別: 2/2 (書卷映射、Strong's 字典)
+- ✅ P1 級別: 3/3 (參數驗證、註釋查詢、原文分析)
+- 🔧 修改文件: 3 個核心檔案
+- ✅ 測試: 所有驗證通過
+- 📅 完成日期: 2025-11-05
+
+**核心發現**:
+- FHL API `bid` 參數是唯一可靠的書卷識別方法
+- `chineses`/`engs` 參數導致系統性映射錯誤
+- 擴展支援次經（101-115）和使徒教父（201-217）
+
+📖 [查看完整 README](6_bug_fix/README.md)
 
 ---
 
