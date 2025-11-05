@@ -248,15 +248,15 @@ docs/
 
 ### 文件數量
 
-| 資料夾 | 文件數 |
-|--------|--------|
-| 1_development | 14 個 |
-| 2_prompts_enhancement | 7 個 |
-| 3_prompts_improvement | 10 個 |
-| 4_manuals | 7 個 |
-| deployment | 5 個 |
-| prompt_example | 20 個 |
-| **總計** | **63 個** |
+| 資料夾                | 文件數    |
+| --------------------- | --------- |
+| 1_development         | 14 個     |
+| 2_prompts_enhancement | 7 個      |
+| 3_prompts_improvement | 10 個     |
+| 4_manuals             | 7 個      |
+| deployment            | 5 個      |
+| prompt_example        | 20 個     |
+| **總計**              | **63 個** |
 
 ### Prompts 成果
 
