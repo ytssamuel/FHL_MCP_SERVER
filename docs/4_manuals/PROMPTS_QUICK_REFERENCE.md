@@ -6,26 +6,26 @@
 
 ## 🎯 快速選擇器
 
-| 我想... | 使用這個 Prompt | 難度 |
-|---------|----------------|------|
-| 了解如何使用這個工具 | `basic_help_guide` | ⭐ |
-| 快速查一節經文 | `basic_quick_lookup` | ⭐ |
-| 學習 URI 語法 | `basic_uri_demo` | ⭐ |
-| 每天讀經靈修 | `reading_daily` | ⭐⭐ |
-| 深入研讀一章 | `reading_chapter` | ⭐⭐ |
-| 研究一段經文 | `reading_passage` | ⭐⭐⭐ |
-| 深入研讀一節經文 | `study_verse_deep` | ⭐⭐⭐ |
-| 研究某個主題 | `study_topic_deep` | ⭐⭐⭐⭐ |
-| 比較不同譯本 | `study_translation_compare` | ⭐⭐⭐ |
-| 研究原文字義 | `study_word_original` | ⭐⭐⭐⭐ |
-| 準備講道 | `special_sermon_prep` | ⭐⭐⭐⭐ |
-| 準備靈修材料 | `special_devotional` | ⭐⭐⭐ |
-| 背誦經文 | `special_memory_verse` | ⭐⭐ |
-| 追蹤主題發展 | `special_topical_chain` | ⭐⭐⭐⭐ |
-| 聖經知識測驗 | `special_bible_trivia` | ⭐⭐ |
-| 找相關經文 | `advanced_cross_reference` | ⭐⭐⭐⭐⭐ |
-| 比較四福音 | `advanced_parallel_gospels` | ⭐⭐⭐⭐⭐ |
-| 研究聖經人物 | `advanced_character_study` | ⭐⭐⭐⭐⭐ |
+| 我想...              | 使用這個 Prompt             | 難度  |
+| -------------------- | --------------------------- | ----- |
+| 了解如何使用這個工具 | `basic_help_guide`          | ⭐     |
+| 快速查一節經文       | `basic_quick_lookup`        | ⭐     |
+| 學習 URI 語法        | `basic_uri_demo`            | ⭐     |
+| 每天讀經靈修         | `reading_daily`             | ⭐⭐    |
+| 深入研讀一章         | `reading_chapter`           | ⭐⭐    |
+| 研究一段經文         | `reading_passage`           | ⭐⭐⭐   |
+| 深入研讀一節經文     | `study_verse_deep`          | ⭐⭐⭐   |
+| 研究某個主題         | `study_topic_deep`          | ⭐⭐⭐⭐  |
+| 比較不同譯本         | `study_translation_compare` | ⭐⭐⭐   |
+| 研究原文字義         | `study_word_original`       | ⭐⭐⭐⭐  |
+| 準備講道             | `special_sermon_prep`       | ⭐⭐⭐⭐  |
+| 準備靈修材料         | `special_devotional`        | ⭐⭐⭐   |
+| 背誦經文             | `special_memory_verse`      | ⭐⭐    |
+| 追蹤主題發展         | `special_topical_chain`     | ⭐⭐⭐⭐  |
+| 聖經知識測驗         | `special_bible_trivia`      | ⭐⭐    |
+| 找相關經文           | `advanced_cross_reference`  | ⭐⭐⭐⭐⭐ |
+| 比較四福音           | `advanced_parallel_gospels` | ⭐⭐⭐⭐⭐ |
+| 研究聖經人物         | `advanced_character_study`  | ⭐⭐⭐⭐⭐ |
 
 ---
 
